@@ -1,73 +1,100 @@
-# Welcome to your Lovable project
 
-## Project info
+# Advanced Percentage Calculator
 
-**URL**: https://lovable.dev/projects/e442aabf-32ec-466e-8a98-b4dc02c5e7a9
+A professional, SEO-optimized percentage calculator with multiple calculation modes.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Multiple Calculator Types**: Basic percentage, percentage increase, percentage decrease, and "what percentage" calculations
+- **Real-time Calculations**: Instant results as you type
+- **SEO Optimized**: Structured data, meta tags, and semantic HTML
+- **PWA Ready**: Service worker and manifest for offline capability
+- **Responsive Design**: Works on all devices
+- **Accessibility**: ARIA labels and keyboard navigation
+- **Performance Optimized**: Fast loading and smooth interactions
 
-**Use Lovable**
+## Deployment Instructions
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e442aabf-32ec-466e-8a98-b4dc02c5e7a9) and start prompting.
+### 1. Deploy to Netlify (Recommended)
 
-Changes made via Lovable will be committed automatically to this repo.
+1. **Connect to Git**: 
+   - Push this code to a GitHub repository
+   - Connect your Netlify account to GitHub
 
-**Use your preferred IDE**
+2. **Deploy**:
+   - In Netlify, click "New site from Git"
+   - Select your repository
+   - Build settings are automatically configured via `netlify.toml`
+   - Click "Deploy site"
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+3. **Custom Domain**:
+   - In Netlify dashboard, go to Domain settings
+   - Add your custom domain
+   - Update DNS records as instructed
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 2. Deploy to Vercel
 
-Follow these steps:
+1. Install Vercel CLI: `npm i -g vercel`
+2. Run `vercel` in the project directory
+3. Follow the prompts to deploy
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### 3. Deploy to GitHub Pages
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+1. Push code to GitHub repository
+2. Go to repository Settings > Pages
+3. Select source branch (usually `main`)
+4. Your site will be available at `https://username.github.io/repository-name`
 
-# Step 3: Install the necessary dependencies.
-npm i
+## SEO Optimization Checklist
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+### Before Going Live:
 
-**Edit a file directly in GitHub**
+1. **Update Domain References**:
+   - Replace `https://your-domain.com/` in `index.html` with your actual domain
+   - Update `sitemap.xml` with your domain
+   - Update `robots.txt` with your domain
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+2. **Add Favicon Files**:
+   - Generate favicons at [favicon.io](https://favicon.io)
+   - Add the generated files to your root directory
+   - Update favicon references in `index.html`
 
-**Use GitHub Codespaces**
+3. **Create Social Media Images**:
+   - Create a preview image (1200x630px) for social media sharing
+   - Update the `og:image` and `twitter:image` meta tags
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+4. **Google Analytics** (Optional):
+   - Add Google Analytics tracking code to `index.html`
+   - Update the `trackCalculatorUsage` function in `script.js`
 
-## What technologies are used for this project?
+5. **Google Search Console**:
+   - Verify your domain in Google Search Console
+   - Submit your sitemap
 
-This project is built with:
+### Content Management
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+To update content:
 
-## How can I deploy this project?
+1. **Calculator Types**: Edit the `calculatorConfigs` object in `script.js`
+2. **SEO Content**: Edit the "How to Use" section in `index.html`
+3. **Features**: Update the features section in `index.html`
+4. **Styling**: Modify `styles.css` for design changes
 
-Simply open [Lovable](https://lovable.dev/projects/e442aabf-32ec-466e-8a98-b4dc02c5e7a9) and click on Share -> Publish.
+## Performance Features
 
-## Can I connect a custom domain to my Lovable project?
+- **Lazy Loading**: Images and non-critical resources
+- **Service Worker**: Caching for offline functionality
+- **Optimized CSS**: Minimal and efficient styling
+- **Debounced Calculations**: Prevents excessive computation
+- **Responsive Images**: Proper sizing for different devices
 
-Yes, you can!
+## Browser Support
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- Chrome 60+
+- Firefox 55+
+- Safari 11+
+- Edge 79+
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## License
+
+MIT License - feel free to use for personal or commercial projects.

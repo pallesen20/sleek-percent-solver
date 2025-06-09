@@ -29,7 +29,7 @@ A professional, SEO-optimized percentage calculator with multiple calculation mo
 
 3. **Custom Domain**:
    - In Netlify dashboard, go to Domain settings
-   - Add your custom domain
+   - Add your custom domain (calculations.tools)
    - Update DNS records as instructed
 
 ### 2. Deploy to Vercel
@@ -49,10 +49,7 @@ A professional, SEO-optimized percentage calculator with multiple calculation mo
 
 ### Before Going Live:
 
-1. **Update Domain References**:
-   - Replace `https://your-domain.com/` in `index.html` with your actual domain
-   - Update `sitemap.xml` with your domain
-   - Update `robots.txt` with your domain
+1. **Domain References**: ✅ Updated to calculations.tools
 
 2. **Add Favicon Files**:
    - Generate favicons at [favicon.io](https://favicon.io)

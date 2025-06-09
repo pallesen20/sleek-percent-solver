@@ -108,6 +108,10 @@ function initializeCalculator() {
             const type = card.dataset.type;
             switchCalculatorType(type);
         });
+    document.querySelector('.calculator-interface').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
     });
 
     // Set up reset button

@@ -55,7 +55,7 @@ const Index = () => {
               <Percent className="w-12 h-12 text-white" />
             </div>
           </div>
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-4">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-4 md:mb-8">
             Advanced Percentage Calculator
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">

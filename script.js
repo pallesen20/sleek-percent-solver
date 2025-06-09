@@ -107,10 +107,10 @@ function initializeCalculator() {
         card.addEventListener('click', () => {
             const type = card.dataset.type;
             switchCalculatorType(type);
-        });
-    document.querySelector('.calculator-interface').scrollIntoView({
+        document.querySelector('.calculator-interface').scrollIntoView({
             behavior: 'smooth',
             block: 'start'
+        });
         });
     });
 

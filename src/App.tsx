@@ -15,7 +15,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/sleek-percent-solver">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/word-counter" element={<WordCounterPage />} />

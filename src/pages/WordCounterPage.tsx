@@ -25,7 +25,7 @@ const WordCounterPage = () => {
             Advanced Word Counter
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Professional text analysis tool with comprehensive statistics. Fast, accurate, and beautifully designed.
+            Professional text analysis tool with comprehensive statistics. Fast, accurate, and beautifully designed to help you.
           </p>
         </div>
 

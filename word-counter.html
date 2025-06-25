@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -488,7 +487,10 @@
                 .sort(([,a], [,b]) => b - a)
                 .slice(0, 5)
                 .reduce((acc, [word, count]) => {
-                    acc[word] = Math.round((count / wordCount) * 100 * 10) / 10;
+                    acc[word] = {
+                        percentage: Math.round((count / wordCount) * 100 * 10) / 10,
+                        count: count
+                    };
                     return acc;
                 }, {});
 
@@ -522,12 +524,13 @@
             
             if (Object.keys(stats.keywordDensity).length > 0) {
                 keywordGrid.innerHTML = '';
-                Object.entries(stats.keywordDensity).forEach(([word, density]) => {
+                Object.entries(stats.keywordDensity).forEach(([word, data]) => {
                     const keywordItem = document.createElement('div');
                     keywordItem.className = 'bg-white/20 rounded-lg p-3 text-center';
                     keywordItem.innerHTML = `
                         <div class="font-medium capitalize">${word}</div>
-                        <div class="text-sm opacity-80">${density}%</div>
+                        <div class="text-sm opacity-80">${data.percentage}%</div>
+                        <div class="text-xs opacity-60">${data.count} times</div>
                     `;
                     keywordGrid.appendChild(keywordItem);
                 });

@@ -1,11 +1,8 @@
-
-/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
@@ -13,20 +10,16 @@ body {
     background: linear-gradient(135deg, #1e293b 0%, #7c3aed 50%, #1e293b 100%);
     min-height: 100vh;
 }
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
 }
-
-/* Header Styles */
 .header {
     text-align: center;
     padding: 4rem 0 2rem;
     position: relative;
 }
-
 .header::before {
     content: '';
     position: absolute;
@@ -37,7 +30,12 @@ body {
     background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
     opacity: 0.2;
 }
-
+a {
+    color: #ffffff;
+}
+a:hover {
+    text-decoration: underline;
+}
 .main-title {
     font-size: 3.5rem;
     font-weight: 800;
@@ -49,7 +47,6 @@ body {
     position: relative;
     z-index: 1;
 }
-
 .subtitle {
     font-size: 1.25rem;
     color: #cbd5e1;
@@ -58,19 +55,15 @@ body {
     position: relative;
     z-index: 1;
 }
-
-/* Calculator Types */
 .calculator-types {
     margin-bottom: 3rem;
 }
-
 .calculator-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
-
 .calculator-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -87,20 +80,17 @@ body {
     border: none;
     font-family: inherit;
 }
-
 .calculator-card:hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
 }
-
 .calculator-card.active {
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.4);
     transform: scale(1.02);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
-
 .card-icon {
     width: 3rem;
     height: 3rem;
@@ -112,7 +102,6 @@ body {
     font-weight: bold;
     color: white;
 }
-
 .basic-icon { background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
 .increase-icon { background: linear-gradient(135deg, #10b981, #14b8a6); }
 .decrease-icon { background: linear-gradient(135deg, #ef4444, #ec4899); }
@@ -123,17 +112,13 @@ body {
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
-
 .card-content p {
     font-size: 0.875rem;
     color: #cbd5e1;
 }
-
-/* Calculator Interface */
 .calculator-interface {
     margin-bottom: 4rem;
 }
-
 .calculator-container {
     max-width: 600px;
     margin: 0 auto;
@@ -144,42 +129,35 @@ body {
     padding: 2rem;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
-
 .calculator-header {
     text-align: center;
     margin-bottom: 2rem;
 }
-
 .calculator-header h2 {
     font-size: 1.5rem;
     font-weight: 700;
     color: white;
     margin-bottom: 0.5rem;
 }
-
 .calculator-header p {
     color: #cbd5e1;
 }
-
 .inputs-container {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     margin-bottom: 1.5rem;
 }
-
 .input-group {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
-
 .input-group label {
     font-size: 0.875rem;
     font-weight: 500;
     color: #cbd5e1;
 }
-
 .input-group input {
     width: 100%;
     padding: 0.75rem 1rem;
@@ -190,17 +168,14 @@ body {
     font-size: 1rem;
     transition: all 0.2s ease;
 }
-
 .input-group input::placeholder {
     color: #94a3b8;
 }
-
 .input-group input:focus {
     outline: none;
     border-color: #3b82f6;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
-
 .formula-display {
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -208,18 +183,15 @@ body {
     padding: 1rem;
     margin-bottom: 1.5rem;
 }
-
 .formula-label {
     font-size: 0.875rem;
     color: #94a3b8;
     margin-bottom: 0.25rem;
 }
-
 .formula-text {
     color: white;
     font-family: 'Courier New', monospace;
 }
-
 .result-display {
     background: linear-gradient(135deg, #3b82f6, #8b5cf6);
     border-radius: 0.75rem;
@@ -229,7 +201,6 @@ body {
     position: relative;
     overflow: hidden;
 }
-
 .result-display::before {
     content: '';
     position: absolute;
@@ -240,18 +211,15 @@ body {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
 }
-
 .result-display * {
     position: relative;
     z-index: 1;
 }
-
 .result-label {
     font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 0.5rem;
 }
-
 .result-value {
     display: flex;
     align-items: center;
@@ -261,7 +229,6 @@ body {
     font-weight: 700;
     color: white;
 }
-
 .copy-button {
     background: rgba(255, 255, 255, 0.2);
     border: none;
@@ -271,18 +238,15 @@ body {
     transition: background-color 0.2s ease;
     font-size: 1.25rem;
 }
-
 .copy-button:hover {
     background: rgba(255, 255, 255, 0.3);
 }
-
 .copy-message {
     font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.8);
     margin-top: 0.5rem;
     animation: fadeIn 0.3s ease;
 }
-
 .reset-button {
     width: 100%;
     padding: 0.75rem 1rem;
@@ -299,31 +263,25 @@ body {
     justify-content: center;
     gap: 0.5rem;
 }
-
 .reset-button:hover {
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.3);
 }
-
-/* Features Section */
 .features {
     margin-bottom: 4rem;
     text-align: center;
 }
-
 .features h2 {
     font-size: 2rem;
     font-weight: 700;
     color: white;
     margin-bottom: 2rem;
 }
-
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
 }
-
 .feature-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -332,28 +290,22 @@ body {
     padding: 2rem;
     text-align: center;
 }
-
 .feature-icon {
     font-size: 2.5rem;
     margin-bottom: 1rem;
 }
-
 .feature-card h3 {
     font-size: 1.25rem;
     font-weight: 600;
     color: white;
     margin-bottom: 0.5rem;
 }
-
 .feature-card p {
     color: #cbd5e1;
 }
-
-/* SEO Content */
 .seo-content {
     margin-bottom: 4rem;
 }
-
 .seo-content h2 {
     font-size: 2rem;
     font-weight: 700;
@@ -361,13 +313,11 @@ body {
     text-align: center;
     margin-bottom: 2rem;
 }
-
 .content-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
 }
-
 .content-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -375,33 +325,25 @@ body {
     border-radius: 1rem;
     padding: 1.5rem;
 }
-
 .content-card h3 {
     font-size: 1.125rem;
     font-weight: 600;
     color: white;
     margin-bottom: 0.75rem;
 }
-
 .content-card p {
     color: #cbd5e1;
     line-height: 1.6;
 }
-
-/* Footer */
 .footer {
     text-align: center;
     padding: 2rem 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: #94a3b8;
 }
-
-/* Utility Classes */
 .hidden {
     display: none;
 }
-
-/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -412,39 +354,30 @@ body {
         transform: translateY(0);
     }
 }
-
-/* Responsive Design */
 @media (max-width: 768px) {
     .main-title {
         font-size: 2.5rem;
     }
-    
     .subtitle {
         font-size: 1rem;
     }
-    
     .calculator-grid {
         grid-template-columns: 1fr;
     }
-    
     .calculator-container {
         padding: 1.5rem;
     }
-    
     .result-value {
         font-size: 1.5rem;
     }
 }
-
 @media (max-width: 480px) {
     .container {
         padding: 0 0.5rem;
     }
-    
     .main-title {
         font-size: 2rem;
     }
-    
     .calculator-container {
         padding: 1rem;
     }

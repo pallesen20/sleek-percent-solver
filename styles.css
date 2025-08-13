@@ -31,7 +31,7 @@ body {
     opacity: 0.2;
 }
 a {
-    color: #ffffff;
+    color: #ffffff !important;
 }
 a:hover {
     text-decoration: underline;

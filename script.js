@@ -318,3 +318,13 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+async function loadFooter() {
+    try {
+        const response = await fetch('footer.html');
+        const footerHTML = await response.text();
+        document.getElementById('footer-container').innerHTML = footerHTML;
+    } catch (error) {
+        console.error('Error loading footer:', error);
+    }
+}
+document.addEventListener('DOMContentLoaded', loadFooter);

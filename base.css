@@ -1,0 +1,90 @@
+h1 {
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+}
+h2 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: 1rem;
+}
+h3 {
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    margin-bottom: 1rem;
+}
+h1, h2, h3, h4, h5, h6, span, li, table, pre, i, strong, b {
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+p {
+    color: #D1D5DB;
+    margin-bottom: 1rem;
+}
+seo-container {
+    max-width: 56rem;
+    margin: 0 auto;
+    margin-top: 1.5rem;
+}
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+table thead {
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+table th {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+table td {
+    padding: 0.75rem 1.5rem;
+    color: #cbd5e1;
+    font-size: 0.875rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s ease;
+}
+table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+table tbody tr:last-child td {
+    border-bottom: none;
+}
+@media (max-width: 768px) {
+    table {
+        margin: 1rem auto;
+        font-size: 0.75rem;
+    }   
+    table th,
+    table td {
+        padding: 0.5rem 0.75rem;
+    }
+}
+@media (max-width: 480px) {
+    table {
+        font-size: 0.7rem;
+    }   
+    table th,
+    table td {
+        padding: 0.5rem;
+    }
+}

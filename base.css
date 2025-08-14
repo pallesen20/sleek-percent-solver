@@ -1,11 +1,10 @@
-@layer base {
 h1 {
     font-weight: 700;
     font-size: 3rem;
     line-height: 1.25;
     margin-bottom: 1rem;
 }
-h2 {
+.seo-container h2 {
     font-weight: 600;
     font-size: 1.5rem;
     line-height: 2rem;
@@ -93,5 +92,4 @@ table tbody tr:last-child td {
     table td {
         padding: 0.5rem;
     }
-}
 }

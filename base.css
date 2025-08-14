@@ -1,4 +1,4 @@
-h1 {
+.seo-container h1 {
     font-weight: 700;
     font-size: 3rem;
     line-height: 1.25;
@@ -10,17 +10,17 @@ h1 {
     line-height: 2rem;
     margin-bottom: 1rem;
 }
-h3 {
+.seo-container h3 {
     font-weight: 600;
     font-size: 1.25rem;
     line-height: 1.75rem;
     margin-bottom: 1rem;
 }
-h1, h2, h3, h4, h5, h6, span, li, table, pre, i, strong, b {
+.seo-container h1, .seo-container h2, .seo-container h3, .seo-container h4, .seo-container h5, .seo-container h6, .seo-container span, .seo-container li, .seo-container table, .seo-container pre, .seo-container i, .seo-container strong, .seo-container b {
     color: #ffffff;
     margin-bottom: 1rem;
 }
-p {
+.seo-container p {
     color: #D1D5DB;
     margin-bottom: 1rem;
 }
@@ -34,7 +34,7 @@ p {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
-table {
+.seo-container table {
     width: 100%;
     max-width: 800px;
     margin: 2rem auto;
@@ -47,11 +47,11 @@ table {
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
-table thead {
+.seo-container table thead {
     background: rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-table th {
+.seo-container table th {
     padding: 1rem 1.5rem;
     text-align: left;
     font-size: 0.875rem;
@@ -61,35 +61,35 @@ table th {
     letter-spacing: 0.05em;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-table td {
+.seo-container table td {
     padding: 0.75rem 1.5rem;
     color: #cbd5e1;
     font-size: 0.875rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     transition: background-color 0.2s ease;
 }
-table tbody tr:hover {
+.seo-container table tbody tr:hover {
     background: rgba(255, 255, 255, 0.05);
 }
-table tbody tr:last-child td {
+.seo-container table tbody tr:last-child td {
     border-bottom: none;
 }
 @media (max-width: 768px) {
-    table {
+    .seo-container table {
         margin: 1rem auto;
         font-size: 0.75rem;
     }   
-    table th,
-    table td {
+    .seo-container table th,
+    .seo-container table td {
         padding: 0.5rem 0.75rem;
     }
 }
 @media (max-width: 480px) {
-    table {
+    .seo-container table {
         font-size: 0.7rem;
     }   
-    table th,
-    table td {
+    .seo-container table th,
+    .seo-container table td {
         padding: 0.5rem;
     }
 }

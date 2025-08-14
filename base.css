@@ -74,6 +74,12 @@
 .seo-container table tbody tr:last-child td {
     border-bottom: none;
 }
+.footer {
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8;
+}
 @media (max-width: 768px) {
     .seo-container table {
         margin: 1rem auto;

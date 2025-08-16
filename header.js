@@ -2,13 +2,10 @@ function loadHeader() {
   const headerHTML = `
     <header class="header-glass">
       <div class="header-container">
-        <div class="logo">
-          <h1>Calculator Tools</h1>
-        </div>
         <nav class="nav-menu">
-          <a href="/index.html" class="nav-link">Percentage Calculator</a>
-          <a href="/conversion/length-converter.html" class="nav-link">Length Converter</a>
-          <a href="/word-counter.html" class="nav-link">Word Counter</a>
+          <a href="/" class="nav-link">Percentage Calculator</a>
+          <a href="/conversion/length-converter" class="nav-link">Length Converter</a>
+          <a href="/word-counter" class="nav-link">Word Counter</a>
         </nav>
         <div class="mobile-menu-btn">
           <span></span><span></span><span></span>

@@ -74,6 +74,14 @@
 .seo-container table tbody tr:last-child td {
     border-bottom: none;
 }
+.seo-container ul, .seo-container ol {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    padding-inline-start: 40px;
+    unicode-bidi: isolate;
+}
 .footer {
     text-align: center;
     padding: 2rem 0;

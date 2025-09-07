@@ -13,7 +13,13 @@
     </url>
     <url>
         <loc>https://calculations.tools/conversion/length-converter</loc>
-        <lastmod>2025-08-14</lastmod>
+        <lastmod>2025-09-07</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://calculations.tools/conversion/weight-converter</loc>
+        <lastmod>2025-09-07</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>

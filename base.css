@@ -480,6 +480,12 @@ a:hover {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     z-index: 1000;
 }
+.dropdown-arrow {
+    width: 12px;
+    height: 12px;
+    margin-left: 6px;
+    transition: transform 0.3s ease;
+}
 .nav-dropdown:hover .dropdown-content {
     display: block;
 }

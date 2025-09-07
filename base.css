@@ -443,6 +443,7 @@ a:hover {
     list-style: none;
     margin: 0;
     padding: 0;
+    align-items: baseline;
 }
 .nav-link {
     color: rgba(255, 255, 255, 0.8);
@@ -463,6 +464,8 @@ a:hover {
 }
 .dropdown-toggle {
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 .dropdown-content {
     display: none;
@@ -479,6 +482,9 @@ a:hover {
 }
 .nav-dropdown:hover .dropdown-content {
     display: block;
+}
+.nav-dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
 }
 .dropdown-link {
     display: block;

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Unit Converter | Weight Conversion Calculator ᐅ</title>
+    <meta name="description" content="Convert any weight instantly with our free precision weight converter. Switch between metric and imperial units like kilograms to pounds, grams to ounces, tons to pounds, pounds to kg, ounces to grams, and more using simple formulas and live results.">
+    <meta name="keywords" content="weight converter, weight conversion calculator, kg to pounds, pounds to kg, grams to ounces, ounces to grams, tons to pounds, weight calculator, unit converter, metric to imperial weight">
+    <meta name="author" content="Calculations.tools">
+    <link rel="canonical" href="https://calculations.tools/conversion/weight-converter">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://calculations.tools/conversion/weight-converter">
+    <meta property="og:title" content="Weight Unit Converter | Weight Conversion Calculator ᐅ">
+    <meta property="og:description" content="Convert any weight instantly with our free precision weight converter. Switch between metric and imperial units like kilograms to pounds, grams to ounces, tons to pounds, pounds to kg, ounces to grams, and more using simple formulas and live results.">
+    <meta property="og:image" content="https://calculations.tools/open-graph.webp">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://calculations.tools/conversion/weight-converter">
+    <meta property="twitter:title" content="Weight Unit Converter | Weight Conversion Calculator ᐅ">
+    <meta property="twitter:description" content="Convert any weight instantly with our free precision weight converter. Switch between metric and imperial units like kilograms to pounds, grams to ounces, tons to pounds, pounds to kg, ounces to grams, and more using simple formulas and live results.">
+    <meta property="twitter:image" content="https://calculations.tools/favicon-512x512.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="/base.css">
+    <style>
+        /* Custom animations */
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.3s ease-out;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.02);
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Glassmorphism effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Custom select styling */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+            background-size: 1rem;
+            padding-right: 2.5rem;
+        }
+    </style>
+    <script src="/header.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-700 to-slate-900">
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-4" style="line-height: 1.25">
+                Weight Unit Converter
+            </h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                Convert between metric and imperial weight units with precision. 
+                Get instant results for kilograms, pounds, ounces, grams, tons, and more.
+            </p>
+        </div>
+
+        <!-- Quick Conversion Buttons -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-semibold text-white text-center mb-6">
+                Quick Conversions
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto" id="quick-conversions">
+                <!-- Quick conversion buttons will be generated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Conversion Table -->
+        <div class="max-w-4xl mx-auto" id="conversion-table">
+            <div class="glass rounded-lg">
+                <div class="p-6">
+                    <h2 class="text-2xl text-white text-center font-semibold mb-6">
+                        Weight Conversion Calculator
+                    </h2>
+                </div>
+                <div class="p-6 pt-0 space-y-6">
+                    <!-- Input Section -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="space-y-2">
+                            <label for="input-value" class="text-white font-medium block">
+                                Value
+                            </label>
+                            <input
+                                id="input-value"
+                                type="number"
+                                value="1"
+                                class="w-full h-10 px-3 py-2 bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-md focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/50"
+                                placeholder="Enter value"
+                            />
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-white font-medium block">From</label>
+                            <select id="from-unit" class="w-full h-10 px-3 py-2 bg-white/10 border border-white/20 text-white rounded-md focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/50">
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-white font-medium block">To</label>
+                            <select id="to-unit" class="w-full h-10 px-3 py-2 bg-white/10 border border-white/20 text-white rounded-md focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/50">
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Result Display -->
+                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-center">
+                        <div class="text-white/80 text-sm mb-2">Result</div>
+                        <div class="text-3xl font-bold text-white" id="result-value">
+                            2.20 lbs
+                        </div>
+                        <div class="text-white/80 text-sm mt-2" id="result-description">
+                            1 kg = 2.20 lbs
+                        </div>
+                    </div>
+
+                    <!-- Common Conversions Table -->
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold text-white mb-4 text-center" id="common-conversions-title">
+                            Common Kilogram Conversions
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="common-conversions">
+                            <!-- Common conversions will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div class="glass rounded-lg">
+                <div class="p-6">
+                    <h3 class="text-white text-xl font-semibold mb-4">Metric System</h3>
+                </div>
+                <div class="p-6 pt-0 text-gray-300">
+                    <p class="mb-4">
+                        The metric system uses grams and kilograms as the base units for weight. 
+                        It's a decimal system that makes conversions easy.
+                    </p>
+                    <ul class="space-y-2 text-sm">
+                        <li>• 1 metric ton = 1,000 kilograms</li>
+                        <li>• 1 kilogram = 1,000 grams</li>
+                        <li>• 1 gram = 1,000 milligrams</li>
+                        <li>• 1 milligram = 1,000 micrograms</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass rounded-lg">
+                <div class="p-6">
+                    <h3 class="text-white text-xl font-semibold mb-4">Imperial System</h3>
+                </div>
+                <div class="p-6 pt-0 text-gray-300">
+                    <p class="mb-4">
+                        The imperial system uses pounds and ounces as primary weight units, 
+                        still commonly used in the United States.
+                    </p>
+                    <ul class="space-y-2 text-sm">
+                        <li>• 1 short ton = 2,000 pounds</li>
+                        <li>• 1 pound = 16 ounces</li>
+                        <li>• 1 ounce = 28.35 grams</li>
+                        <li>• 1 stone = 14 pounds</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="seo-container">
+            <h2>Weight Converter – Convert Any Weight Measurement Easily</h2>
+            <p>A weight converter is a tool that lets you quickly convert between different units of weight and mass. This includes metric units like grams, kilograms, and metric tons, as well as imperial units like ounces, pounds, and tons. Whether you need to convert kg to pounds, ounces to grams, or tons to kilograms, this guide explains how to do it with exact formulas and practical examples.</p>
+
+            <h2>Understanding Weight Conversion</h2>
+            <p>Weight conversion means changing a measurement from one unit of weight to another. There are two main systems used worldwide:</p>
+            <p><strong>Metric system</strong> – uses milligrams (mg), grams (g), kilograms (kg), and metric tons (t).</p>
+            <p><strong>Imperial/US customary system</strong> – uses ounces (oz), pounds (lbs), stones (st), and tons.</p>
+            <p>A weight converter calculator does the math instantly and accurately. However, understanding the conversion formulas helps you verify results and understand how different weight units relate to each other.</p>
+
+            <h2>Common Weight Conversions</h2>
+
+            <h3>Kilograms to Pounds / KG to LBS</h3>
+            <p><strong>Formula:</strong> pounds = kilograms × 2.20462</p>
+            <p><strong>Example:</strong> 75 kg × 2.20462 = 165.35 pounds</p>
+            <p>1 kilogram equals 2.20462 pounds.</p>
+
+            <h3>Pounds to Kilograms / LBS to KG</h3>
+            <p><strong>Formula:</strong> kilograms = pounds ÷ 2.20462</p>
+            <p><strong>Example:</strong> 150 pounds ÷ 2.20462 = 68.04 kg</p>
+
+            <h3>Grams to Ounces / G to OZ</h3>
+            <p><strong>Formula:</strong> ounces = grams ÷ 28.3495</p>
+            <p><strong>Example:</strong> 250 grams ÷ 28.3495 = 8.82 ounces</p>
+
+            <h3>Ounces to Grams / OZ to G</h3>
+            <p><strong>Formula:</strong> grams = ounces × 28.3495</p>
+            <p><strong>Example:</strong> 10 ounces × 28.3495 = 283.5 grams</p>
+
+            <h3>Pounds to Ounces / LBS to OZ</h3>
+            <p><strong>Formula:</strong> ounces = pounds × 16</p>
+            <p><strong>Example:</strong> 3 pounds × 16 = 48 ounces</p>
+            <p>1 pound equals exactly 16 ounces.</p>
+
+            <h3>Ounces to Pounds / OZ to LBS</h3>
+            <p><strong>Formula:</strong> pounds = ounces ÷ 16</p>
+            <p><strong>Example:</strong> 32 ounces ÷ 16 = 2 pounds</p>
+
+            <h3>Kilograms to Grams / KG to G</h3>
+            <p><strong>Formula:</strong> grams = kilograms × 1000</p>
+            <p><strong>Example:</strong> 2.5 kg × 1000 = 2500 grams</p>
+
+            <h3>Grams to Kilograms / G to KG</h3>
+            <p><strong>Formula:</strong> kilograms = grams ÷ 1000</p>
+            <p><strong>Example:</strong> 3500 grams ÷ 1000 = 3.5 kg</p>
+
+            <h3>Metric Tons to Pounds / Tonnes to LBS</h3>
+            <p><strong>Formula:</strong> pounds = metric tons × 2204.62</p>
+            <p><strong>Example:</strong> 2 metric tons × 2204.62 = 4409.24 pounds</p>
+
+            <h3>Pounds to Metric Tons / LBS to Tonnes</h3>
+            <p><strong>Formula:</strong> metric tons = pounds ÷ 2204.62</p>
+            <p><strong>Example:</strong> 5000 pounds ÷ 2204.62 = 2.27 metric tons</p>
+
+            <h3>Short Tons to Pounds / US Tons to LBS</h3>
+            <p><strong>Formula:</strong> pounds = short tons × 2000</p>
+            <p><strong>Example:</strong> 1.5 short tons × 2000 = 3000 pounds</p>
+            <p>1 US short ton equals 2000 pounds exactly.</p>
+
+            <h3>Kilograms to Ounces / KG to OZ</h3>
+            <p><strong>Formula:</strong> ounces = kilograms × 35.274</p>
+            <p><strong>Example:</strong> 2 kg × 35.274 = 70.55 ounces</p>
+
+            <h3>Stones to Pounds / ST to LBS</h3>
+            <p><strong>Formula:</strong> pounds = stones × 14</p>
+            <p><strong>Example:</strong> 12 stones × 14 = 168 pounds</p>
+            <p>1 stone equals 14 pounds exactly.</p>
+
+            <h3>Pounds to Stones / LBS to ST</h3>
+            <p><strong>Formula:</strong> stones = pounds ÷ 14</p>
+            <p><strong>Example:</strong> 140 pounds ÷ 14 = 10 stones</p>
+
+            <h2>Metric Weight Conversion</h2>
+            <p>The metric system for weight is based on the gram, with larger and smaller units in multiples of 1000:</p>
+            <p>1 microgram = 0.001 milligram<br>1 milligram = 0.001 gram<br>1 gram = 0.001 kilogram<br>1 kilogram = 0.001 metric ton</p>
+            <p><strong>Example:</strong> 5000 grams ÷ 1000 = 5 kg</p>
+
+            <h2>Imperial Weight Conversion</h2>
+            <p>The imperial system has several different relationships between units:</p>
+            <p>1 ounce = 1/16 pound<br>1 pound = 16 ounces<br>1 stone = 14 pounds<br>1 short ton = 2000 pounds<br>1 long ton = 2240 pounds</p>
+
+            <h2>Why Use a Weight Conversion Calculator?</h2>
+            <p>A weight converter calculator eliminates calculation errors and saves time. Whether you're cooking, shipping packages, tracking fitness goals, or working in science and engineering, accurate weight conversions are essential. The calculator handles decimal precision automatically.</p>
+
+            <h2>Quick Reference Weight Conversion Table</h2>
+            <table>
+                <thead>
+                    <tr><th>From Unit</th><th>To Unit</th><th>Conversion Factor</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>kg</td><td>pounds</td><td>× 2.20462</td></tr>
+                    <tr><td>pounds</td><td>kg</td><td>÷ 2.20462</td></tr>
+                    <tr><td>grams</td><td>ounces</td><td>÷ 28.3495</td></tr>
+                    <tr><td>ounces</td><td>grams</td><td>× 28.3495</td></tr>
+                    <tr><td>pounds</td><td>ounces</td><td>× 16</td></tr>
+                    <tr><td>ounces</td><td>pounds</td><td>÷ 16</td></tr>
+                    <tr><td>kg</td><td>grams</td><td>× 1000</td></tr>
+                    <tr><td>grams</td><td>kg</td><td>÷ 1000</td></tr>
+                    <tr><td>metric tons</td><td>pounds</td><td>× 2204.62</td></tr>
+                    <tr><td>pounds</td><td>metric tons</td><td>÷ 2204.62</td></tr>
+                    <tr><td>short tons</td><td>pounds</td><td>× 2000</td></tr>
+                    <tr><td>kg</td><td>ounces</td><td>× 35.274</td></tr>
+                    <tr><td>stones</td><td>pounds</td><td>× 14</td></tr>
+                    <tr><td>pounds</td><td>stones</td><td>÷ 14</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Frequently Asked Questions About Weight Conversion</h2>
+
+            <h3>What is the easiest way to convert weight units?</h3>
+            <p>The easiest way is to use an online weight converter calculator. Enter the number, choose your units, and get the converted value instantly with high precision.</p>
+
+            <h3>How do I convert kg to pounds without a calculator?</h3>
+            <p>pounds = kilograms × 2.2 (rounded). Example: 70 kg × 2.2 = 154 pounds. For exact results, use × 2.20462.</p>
+
+            <h3>How do I convert pounds to kg?</h3>
+            <p>kilograms = pounds ÷ 2.20462. Example: 180 pounds ÷ 2.20462 = 81.65 kg.</p>
+
+            <h3>How many ounces are in a pound?</h3>
+            <p>1 pound equals exactly 16 ounces.</p>
+
+            <h3>How do I convert grams to ounces?</h3>
+            <p>ounces = grams ÷ 28.3495. Example: 100 grams ÷ 28.3495 = 3.53 ounces.</p>
+
+            <h3>How do I convert ounces to grams?</h3>
+            <p>grams = ounces × 28.3495. Example: 8 ounces × 28.3495 = 226.8 grams.</p>
+
+            <h3>What is the formula to convert tons to pounds?</h3>
+            <p>For US short tons: pounds = tons × 2000. For metric tons: pounds = metric tons × 2204.62.</p>
+
+            <h3>How many grams are in a kilogram?</h3>
+            <p>1 kilogram equals exactly 1000 grams.</p>
+
+            <h3>How do I convert kg to grams?</h3>
+            <p>grams = kilograms × 1000. Example: 2.5 kg × 1000 = 2500 grams.</p>
+
+            <h3>How many pounds are in a stone?</h3>
+            <p>1 stone equals exactly 14 pounds.</p>
+
+            <h3>How do I convert stones to kg?</h3>
+            <p>First convert stones to pounds (× 14), then convert pounds to kg (÷ 2.20462). Example: 10 stones × 14 ÷ 2.20462 = 63.5 kg.</p>
+
+            <h3>What is a metric ton compared to a regular ton?</h3>
+            <p>A metric ton (tonne) equals 1000 kg or 2204.62 pounds. A US short ton equals 2000 pounds exactly.</p>
+
+            <h3>How do I convert kg to ounces?</h3>
+            <p>ounces = kilograms × 35.274. Example: 3 kg × 35.274 = 105.82 ounces.</p>
+
+            <h3>Can I use a weight converter for cooking measurements?</h3>
+            <p>Yes, weight converters are perfect for cooking. Convert recipe measurements between grams, ounces, pounds, and kilograms accurately.</p>
+
+            <h3>How accurate is an online weight conversion calculator?</h3>
+            <p>If it uses standard conversion factors, it will be accurate to many decimal places, suitable for most practical applications.</p>
+
+            <h3>What is the difference between weight and mass?</h3>
+            <p>Mass measures the amount of matter in an object, while weight measures gravitational force. For everyday conversions, the terms are used interchangeably.</p>
+
+            <h3>How do I convert between different types of tons?</h3>
+            <p>US short ton = 2000 lbs. Metric ton (tonne) = 2204.62 lbs. Long ton = 2240 lbs. Convert through pounds as the common unit.</p>
+
+            <h3>Can a weight conversion calculator handle very small or large weights?</h3>
+            <p>Yes, from micrograms to metric tons, weight converters handle the full range of weight measurements used in science, industry, and daily life.</p>
+
+            <h3>Why do some countries use kg and others use pounds?</h3>
+            <p>Most countries use the metric system (kg), while the United States primarily uses the imperial system (pounds). The UK uses a mix of both systems.</p>
+
+            <h3>How do I convert body weight between kg and pounds?</h3>
+            <p>For body weight: pounds = kg × 2.2 (simple), or kg × 2.20462 (precise). Example: 70 kg = 154 lbs.</p>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script>
+        // Weight conversion data
+        const weightUnits = {
+            'mg': { name: 'Milligrams', factor: 1000000, symbol: 'mg' },
+            'g': { name: 'Grams', factor: 1000, symbol: 'g' },
+            'kg': { name: 'Kilograms', factor: 1, symbol: 'kg' },
+            't': { name: 'Metric Tons', factor: 0.001, symbol: 't' },
+            'oz': { name: 'Ounces', factor: 35.274, symbol: 'oz' },
+            'lb': { name: 'Pounds', factor: 2.20462, symbol: 'lbs' },
+            'st': { name: 'Stones', factor: 0.157473, symbol: 'st' },
+            'ton_us': { name: 'US Tons', factor: 0.00110231, symbol: 'US tons' },
+            'ton_uk': { name: 'Long Tons', factor: 0.000984207, symbol: 'long tons' }
+        };
+
+        const quickConversions = [
+            { from: 'kg', to: 'lb', label: 'KG → LBS' },
+            { from: 'lb', to: 'kg', label: 'LBS → KG' },
+            { from: 'g', to: 'oz', label: 'G → OZ' },
+            { from: 'oz', to: 'g', label: 'OZ → G' }
+        ];
+
+        // Populate unit selectors
+        function populateUnitSelectors() {
+            const fromSelect = document.getElementById('from-unit');
+            const toSelect = document.getElementById('to-unit');
+            
+            Object.keys(weightUnits).forEach(unit => {
+                const option1 = new Option(weightUnits[unit].name, unit);
+                const option2 = new Option(weightUnits[unit].name, unit);
+                fromSelect.add(option1);
+                toSelect.add(option2);
+            });
+            
+            // Set default values
+            fromSelect.value = 'kg';
+            toSelect.value = 'lb';
+        }
+
+        // Convert weight function
+        function convertWeight(value, fromUnit, toUnit) {
+            if (fromUnit === toUnit) return value;
+            
+            // Convert to kg first, then to target unit
+            const inKg = value / weightUnits[fromUnit].factor;
+            const result = inKg * weightUnits[toUnit].factor;
+            
+            return result;
+        }
+
+        // Format number for display
+        function formatNumber(num) {
+            if (num < 0.01) return num.toExponential(3);
+            if (num < 1) return num.toFixed(4);
+            if (num < 1000) return num.toFixed(2);
+            return num.toLocaleString(undefined, {maximumFractionDigits: 2});
+        }
+
+        // Update conversion result
+        function updateConversion() {
+            const value = parseFloat(document.getElementById('input-value').value) || 0;
+            const fromUnit = document.getElementById('from-unit').value;
+            const toUnit = document.getElementById('to-unit').value;
+            
+            const result = convertWeight(value, fromUnit, toUnit);
+            const formattedResult = formatNumber(result);
+            
+            document.getElementById('result-value').textContent = `${formattedResult} ${weightUnits[toUnit].symbol}`;
+            document.getElementById('result-description').textContent = 
+                `${formatNumber(value)} ${weightUnits[fromUnit].symbol} = ${formattedResult} ${weightUnits[toUnit].symbol}`;
+            
+            updateCommonConversions(fromUnit);
+        }
+
+        // Update common conversions table
+        function updateCommonConversions(unit) {
+            const container = document.getElementById('common-conversions');
+            const title = document.getElementById('common-conversions-title');
+            
+            title.textContent = `Common ${weightUnits[unit].name} Conversions`;
+            
+            const commonValues = [0.1, 0.5, 1, 2, 5, 10, 50, 100];
+            const targetUnits = Object.keys(weightUnits).filter(u => u !== unit).slice(0, 8);
+            
+            container.innerHTML = '';
+            
+            commonValues.forEach(value => {
+                targetUnits.forEach(targetUnit => {
+                    if (container.children.length < 8) {
+                        const result = convertWeight(value, unit, targetUnit);
+                        const div = document.createElement('div');
+                        div.className = 'bg-white/5 rounded p-3 text-center text-white text-sm hover-scale';
+                        div.innerHTML = `
+                            <div class="font-medium">${formatNumber(value)} ${weightUnits[unit].symbol}</div>
+                            <div class="text-blue-300">=</div>
+                            <div class="font-medium">${formatNumber(result)} ${weightUnits[targetUnit].symbol}</div>
+                        `;
+                        container.appendChild(div);
+                    }
+                });
+            });
+        }
+
+        // Create quick conversion buttons
+        function createQuickConversions() {
+            const container = document.getElementById('quick-conversions');
+            
+            quickConversions.forEach(conv => {
+                const button = document.createElement('button');
+                button.className = 'glass rounded-lg p-4 text-white font-medium hover-scale transition-all duration-200 hover:bg-white/20';
+                button.textContent = conv.label;
+                button.onclick = () => {
+                    document.getElementById('from-unit').value = conv.from;
+                    document.getElementById('to-unit').value = conv.to;
+                    updateConversion();
+                };
+                container.appendChild(button);
+            });
+        }
+
+        // Load footer
+        function loadFooter() {
+            fetch('/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                })
+                .catch(error => console.log('Footer not found'));
+        }
+
+        // Initialize the converter
+        document.addEventListener('DOMContentLoaded', function() {
+            populateUnitSelectors();
+            createQuickConversions();
+            updateConversion();
+            loadFooter();
+            
+            // Add event listeners
+            document.getElementById('input-value').addEventListener('input', updateConversion);
+            document.getElementById('from-unit').addEventListener('change', updateConversion);
+            document.getElementById('to-unit').addEventListener('change', updateConversion);
+        });
+    </script>
+
+    <script type="application/ld+json">
+    [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Weight Unit Converter",
+            "description": "Convert between different weight units including kilograms, pounds, ounces, grams, and tons with precision",
+            "url": "https://calculations.tools/conversion/weight-converter",
+            "applicationCategory": "UtilityApplication",
+            "operatingSystem": "Any",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "How do I convert kg to pounds?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Multiply kilograms by 2.20462. Example: 70 kg × 2.20462 = 154.32 pounds."
+                    }
+                },
+                {
+                    "@type": "Question", 
+                    "name": "How many ounces are in a pound?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "1 pound equals exactly 16 ounces."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How do I convert grams to ounces?", 
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Divide grams by 28.3495. Example: 100 grams ÷ 28.3495 = 3.53 ounces."
+                    }
+                }
+            ]
+        }
+    ]
+    </script>
+</body>
+</html>

@@ -4,7 +4,13 @@ function loadHeader() {
       <div class="header-container">
         <nav class="nav-menu">
           <a href="/" class="nav-link">Percentage Calculator</a>
-          <a href="/conversion/length-converter" class="nav-link">Length Converter</a>
+          <div class="nav-dropdown">
+            <a href="#" class="nav-link dropdown-toggle">Conversion ▼</a>
+            <div class="dropdown-content">
+              <a href="/conversion/length-converter" class="dropdown-link">Length Converter</a>
+              <a href="/conversion/weight-converter" class="dropdown-link">Weight Converter</a>
+            </div>
+          </div>
           <a href="/word-counter" class="nav-link">Word Counter</a>
         </nav>
         <div class="mobile-menu-btn">

@@ -599,7 +599,7 @@ a:hover {
     .seo-container table td {
         padding: 0.5rem;
     }
-    .container {
+    .container, .text-center.mb-12 {
         padding: 0 0.5rem;
     }
     .main-title {

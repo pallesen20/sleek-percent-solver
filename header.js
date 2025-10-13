@@ -23,6 +23,7 @@ function loadHeader() {
             </div>
           </div>
           <a href="/word-counter" class="nav-link">Word Counter</a>
+          <a href="/about-us" class="nav-link">About</a>
         </nav>
         <div class="mobile-menu-btn">
           <span></span><span></span><span></span>

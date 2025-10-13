@@ -24,7 +24,8 @@ Every tool focuses on simplicity, accuracy, and speed, giving both formulas and 
 
 ## Pages
 - [Percentage calculator](https://calculations.tools): Interactive percentage calculator. Calculate any percentage, percentage increase, decrease, and differences between two numbers with formulas and examples.
-[Privacy policy](https://calculations.tools/privacy-policy): Privacy policy explaining how calculations.tools collects, uses, and handles visitor data, including information about Google Analytics and advertising.
 - [Word and character counter](https://calculations.tools/word-counter): Counts words, characters, sentences, and paragraphs instantly. Helps with content writing, SEO, and character limits.
 - [Length converter](https://calculations.tools/conversion/length-converter): Real-time length conversion tool. Instantly convert between centimeters, inches, feet, meters, kilometers, miles, and yards with formulas and examples.
 - [Weight converter](https://calculations.tools/conversion/weight-converter): Real-time weight conversion tool. Instantly convert between kilograms, pounds, ounces, grams, tons, and more with formulas and examples.
+- [About us](https://calculations.tools/about-us): About us page explaining who is behind the website, the vision and mission of the website as well as what the website offers.
+- [Privacy policy](https://calculations.tools/privacy-policy): Privacy policy explaining how calculations.tools collects, uses, and handles visitor data, including information about Google Analytics and advertising.

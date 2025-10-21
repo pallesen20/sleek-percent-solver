@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter | Celsius Fahrenheit Kelvin Converter ᐅ</title>
+    <meta name="description" content="Convert temperature instantly with our free precision temperature converter. Switch between Celsius, Fahrenheit, Kelvin, Rankine, and Réaumur scales using exact formulas and live results.">
+    <meta name="keywords" content="temperature converter, celsius to fahrenheit, fahrenheit to celsius, kelvin converter, celsius to kelvin, temperature conversion calculator, celsius fahrenheit converter, temperature calculator">
+    <meta name="author" content="Calculations.tools">
+    <link rel="canonical" href="https://calculations.tools/conversion/temperature-converter">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://calculations.tools/conversion/temperature-converter">
+    <meta property="og:title" content="Temperature Converter | Celsius Fahrenheit Kelvin Converter ᐅ">
+    <meta property="og:description" content="Convert temperature instantly with our free precision temperature converter. Switch between Celsius, Fahrenheit, Kelvin, Rankine, and Réaumur scales using exact formulas and live results.">
+    <meta property="og:image" content="https://calculations.tools/open-graph.webp">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://calculations.tools/conversion/temperature-converter">
+    <meta property="twitter:title" content="Temperature Converter | Celsius Fahrenheit Kelvin Converter ᐅ">
+    <meta property="twitter:description" content="Convert temperature instantly with our free precision temperature converter. Switch between Celsius, Fahrenheit, Kelvin, Rankine, and Réaumur scales using exact formulas and live results.">
+    <meta property="twitter:image" content="https://calculations.tools/favicon-512x512.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="/base.css">
+    <style>
+        /* Custom animations */
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.3s ease-out;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.02);
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Glassmorphism effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Custom select styling */
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+            background-size: 1rem;
+            padding-right: 2.5rem;
+        }
+    </style>
+    <script src="/header.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-700 to-slate-900">
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-4" style="line-height: 1.25">
+                Temperature Converter
+            </h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                Convert between Celsius, Fahrenheit, Kelvin, Rankine, and Réaumur temperature scales with precision. 
+                Get instant results with exact formulas.
+            </p>
+        </div>
+
+        <!-- Quick Conversion Buttons -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-semibold text-white text-center mb-6">
+                Quick Conversions
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto" id="quick-conversions">
+                <!-- Quick conversion buttons will be generated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Conversion Calculator -->
+        <div class="max-w-4xl mx-auto" id="conversion-table">
+            <div class="glass rounded-lg">
+                <div class="p-6">
+                    <h2 class="text-2xl text-white text-center font-semibold mb-6">
+                        Temperature Conversion Calculator
+                    </h2>
+                </div>
+                <div class="p-6 pt-0 space-y-6">
+                    <!-- Input Section -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="space-y-2">
+                            <label for="input-value" class="text-white font-medium block">
+                                Temperature Value
+                            </label>
+                            <input
+                                id="input-value"
+                                type="number"
+                                value="0"
+                                step="0.01"
+                                class="w-full h-10 px-3 py-2 bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-md focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/50"
+                                placeholder="Enter temperature"
+                            />
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-white font-medium block">From</label>
+                            <select id="from-unit" class="w-full h-10 px-3 py-2 bg-white/10 border border-white/20 text-white rounded-md focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/50">
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-white font-medium block">To</label>
+                            <select id="to-unit" class="w-full h-10 px-3 py-2 bg-white/10 border border-white/20 text-white rounded-md focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/50">
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Result Display -->
+                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-center">
+                        <div class="text-white/80 text-sm mb-2">Result</div>
+                        <div class="text-3xl font-bold text-white" id="result-value">
+                            32.00 °F
+                        </div>
+                        <div class="text-white/80 text-sm mt-2" id="result-description">
+                            0 °C = 32.00 °F
+                        </div>
+                    </div>
+
+                    <!-- Common Conversions Table -->
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold text-white mb-4 text-center" id="common-conversions-title">
+                            Common Celsius Conversions
+                        </h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="common-conversions">
+                            <!-- Common conversions will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div class="glass rounded-lg">
+                <div class="p-6">
+                    <h3 class="text-white text-xl font-semibold mb-4">Celsius (°C)</h3>
+                </div>
+                <div class="p-6 pt-0 text-gray-300">
+                    <p class="mb-4">
+                        The most widely used temperature scale globally, based on water's freezing (0°C) and boiling (100°C) points at standard pressure.
+                    </p>
+                    <ul class="space-y-2 text-sm">
+                        <li>• Water freezes at 0°C</li>
+                        <li>• Water boils at 100°C</li>
+                        <li>• Used by most countries worldwide</li>
+                        <li>• Part of the metric system</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass rounded-lg">
+                <div class="p-6">
+                    <h3 class="text-white text-xl font-semibold mb-4">Fahrenheit (°F)</h3>
+                </div>
+                <div class="p-6 pt-0 text-gray-300">
+                    <p class="mb-4">
+                        Primarily used in the United States, this scale sets water's freezing point at 32°F and boiling point at 212°F.
+                    </p>
+                    <ul class="space-y-2 text-sm">
+                        <li>• Water freezes at 32°F</li>
+                        <li>• Water boils at 212°F</li>
+                        <li>• Used in the United States</li>
+                        <li>• 180 degrees between freezing and boiling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass rounded-lg">
+                <div class="p-6">
+                    <h3 class="text-white text-xl font-semibold mb-4">Kelvin (K)</h3>
+                </div>
+                <div class="p-6 pt-0 text-gray-300">
+                    <p class="mb-4">
+                        The SI unit for temperature, starting at absolute zero. Used in scientific applications worldwide.
+                    </p>
+                    <ul class="space-y-2 text-sm">
+                        <li>• Absolute zero at 0 K</li>
+                        <li>• No negative values</li>
+                        <li>• Used in scientific research</li>
+                        <li>• Same degree size as Celsius</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="seo-container">
+            <h2>Temperature Converter – Convert Between All Temperature Scales</h2>
+            <p>A temperature converter is a tool that allows you to quickly convert between different temperature scales including Celsius, Fahrenheit, Kelvin, Rankine, and Réaumur. Whether you need to convert Celsius to Fahrenheit for weather reports, Fahrenheit to Celsius for cooking, or Celsius to Kelvin for scientific calculations, this guide provides exact formulas and practical examples for all temperature conversions.</p>
+
+            <h2>Understanding Temperature Scales</h2>
+            <p>Temperature scales measure the degree of heat or cold. Different scales were developed at different times in history for various purposes. Today, five main temperature scales are in use:</p>
+            <p><strong>Celsius (°C)</strong> – Used by most countries worldwide, based on water's properties</p>
+            <p><strong>Fahrenheit (°F)</strong> – Primarily used in the United States</p>
+            <p><strong>Kelvin (K)</strong> – The SI unit for temperature, used in scientific applications</p>
+            <p><strong>Rankine (°R)</strong> – An absolute scale based on Fahrenheit, used in engineering</p>
+            <p><strong>Réaumur (°Ré)</strong> – A historical scale still used in some specialized applications</p>
+
+            <h2>Celsius and Fahrenheit: The Two Most Common Scales</h2>
+            
+            <h3>The Celsius Scale</h3>
+            <p>The Celsius scale, originally called centigrade, was developed by Swedish astronomer Anders Celsius in 1742. Initially, Celsius set 0° at water's boiling point and 100° at water's freezing point. After his death, the scale was inverted to its current form.</p>
+            <p>Celsius is now the standard temperature scale in almost every country except the United States. It's part of the metric system and is used in weather forecasting, cooking, medicine, and daily life across the globe. The scale is intuitive because it's based on water's physical properties at standard atmospheric pressure: water freezes at 0°C and boils at 100°C.</p>
+
+            <h3>The Fahrenheit Scale</h3>
+            <p>The Fahrenheit scale was proposed by German physicist Daniel Gabriel Fahrenheit in 1724. Fahrenheit originally set 0°F as the temperature of a mixture of ice, water, and ammonium chloride (a freezing mixture), 32°F as the freezing point of water, and 96°F as human body temperature (later adjusted to 98.6°F).</p>
+            <p>The Fahrenheit scale is primarily used in the United States, its territories, and a few Caribbean nations. It provides finer granularity than Celsius—there are 180 degrees between water's freezing and boiling points in Fahrenheit versus 100 degrees in Celsius. Some argue this makes Fahrenheit more precise for everyday temperature discussions.</p>
+
+            <h3>Why Two Different Scales?</h3>
+            <p>The coexistence of Celsius and Fahrenheit stems from historical development and regional adoption. Most countries adopted the metric system, including Celsius, during the 19th and 20th centuries. The United States, however, retained its traditional measurement systems, including Fahrenheit. Both scales are equally valid—they simply use different reference points and increments to measure the same physical property: thermal energy.</p>
+
+            <h2>Common Temperature Conversions</h2>
+
+            <h3>Celsius to Fahrenheit / °C to °F</h3>
+            <p><strong>Formula:</strong> °F = (°C × 9/5) + 32</p>
+            <p><strong>Example 1:</strong> 25°C × 9/5 + 32 = 77°F</p>
+            <p><strong>Example 2:</strong> 100°C × 9/5 + 32 = 212°F (boiling point of water)</p>
+            <p><strong>Example 3:</strong> -40°C × 9/5 + 32 = -40°F (the temperature where both scales meet)</p>
+            <p>To convert Celsius to Fahrenheit, multiply by 1.8 (or 9/5) and add 32. This accounts for both the different degree sizes and the different zero points.</p>
+
+            <h3>Fahrenheit to Celsius / °F to °C</h3>
+            <p><strong>Formula:</strong> °C = (°F - 32) × 5/9</p>
+            <p><strong>Example 1:</strong> (68°F - 32) × 5/9 = 20°C (comfortable room temperature)</p>
+            <p><strong>Example 2:</strong> (32°F - 32) × 5/9 = 0°C (freezing point of water)</p>
+            <p><strong>Example 3:</strong> (98.6°F - 32) × 5/9 = 37°C (normal human body temperature)</p>
+            <p>To convert Fahrenheit to Celsius, subtract 32 and then multiply by 5/9 (or divide by 1.8).</p>
+
+            <h3>Celsius to Kelvin / °C to K</h3>
+            <p><strong>Formula:</strong> K = °C + 273.15</p>
+            <p><strong>Example 1:</strong> 0°C + 273.15 = 273.15 K (water's freezing point)</p>
+            <p><strong>Example 2:</strong> 25°C + 273.15 = 298.15 K (typical room temperature)</p>
+            <p><strong>Example 3:</strong> 100°C + 273.15 = 373.15 K (water's boiling point)</p>
+            <p>The Kelvin scale uses the same degree size as Celsius but starts at absolute zero. Simply add 273.15 to convert Celsius to Kelvin.</p>
+
+            <h3>Kelvin to Celsius / K to °C</h3>
+            <p><strong>Formula:</strong> °C = K - 273.15</p>
+            <p><strong>Example 1:</strong> 273.15 K - 273.15 = 0°C</p>
+            <p><strong>Example 2:</strong> 300 K - 273.15 = 26.85°C</p>
+            <p><strong>Example 3:</strong> 0 K - 273.15 = -273.15°C (absolute zero)</p>
+
+            <h3>Fahrenheit to Kelvin / °F to K</h3>
+            <p><strong>Formula:</strong> K = (°F - 32) × 5/9 + 273.15</p>
+            <p><strong>Example 1:</strong> (77°F - 32) × 5/9 + 273.15 = 298.15 K</p>
+            <p><strong>Example 2:</strong> (32°F - 32) × 5/9 + 273.15 = 273.15 K</p>
+
+            <h3>Kelvin to Fahrenheit / K to °F</h3>
+            <p><strong>Formula:</strong> °F = (K - 273.15) × 9/5 + 32</p>
+            <p><strong>Example 1:</strong> (298.15 K - 273.15) × 9/5 + 32 = 77°F</p>
+            <p><strong>Example 2:</strong> (373.15 K - 273.15) × 9/5 + 32 = 212°F</p>
+
+            <h2>Kelvin: The Scientific Temperature Scale</h2>
+            <p>The Kelvin scale was developed by William Thomson, 1st Baron Kelvin, in 1848. It's named in his honor and is the SI (International System of Units) base unit for temperature. Unlike Celsius and Fahrenheit, Kelvin is an absolute temperature scale—it starts at absolute zero, the theoretical temperature at which all molecular motion ceases.</p>
+            
+            <h3>Key Characteristics of Kelvin</h3>
+            <p>Kelvin uses the same degree size as Celsius, making conversion between them straightforward. However, Kelvin has no negative values because absolute zero (0 K) is the lowest theoretically possible temperature. This makes Kelvin ideal for scientific calculations, particularly in physics and chemistry, where absolute temperatures are essential.</p>
+            
+            <h3>When and Where Kelvin is Used</h3>
+            <p>Kelvin is universally used in scientific research, particularly in physics, chemistry, astronomy, and materials science. It's essential for:</p>
+            <p><strong>Thermodynamics:</strong> Laws of thermodynamics require absolute temperature scales</p>
+            <p><strong>Cryogenics:</strong> Studying materials at extremely low temperatures near absolute zero</p>
+            <p><strong>Space science:</strong> Measuring temperatures of celestial bodies and cosmic phenomena</p>
+            <p><strong>Spectroscopy:</strong> Analyzing electromagnetic radiation and atomic properties</p>
+            <p><strong>Climate science:</strong> Precise temperature measurements for atmospheric studies</p>
+
+            <h2>Rankine: The Engineering Absolute Scale</h2>
+            <p>The Rankine scale was proposed by Scottish engineer and physicist William John Macquorn Rankine in 1859. Like Kelvin, Rankine is an absolute temperature scale starting at absolute zero. However, it uses the same degree size as Fahrenheit rather than Celsius.</p>
+
+            <h3>Rankine Conversion Formulas</h3>
+            <p><strong>Fahrenheit to Rankine:</strong> °R = °F + 459.67</p>
+            <p><strong>Celsius to Rankine:</strong> °R = (°C + 273.15) × 9/5</p>
+            <p><strong>Kelvin to Rankine:</strong> °R = K × 9/5</p>
+
+            <h3>When and Where Rankine is Used</h3>
+            <p>Rankine is primarily used in engineering fields in the United States, particularly in:</p>
+            <p><strong>Thermodynamic engineering:</strong> Heat engines, refrigeration cycles, and power plants</p>
+            <p><strong>Aerospace engineering:</strong> Propulsion systems and thermal analysis</p>
+            <p><strong>Chemical engineering:</strong> Process calculations requiring absolute temperatures</p>
+            <p><strong>HVAC systems:</strong> Heating, ventilation, and air conditioning design</p>
+            <p>Rankine allows engineers who work primarily with Fahrenheit to perform thermodynamic calculations without converting to Kelvin. Absolute zero is 0°R, which equals -459.67°F.</p>
+
+            <h2>Réaumur: A Historical Temperature Scale</h2>
+            <p>The Réaumur scale was introduced by French scientist René Antoine Ferchault de Réaumur in 1730. It sets water's freezing point at 0°Ré and boiling point at 80°Ré, creating an 80-degree span between these reference points.</p>
+
+            <h3>Réaumur Conversion Formulas</h3>
+            <p><strong>Celsius to Réaumur:</strong> °Ré = °C × 4/5</p>
+            <p><strong>Réaumur to Celsius:</strong> °C = °Ré × 5/4</p>
+            <p><strong>Fahrenheit to Réaumur:</strong> °Ré = (°F - 32) × 4/9</p>
+            <p><strong>Réaumur to Fahrenheit:</strong> °F = °Ré × 9/4 + 32</p>
+
+            <h3>History and Current Use of Réaumur</h3>
+            <p>The Réaumur scale was widely used in Europe, particularly in France, Germany, and Russia, during the 18th and 19th centuries. By the late 19th century, most countries transitioned to Celsius. However, Réaumur persisted in some regions well into the 20th century.</p>
+            
+            <h3>Where Réaumur is Still Used Today</h3>
+            <p>While largely obsolete, the Réaumur scale still appears in specific contexts:</p>
+            <p><strong>Cheese making:</strong> Some traditional European cheese recipes specify temperatures in Réaumur</p>
+            <p><strong>Sugar production:</strong> Certain sugar refining processes in Europe use Réaumur</p>
+            <p><strong>Historical documents:</strong> Scientific and technical records from the 18th and 19th centuries</p>
+            <p><strong>Thermometer collections:</strong> Antique thermometers often display Réaumur scales</p>
+            <p><strong>Italian food industries:</strong> Some traditional Italian food production still references Réaumur</p>
+
+            <h2>Key Temperature Reference Points</h2>
+            <table>
+                <thead>
+                    <tr><th>Reference Point</th><th>Celsius</th><th>Fahrenheit</th><th>Kelvin</th><th>Rankine</th><th>Réaumur</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Absolute Zero</td><td>-273.15°C</td><td>-459.67°F</td><td>0 K</td><td>0°R</td><td>-218.52°Ré</td></tr>
+                    <tr><td>Water Freezing Point</td><td>0°C</td><td>32°F</td><td>273.15 K</td><td>491.67°R</td><td>0°Ré</td></tr>
+                    <tr><td>Room Temperature</td><td>20°C</td><td>68°F</td><td>293.15 K</td><td>527.67°R</td><td>16°Ré</td></tr>
+                    <tr><td>Human Body Temperature</td><td>37°C</td><td>98.6°F</td><td>310.15 K</td><td>558.27°R</td><td>29.6°Ré</td></tr>
+                    <tr><td>Water Boiling Point</td><td>100°C</td><td>212°F</td><td>373.15 K</td><td>671.67°R</td><td>80°Ré</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Quick Temperature Conversion Reference</h2>
+            <table>
+                <thead>
+                    <tr><th>From</th><th>To</th><th>Formula</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>°C</td><td>°F</td><td>°F = °C × 9/5 + 32</td></tr>
+                    <tr><td>°F</td><td>°C</td><td>°C = (°F - 32) × 5/9</td></tr>
+                    <tr><td>°C</td><td>K</td><td>K = °C + 273.15</td></tr>
+                    <tr><td>K</td><td>°C</td><td>°C = K - 273.15</td></tr>
+                    <tr><td>°F</td><td>K</td><td>K = (°F - 32) × 5/9 + 273.15</td></tr>
+                    <tr><td>K</td><td>°F</td><td>°F = (K - 273.15) × 9/5 + 32</td></tr>
+                    <tr><td>°F</td><td>°R</td><td>°R = °F + 459.67</td></tr>
+                    <tr><td>°R</td><td>°F</td><td>°F = °R - 459.67</td></tr>
+                    <tr><td>K</td><td>°R</td><td>°R = K × 9/5</td></tr>
+                    <tr><td>°R</td><td>K</td><td>K = °R × 5/9</td></tr>
+                    <tr><td>°C</td><td>°Ré</td><td>°Ré = °C × 4/5</td></tr>
+                    <tr><td>°Ré</td><td>°C</td><td>°C = °Ré × 5/4</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Frequently Asked Questions About Temperature Conversion</h2>
+
+            <h3>How do I convert Celsius to Fahrenheit?</h3>
+            <p>Multiply Celsius by 9/5 (or 1.8), then add 32. Formula: °F = (°C × 9/5) + 32. Example: 20°C × 9/5 + 32 = 68°F.</p>
+
+            <h3>How do I convert Fahrenheit to Celsius?</h3>
+            <p>Subtract 32 from Fahrenheit, then multiply by 5/9. Formula: °C = (°F - 32) × 5/9. Example: (72°F - 32) × 5/9 = 22.2°C.</p>
+
+            <h3>What is the easiest way to estimate Celsius to Fahrenheit?</h3>
+            <p>A quick mental approximation: double the Celsius temperature and add 30. This gives you a rough Fahrenheit value. For example, 20°C: 20 × 2 + 30 = 70°F (actual: 68°F). For precise conversions, use the exact formula.</p>
+
+            <h3>How do I convert Celsius to Kelvin?</h3>
+            <p>Add 273.15 to the Celsius temperature. Formula: K = °C + 273.15. Example: 25°C + 273.15 = 298.15 K.</p>
+
+            <h3>How do I convert Kelvin to Celsius?</h3>
+            <p>Subtract 273.15 from the Kelvin temperature. Formula: °C = K - 273.15. Example: 300 K - 273.15 = 26.85°C.</p>
+
+            <h3>Can Kelvin be negative?</h3>
+            <p>No. Kelvin is an absolute temperature scale starting at absolute zero (0 K), the lowest theoretically possible temperature. There are no negative Kelvin values.</p>
+
+            <h3>What temperature is the same in Celsius and Fahrenheit?</h3>
+            <p>-40 degrees is the same in both Celsius and Fahrenheit. -40°C = -40°F. This is the only temperature where both scales intersect.</p>
+
+            <h3>Why does the US use Fahrenheit instead of Celsius?</h3>
+            <p>The United States adopted Fahrenheit before the metric system became widespread. When most countries transitioned to metric (including Celsius) in the 19th and 20th centuries, the US retained its traditional measurement systems due to established infrastructure, economic costs of conversion, and cultural preference.</p>
+
+            <h3>Which temperature scale is more accurate?</h3>
+            <p>All temperature scales are equally accurate—they're just different ways to measure the same physical property. The choice of scale depends on regional convention and application. Scientists prefer Kelvin for absolute measurements, while Celsius and Fahrenheit are used for everyday purposes in different regions.</p>
+
+            <h3>What is absolute zero in different scales?</h3>
+            <p>Absolute zero, the lowest possible temperature, is: 0 K (Kelvin), -273.15°C (Celsius), -459.67°F (Fahrenheit), 0°R (Rankine), and -218.52°Ré (Réaumur).</p>
+
+            <h3>What is normal room temperature in different scales?</h3>
+            <p>Normal room temperature (approximately 20-22°C) is: 20°C = 68°F = 293.15 K = 527.67°R = 16°Ré.</p>
+
+            <h3>How do I convert Fahrenheit to Kelvin?</h3>
+            <p>Subtract 32 from Fahrenheit, multiply by 5/9, then add 273.15. Formula: K = (°F - 32) × 5/9 + 273.15. Example: (77°F - 32) × 5/9 + 273.15 = 298.15 K.</p>
+
+            <h3>What is the Rankine scale used for?</h3>
+            <p>Rankine is an absolute temperature scale used primarily in engineering applications in the United States. It's particularly useful in thermodynamics, aerospace engineering, and chemical engineering when working with Fahrenheit-based systems that require absolute temperatures.</p>
+
+            <h3>Is the Réaumur scale still used today?</h3>
+            <p>The Réaumur scale is largely obsolete but still appears in specialized contexts such as traditional European cheese making, sugar refining, and historical scientific documents. Most modern applications have switched to Celsius or Fahrenheit.</p>
+
+            <h3>What is the normal human body temperature in all scales?</h3>
+            <p>Normal human body temperature is approximately: 37°C = 98.6°F = 310.15 K = 558.27°R = 29.6°Ré.</p>
+
+            <h3>At what temperature does water boil on different scales?</h3>
+            <p>At standard atmospheric pressure, water boils at: 100°C = 212°F = 373.15 K = 671.67°R = 80°Ré.</p>
+
+            <h3>Can I use a temperature converter for cooking?</h3>
+            <p>Yes, temperature converters are essential for cooking, especially when using recipes from different countries. Oven temperatures, meat internal temperatures, and candy-making temperatures all require accurate conversions between Celsius and Fahrenheit.</p>
+
+            <h3>What is the difference between Celsius and centigrade?</h3>
+            <p>They are the same scale. The scale was originally called "centigrade" (meaning 100 degrees) but was officially renamed "Celsius" in 1948 to honor Anders Celsius, who developed the scale.</p>
+
+            <h3>Why are there so many different temperature scales?</h3>
+            <p>Different temperature scales were developed at different times in history by various scientists, each using different reference points. Some scales were designed for everyday use (Celsius, Fahrenheit), while others were created for scientific purposes (Kelvin, Rankine). Regional preferences and historical adoption patterns explain why multiple scales persist today.</p>
+
+            <h3>How accurate is an online temperature converter?</h3>
+            <p>If the converter uses standard conversion formulas, it will be highly accurate, typically to several decimal places. This precision is suitable for virtually all practical applications from cooking to scientific calculations.</p>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script>
+        // Temperature conversion functions
+        const tempUnits = {
+            'celsius': { name: 'Celsius', symbol: '°C' },
+            'fahrenheit': { name: 'Fahrenheit', symbol: '°F' },
+            'kelvin': { name: 'Kelvin', symbol: 'K' },
+            'rankine': { name: 'Rankine', symbol: '°R' },
+            'reaumur': { name: 'Réaumur', symbol: '°Ré' }
+        };
+
+        const quickConversions = [
+            { from: 'celsius', to: 'fahrenheit', label: '°C → °F' },
+            { from: 'fahrenheit', to: 'celsius', label: '°F → °C' },
+            { from: 'celsius', to: 'kelvin', label: '°C → K' },
+            { from: 'kelvin', to: 'celsius', label: 'K → °C' }
+        ];
+
+        // Convert to Celsius first, then to target unit
+        function toCelsius(value, fromUnit) {
+            switch(fromUnit) {
+                case 'celsius': return value;
+                case 'fahrenheit': return (value - 32) * 5/9;
+                case 'kelvin': return value - 273.15;
+                case 'rankine': return (value - 491.67) * 5/9;
+                case 'reaumur': return value * 5/4;
+                default: return value;
+            }
+        }
+
+        function fromCelsius(celsius, toUnit) {
+            switch(toUnit) {
+                case 'celsius': return celsius;
+                case 'fahrenheit': return (celsius * 9/5) + 32;
+                case 'kelvin': return celsius + 273.15;
+                case 'rankine': return (celsius + 273.15) * 9/5;
+                case 'reaumur': return celsius * 4/5;
+                default: return celsius;
+            }
+        }
+
+        function convertTemperature(value, fromUnit, toUnit) {
+            if (fromUnit === toUnit) return value;
+            const celsius = toCelsius(value, fromUnit);
+            return fromCelsius(celsius, toUnit);
+        }
+
+        // Format number for display
+        function formatNumber(num) {
+            if (Math.abs(num) < 0.01 && num !== 0) return num.toExponential(2);
+            if (Math.abs(num) < 1) return num.toFixed(4);
+            if (Math.abs(num) < 1000) return num.toFixed(2);
+            return num.toLocaleString(undefined, {maximumFractionDigits: 2});
+        }
+
+        // Populate unit selectors
+        function populateUnitSelectors() {
+            const fromSelect = document.getElementById('from-unit');
+            const toSelect = document.getElementById('to-unit');
+            
+            Object.keys(tempUnits).forEach(unit => {
+                const option1 = new Option(tempUnits[unit].name, unit);
+                const option2 = new Option(tempUnits[unit].name, unit);
+                fromSelect.add(option1);
+                toSelect.add(option2);
+            });
+            
+            // Set default values
+            fromSelect.value = 'celsius';
+            toSelect.value = 'fahrenheit';
+        }
+
+        // Update conversion result
+        function updateConversion() {
+            const value = parseFloat(document.getElementById('input-value').value) || 0;
+            const fromUnit = document.getElementById('from-unit').value;
+            const toUnit = document.getElementById('to-unit').value;
+            
+            const result = convertTemperature(value, fromUnit, toUnit);
+            const formattedResult = formatNumber(result);
+            
+            document.getElementById('result-value').textContent = `${formattedResult} ${tempUnits[toUnit].symbol}`;
+            document.getElementById('result-description').textContent = 
+                `${formatNumber(value)} ${tempUnits[fromUnit].symbol} = ${formattedResult} ${tempUnits[toUnit].symbol}`;
+            
+            updateCommonConversions(fromUnit);
+        }
+
+        // Update common conversions table
+        function updateCommonConversions(unit) {
+            const container = document.getElementById('common-conversions');
+            const title = document.getElementById('common-conversions-title');
+            
+            title.textContent = `Common ${tempUnits[unit].name} Conversions`;
+            
+            const commonValues = {
+                'celsius': [-40, -20, 0, 20, 25, 37, 100, 200],
+                'fahrenheit': [-40, 0, 32, 68, 77, 98.6, 212, 392],
+                'kelvin': [0, 233.15, 273.15, 293.15, 298.15, 310.15, 373.15, 473.15],
+                'rankine': [0, 419.67, 491.67, 527.67, 536.67, 558.27, 671.67, 851.67],
+                'reaumur': [-32, -16, 0, 16, 20, 29.6, 80, 160]
+            };
+            
+            const targetUnits = Object.keys(tempUnits).filter(u => u !== unit).slice(0, 4);
+            const values = commonValues[unit] || [0, 10, 20, 30, 40, 50, 100, 200];
+            
+            container.innerHTML = '';
+            
+            let count = 0;
+            for (let value of values) {
+                for (let targetUnit of targetUnits) {
+                    if (count >= 8) break;
+                    const result = convertTemperature(value, unit, targetUnit);
+                    const div = document.createElement('div');
+                    div.className = 'bg-white/5 rounded p-3 text-center text-white text-sm hover-scale';
+                    div.innerHTML = `
+                        <div class="font-medium">${formatNumber(value)} ${tempUnits[unit].symbol}</div>
+                        <div class="text-blue-300">=</div>
+                        <div class="font-medium">${formatNumber(result)} ${tempUnits[targetUnit].symbol}</div>
+                    `;
+                    container.appendChild(div);
+                    count++;
+                }
+                if (count >= 8) break;
+            }
+        }
+
+        // Create quick conversion buttons
+        function createQuickConversions() {
+            const container = document.getElementById('quick-conversions');
+            
+            quickConversions.forEach(conv => {
+                const button = document.createElement('button');
+                button.className = 'glass rounded-lg p-4 text-white font-medium hover-scale transition-all duration-200 hover:bg-white/20';
+                button.textContent = conv.label;
+                button.onclick = () => {
+                    document.getElementById('from-unit').value = conv.from;
+                    document.getElementById('to-unit').value = conv.to;
+                    updateConversion();
+                };
+                container.appendChild(button);
+            });
+        }
+
+        // Load footer
+        function loadFooter() {
+            fetch('/footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-container').innerHTML = html;
+                })
+                .catch(error => console.log('Footer not found'));
+        }
+
+        // Initialize the converter
+        document.addEventListener('DOMContentLoaded', function() {
+            populateUnitSelectors();
+            createQuickConversions();
+            updateConversion();
+            loadFooter();
+            
+            // Add event listeners
+            document.getElementById('input-value').addEventListener('input', updateConversion);
+            document.getElementById('from-unit').addEventListener('change', updateConversion);
+            document.getElementById('to-unit').addEventListener('change', updateConversion);
+        });
+    </script>
+
+    <script type="application/ld+json">
+    [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Temperature Converter",
+            "description": "Convert between Celsius, Fahrenheit, Kelvin, Rankine, and Réaumur temperature scales with precision",
+            "url": "https://calculations.tools/conversion/temperature-converter",
+            "applicationCategory": "UtilityApplication",
+            "operatingSystem": "Any",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "How do I convert Celsius to Fahrenheit?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Multiply Celsius by 9/5 (or 1.8), then add 32. Formula: °F = (°C × 9/5) + 32. Example: 20°C × 9/5 + 32 = 68°F."
+                    }
+                },
+                {
+                    "@type": "Question", 
+                    "name": "How do I convert Fahrenheit to Celsius?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Subtract 32 from Fahrenheit, then multiply by 5/9. Formula: °C = (°F - 32) × 5/9. Example: (72°F - 32) × 5/9 = 22.2°C."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How do I convert Celsius to Kelvin?", 
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Add 273.15 to the Celsius temperature. Formula: K = °C + 273.15. Example: 25°C + 273.15 = 298.15 K."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What temperature is the same in Celsius and Fahrenheit?", 
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "-40 degrees is the same in both Celsius and Fahrenheit. -40°C = -40°F. This is the only temperature where both scales intersect."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Can Kelvin be negative?", 
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "No. Kelvin is an absolute temperature scale starting at absolute zero (0 K), the lowest theoretically possible temperature. There are no negative Kelvin values."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What is the Rankine scale used for?", 
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Rankine is an absolute temperature scale used primarily in engineering applications in the United States. It's particularly useful in thermodynamics, aerospace engineering, and chemical engineering when working with Fahrenheit-based systems that require absolute temperatures."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Is the Réaumur scale still used today?", 
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "The Réaumur scale is largely obsolete but still appears in specialized contexts such as traditional European cheese making, sugar refining, and historical scientific documents."
+                    }
+                }
+            ]
+        }
+    ]
+    </script>
+</body>
+</html>

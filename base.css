@@ -172,7 +172,7 @@ a:hover {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 .card-icon {
-    width: 3rem;
+    width: 6rem;
     height: 3rem;
     border-radius: 0.75rem;
     display: flex;

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Percentage Calculator - Free Online Tool</title>
+    <meta name="description" content="Free advanced percentage calculator with multiple modes. Calculate basic percentages, percentage increases, decreases, and find what percentage one number is of another. Fast, accurate, and mobile-friendly.">
+    <meta name="keywords" content="percentage calculator, percentage increase calculator, percentage decrease calculator, math calculator, online calculator, free calculator">
+    <meta name="author" content="Advanced Percentage Calculator">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://calculations.tools/percentage-calculator">
+    <meta property="og:title" content="Advanced Percentage Calculator - Free Online Tool">
+    <meta property="og:description" content="Professional percentage calculator with multiple modes. Calculate percentages, increases, decreases, and more with our modern, fast, and accurate calculator.">
+    <meta property="og:image" content="https://calculations.tools/open-graph.webp">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://calculations.tools/percentage-calculator">
+    <meta property="twitter:title" content="Advanced Percentage Calculator - Free Online Tool">
+    <meta property="twitter:description" content="Professional percentage calculator with multiple modes. Calculate percentages, increases, decreases, and more.">
+    <meta property="twitter:image" content="https://calculations.tools/favicon-512x512.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="canonical" href="https://calculations.tools/percentage-calculator">
+    <link rel="stylesheet" href="/base.css">
+    <script src="/header.js"></script>
+</head>
+<body>
+    <div class="text-center mb-12">
+        <h1 class="main-title">Advanced Percentage Calculator</h1>
+        <p class="subtitle">Professional-grade percentage calculations with multiple modes. Fast, accurate, and beautifully designed.</p>
+    </div>
+    <main class="main-content">
+        <div class="container">
+            <section class="calculator-types" aria-label="Calculator Types">
+                <div class="calculator-grid">
+                    <button class="calculator-card active" data-type="basic">
+                        <div class="card-icon basic-icon">%</div>
+                        <div class="card-content">
+                            <h3>Basic Percentage</h3>
+                            <p>Calculate X% of a number</p>
+                        </div>
+                    </button>
+                    <button class="calculator-card" data-type="increase">
+                        <div class="card-icon increase-icon">↗</div>
+                        <div class="card-content">
+                            <h3>Percentage Increase</h3>
+                            <p>Calculate percentage increase between two numbers</p>
+                        </div>
+                    </button>
+                    <button class="calculator-card" data-type="decrease">
+                        <div class="card-icon decrease-icon">↘</div>
+                        <div class="card-content">
+                            <h3>Percentage Decrease</h3>
+                            <p>Calculate percentage decrease between two numbers</p>
+                        </div>
+                    </button>
+                    <button class="calculator-card" data-type="whatPercent">
+                        <div class="card-icon what-percent-icon">?</div>
+                        <div class="card-content">
+                            <h3>What Percentage</h3>
+                            <p>Find what percentage X is of Y</p>
+                        </div>
+                    </button>
+                </div>
+            </section>
+            <section class="calculator-interface" aria-label="Calculator">
+                <div class="calculator-container">
+                    <div class="calculator-header">
+                        <h2 id="calculator-title">Basic Percentage Calculator</h2>
+                        <p id="calculator-description">Calculate what X% of a number is</p>
+                    </div>
+
+                    <form class="calculator-form" id="calculatorForm">
+                        <div id="inputsContainer" class="inputs-container">
+                            <!-- Dynamic inputs will be inserted here -->
+                        </div>
+
+                        <div id="formulaDisplay" class="formula-display hidden">
+                            <p class="formula-label">Formula:</p>
+                            <p id="formulaText" class="formula-text"></p>
+                        </div>
+
+                        <div id="resultDisplay" class="result-display hidden">
+                            <p class="result-label">Result:</p>
+                            <div class="result-value">
+                                <span id="resultValue">0</span>
+                                <button type="button" id="copyButton" class="copy-button" title="Copy to clipboard">
+                                    📋
+                                </button>
+                            </div>
+                            <p id="copyMessage" class="copy-message hidden">Copied to clipboard!</p>
+                        </div>
+
+                        <button type="button" id="resetButton" class="reset-button">
+                            🔄 Reset Calculator
+                        </button>
+                    </form>
+                </div>
+            </section>
+            <section class="features" aria-label="Features">
+                <h2>Why Choose Our Calculator?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🧮</div>
+                        <h3>Multiple Modes</h3>
+                        <p>Four different calculation types to cover all your percentage needs</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Real-time Results</h3>
+                        <p>Instant calculations as you type with live preview</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Professional Design</h3>
+                        <p>Modern, responsive interface that works on any device</p>
+                    </div>
+                </div>
+            </section>
+            <section class="seo-content">
+                <h2>How to Use the Percentage Calculator</h2>
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h3>Basic Percentage Calculation</h3>
+                        <p>To calculate what percentage of a number is, simply enter the percentage and the number. For example, to find 25% of 200, enter 25 in the percentage field and 200 in the number field.</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>Percentage Increase</h3>
+                        <p>Calculate the percentage increase between two values by entering the original number and the new number. The calculator will show you the percentage by which the value has increased.</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>Percentage Decrease</h3>
+                        <p>Find out how much a value has decreased in percentage terms by entering the original value and the new smaller value.</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>What Percentage</h3>
+                        <p>Determine what percentage one number represents of another. This is useful for finding ratios and proportions in various calculations.</p>
+                    </div>
+                </div>
+            </section>
+<div class="seo-container">
+<h2>Percentage Calculator - Calculate Any Percentage Easily</h2>
+<p>A percentage calculator helps you calculate percentages quickly and correctly. You can use it to find a percentage of a number, calculate percentage increase or decrease, compare two numbers, and convert between fractions, decimals, and percents. This page explains how to calculate percentage in many situations with exact formulas and clear examples.</p>
+<h3>How to calculate percentage</h3>
+<p>The base percentage formula is: Percentage = (Part ÷ Whole) × 100.</p>
+<p>Example: What percentage is 25 out of 200? (25 ÷ 200) × 100 = 12.5%.</p>
+<h3>How to find percentage of a number</h3>
+<p>Use: Percentage of a number = Number × (Percent ÷ 100).</p>
+<p>Example: What is 20% of 150? 150 × (20 ÷ 100) = 30.</p>
+<h3>How to calculate percentage of money</h3>
+<p>The process is the same as any number. Multiply the amount by the percent as a decimal.</p>
+<p>Example: What is 15% of $200? 200 × 0.15 = $30.</p>
+<h3>Percentage increase calculator</h3>
+<p>Use: Percentage Increase = [(New Value - Original Value) ÷ Original Value] × 100.</p>
+<p>Example: Price increases from $50 to $65. (65 - 50) ÷ 50 × 100 = 30% increase.</p>
+<h3>Percentage decrease calculator</h3>
+<p>Use: Percentage Decrease = [(Original Value - New Value) ÷ Original Value] × 100.</p>
+<p>Example: Price drops from $800 to $600. (800 - 600) ÷ 800 × 100 = 25% decrease.</p>
+<h3>Percentage change calculator</h3>
+<p>Use one formula for both directions: Percentage Change = [(New - Old) ÷ Old] × 100.</p>
+<p>If the result is positive, it is a percentage increase. If the result is negative, it is a percentage decrease.</p>
+<p>Example: Sales move from 1,000 to 1,200. (1,200 - 1,000) ÷ 1,000 × 100 = 20% increase.</p>
+<h3>Percent change formula</h3>
+<p>The percent change formula is identical to the percentage change formula: ((New - Old) ÷ Old) × 100. Use it for growth and decline.</p>
+<h3>Percentage difference calculator</h3>
+<p>Percentage Difference compares two numbers relative to their average.</p>
+<p>Use: Percentage Difference = (|Value 1 - Value 2| ÷ Average of the two values) × 100.</p>
+<p>Example: Compare 90 and 100. Difference = 10. Average = (90 + 100) ÷ 2 = 95. (10 ÷ 95) × 100 = 10.53%.</p>
+<h3>Percent difference formula</h3>
+<p>It is the same as above. Use absolute difference over the average, then multiply by 100.</p>
+<h3>How to calculate percent difference</h3>
+<p>Step 1: Subtract the two numbers and take the absolute value. Step 2: Compute the average of the two numbers. Step 3: Divide the absolute difference by the average. Step 4: Multiply by 100 to get a percent.</p>
+<h3>Percentage calculator between two numbers</h3>
+<p>Enter both numbers to get percentage increase, percentage decrease, or percentage difference. This helps for prices, test scores, or metrics over time.</p>
+<h3>Percentage increase between two numbers</h3>
+<p>Use: (New - Old) ÷ Old × 100.</p>
+<p>Example: From 120 to 180. (180 - 120) ÷ 120 × 100 = 50% increase.</p>
+<h3>How to calculate percentage increase</h3>
+<p>Subtract the original from the new value, divide by the original value, then multiply by 100. Keep at least two decimals when precision matters.</p>
+<h3>How to calculate percentage increase or decrease</h3>
+<p>Use the same formula: (New - Old) ÷ Old × 100. Positive means increase. Negative means decrease. Report the sign or describe it as increase or decrease.</p>
+<h3>How to calculate percentage change</h3>
+<p>Again: (New - Old) ÷ Old × 100. This single formula handles all cases of change.</p>
+<h3>Percent increase calculator</h3>
+<p>A percent increase calculator outputs the increase in percent relative to the original value. It saves time and reduces errors on repeated tasks.</p>
+<h3>Percent decrease calculator</h3>
+<p>A percent decrease calculator outputs the drop in percent relative to the original value. It helps with discounts, loss, or performance declines.</p>
+<h2>Margin calculator</h2>
+<p>A margin calculator uses percentages to show profitability. It often reports gross profit margin, operating margin, or net margin as a percent of revenue.</p>
+<h3>How to calculate gross profit percentage</h3>
+<p>Use: Gross Profit Percentage = (Gross Profit ÷ Revenue) × 100, where Gross Profit = Revenue - Cost of Goods Sold (COGS).</p>
+<p>Example: Revenue = $200,000 and COGS = $150,000. Gross Profit = $50,000. ($50,000 ÷ $200,000) × 100 = 25% gross profit.</p>
+<h2>Percent calculator</h2>
+<p>A percent calculator can solve any of these formats fast: What is X percent of Y, X is what percent of Y, and what is the percentage change between two values.</p>
+<h2>Fraction to percent</h2>
+<p>Divide the numerator by the denominator, then multiply by 100.</p>
+<p>Example: 3/4 = 0.75 × 100 = 75%.</p>
+<h3>Fraction to percent calculator</h3>
+<p>Enter a fraction like 7/8 to get the percent automatically. The tool converts exactly and returns the percent and the decimal form.</p>
+<h2>Decimal to percent</h2>
+<p>Multiply the decimal by 100 and add the percent sign.</p>
+<p>Example: 0.35 × 100 = 35%.</p>
+<h3>Decimal to percent calculator</h3>
+<p>Enter a decimal like 0.126. The tool returns 12.6% instantly.</p>
+<h3>Percent to decimal calculator</h3>
+<p>Divide the percent by 100 to get the decimal.</p>
+<p>Example: 25% ÷ 100 = 0.25.</p>
+<h2>Proportion calculator</h2>
+<p>A proportion calculator solves missing values in ratios and uses equal ratios to compute a percent. It is useful for problems like 12 is 30% of what number, or what is 40% of 300.</p>
+<p>Example: 12 is 30% of X. Set 12 = 0.30 × X, so X = 12 ÷ 0.30 = 40.</p>
+<h2>How to calculate percent growth</h2>
+<p>Use: Percent Growth = (New Value - Old Value) ÷ Old Value × 100.</p>
+<p>Example: Customers grow from 2,000 to 2,600. (2,600 - 2,000) ÷ 2,000 × 100 = 30% growth.</p>
+<h3>How to calculate percentages</h3>
+<p>Step 1: Identify the part and the whole. Step 2: Divide part by whole. Step 3: Multiply by 100. Use the same pattern for money, quantities, and scores.</p>
+<h3>Math calculator for percentages</h3>
+<p>A math calculator with percent functions solves percent of a number, percent change, and percent difference without manual steps. A percent calculator is the fastest way to avoid mistakes in daily work.</p>
+<h2>Frequently asked questions about percentage calculations</h2>
+<h3>What percentage of X is Y</h3>
+<p>Use (Y ÷ X) × 100. Example: What percentage of 200 is 50. (50 ÷ 200) × 100 = 25%.</p>
+<h3>How do you calculate percentage difference between two numbers</h3>
+<p>Use (|Number1 - Number2| ÷ Average of the two numbers) × 100. Example: |120 - 100| ÷ ((120 + 100) ÷ 2) × 100 = 20 ÷ 110 × 100 = 18.18%.</p>
+<h3>How do you calculate percentage increase between two numbers</h3>
+<p>Use ((New Value - Old Value) ÷ Old Value) × 100. Example: (75 - 50) ÷ 50 × 100 = 50% increase.</p>
+<h3>How do you calculate percentage decrease between two numbers</h3>
+<p>Use ((Old Value - New Value) ÷ Old Value) × 100. Example: (80 - 60) ÷ 80 × 100 = 25% decrease.</p>
+<h3>How do you calculate percentage of a number</h3>
+<p>Use (Percent × Number) ÷ 100. Example: 20% of 150 is (20 × 150) ÷ 100 = 30.</p>
+<h3>How do you convert a fraction to percent</h3>
+<p>Divide the fraction, then multiply by 100. Example: 3/4 = 0.75 × 100 = 75%.</p>
+<h3>How do you convert a decimal to percent</h3>
+<p>Multiply the decimal by 100. Example: 0.45 × 100 = 45%.</p>
+<h3>How do you calculate gross profit percentage</h3>
+<p>Use (Gross Profit ÷ Revenue) × 100. Example: $4,000 ÷ $10,000 × 100 = 40%.</p>
+<h3>How do you calculate percentage of money</h3>
+<p>Multiply the amount by the percent as a decimal. Example: 15% of $250 is 250 × 0.15 = $37.50.</p>
+<h3>What is the percent change formula</h3>
+<p>Use ((New Value - Old Value) ÷ Old Value) × 100. A positive result is a percent increase. A negative result is a percent decrease.</p>
+</div>
+        </div>
+    </main>
+<div id="footer-container"></div>
+<script src="script.js"></script>
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Advanced Percentage Calculator",
+    "description": "Professional percentage calculator with multiple calculation modes and word counter",
+    "url": "https://calculations.tools/percentage-calculator",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What percentage of X is Y?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use (Y ÷ X) × 100. Example: What percentage of 200 is 50? (50 ÷ 200) × 100 = 25%."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you calculate percentage difference between two numbers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use (|Number1 - Number2| ÷ Average of the two numbers) × 100. Example: |120 - 100| ÷ ((120 + 100) ÷ 2) × 100 = 20 ÷ 110 × 100 = 18.18%."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you calculate percentage increase between two numbers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use ((New Value - Old Value) ÷ Old Value) × 100. Example: (75 - 50) ÷ 50 × 100 = 50% increase."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you calculate percentage decrease between two numbers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use ((Old Value - New Value) ÷ Old Value) × 100. Example: (80 - 60) ÷ 80 × 100 = 25% decrease."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you calculate percentage of a number?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use (Percent × Number) ÷ 100. Example: 20% of 150 is (20 × 150) ÷ 100 = 30."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you convert a fraction to percent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Divide the fraction, then multiply by 100. Example: 3/4 = 0.75 × 100 = 75%."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you convert a decimal to percent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Multiply the decimal by 100. Example: 0.45 × 100 = 45%."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you calculate gross profit percentage?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use (Gross Profit ÷ Revenue) × 100. Example: $4,000 ÷ $10,000 × 100 = 40%."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you calculate percentage of money?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Multiply the amount by the percent as a decimal. Example: 15% of $250 is 250 × 0.15 = $37.50."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the percent change formula?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use ((New Value - Old Value) ÷ Old Value) × 100. A positive result is a percent increase. A negative result is a percent decrease."
+        }
+      }
+    ]
+  }
+]
+</script>
+</body>
+</html>

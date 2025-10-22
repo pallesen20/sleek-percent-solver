@@ -23,7 +23,8 @@ In short, calculations.tools functions as a multi-purpose, all-in-one calculator
 Every tool focuses on simplicity, accuracy, and speed, giving both formulas and instant results.
 
 ## Pages
-- [Percentage calculator](https://calculations.tools): Interactive percentage calculator. Calculate any percentage, percentage increase, decrease, and differences between two numbers with formulas and examples.
+- [Home](https://calculations.tools): Home page that features all the different tools on the site with direct links to each tool. A page that helps visitors navigate the site better.
+- [Percentage calculator](https://calculations.tools/percentage-calculator): Interactive percentage calculator. Calculate any percentage, percentage increase, decrease, and differences between two numbers with formulas and examples.
 - [Word and character counter](https://calculations.tools/word-counter): Counts words, characters, sentences, and paragraphs instantly. Helps with content writing, SEO, and character limits.
 - [Length converter](https://calculations.tools/conversion/length-converter): Real-time length conversion tool. Instantly convert between centimeters, inches, feet, meters, kilometers, miles, and yards with formulas and examples.
 - [Weight converter](https://calculations.tools/conversion/weight-converter): Real-time weight conversion tool. Instantly convert between kilograms, pounds, ounces, grams, tons, and more with formulas and examples.

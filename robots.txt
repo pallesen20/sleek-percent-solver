@@ -1,5 +1,4 @@
-
 User-agent: *
-Allow: /
+Disallow: /footer.html
 
 Sitemap: https://calculations.tools/sitemap.xml

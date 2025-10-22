@@ -11,6 +11,7 @@ function loadHeader() {
   <!-- End Google Tag Manager (noscript) -->
     <header class="header-glass">
       <div class="header-container">
+        <a href="/" class="site-logo">Calculations.tools</a>
         <nav class="nav-menu">
           <a href="/percentage-calculator" class="nav-link">Percentage Calculator</a>
           <div class="nav-dropdown">

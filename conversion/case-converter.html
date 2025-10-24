@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Converter | Change Text Case Online - Upper, Lower, Title Case ᐅ</title>
+    <meta name="description" content="Free online case converter tool. Instantly convert text to uppercase, lowercase, title case, sentence case, capitalized case, alternating case, and inverse case. Fast and accurate with character and word count.">
+    <meta name="keywords" content="case converter, text case converter, uppercase converter, lowercase converter, title case, sentence case, capitalized case, change text case, text transformation, case changer">
+    <meta name="author" content="Calculations.tools">
+    <link rel="canonical" href="https://calculations.tools/conversion/case-converter">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://calculations.tools/conversion/case-converter">
+    <meta property="og:title" content="Case Converter | Change Text Case Online - Upper, Lower, Title Case ᐅ">
+    <meta property="og:description" content="Free online case converter tool. Instantly convert text to uppercase, lowercase, title case, sentence case, capitalized case, alternating case, and inverse case. Fast and accurate with character and word count.">
+    <meta property="og:image" content="https://calculations.tools/open-graph.webp">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://calculations.tools/conversion/case-converter">
+    <meta property="twitter:title" content="Case Converter | Change Text Case Online - Upper, Lower, Title Case ᐅ">
+    <meta property="twitter:description" content="Free online case converter tool. Instantly convert text to uppercase, lowercase, title case, sentence case, capitalized case, alternating case, and inverse case. Fast and accurate with character and word count.">
+    <meta property="twitter:image" content="https://calculations.tools/favicon-512x512.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="/base.css">
+    <style>
+        /* Custom animations */
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.3s ease-out;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.02);
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Glassmorphism effects */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Toast styles */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+            max-width: 300px;
+        }
+
+        .toast.success {
+            border-left: 4px solid #10b981;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .toast-exit {
+            animation: slideOut 0.3s ease-out forwards;
+        }
+
+        .case-btn {
+            transition: all 0.2s ease;
+        }
+
+        .case-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .case-btn:active {
+            transform: translateY(0);
+        }
+    </style>
+    <script src="/header.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-700 to-slate-900">
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-4" style="line-height: 1.25">
+                Case Converter Tool
+            </h1>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                Transform your text instantly with our free case converter. 
+                Convert to uppercase, lowercase, title case, sentence case, and more.
+            </p>
+        </div>
+
+        <!-- Main Case Converter -->
+        <div class="max-w-4xl mx-auto space-y-6">
+            <!-- Input Section -->
+            <div class="glass rounded-lg p-6">
+                <div class="mb-4">
+                    <h2 class="text-2xl font-bold text-white mb-2">Enter Your Text</h2>
+                    <p class="text-gray-300">Type or paste your text below to convert it</p>
+                </div>
+                
+                <textarea 
+                    id="textInput"
+                    placeholder="Start typing or paste your text here..."
+                    class="w-full min-h-[200px] bg-white/5 border border-white/20 rounded-md p-3 text-white placeholder:text-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                ></textarea>
+                
+                <div class="flex gap-3 mt-4">
+                    <button
+                        id="copyBtn"
+                        class="inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-md text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled
+                    >
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        Copy Text
+                    </button>
+                    <button
+                        id="resetBtn"
+                        class="inline-flex items-center px-4 py-2 bg-transparent hover:bg-white/10 border border-white/20 rounded-md text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled
+                    >
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Case Conversion Buttons -->
+            <div class="glass rounded-lg p-6">
+                <h3 class="text-xl font-semibold text-white mb-4">Convert Case</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <button id="sentenceCase" class="case-btn px-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-md font-medium disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Sentence case
+                    </button>
+                    <button id="lowerCase" class="case-btn px-4 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-md font-medium disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        lower case
+                    </button>
+                    <button id="upperCase" class="case-btn px-4 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-md font-medium disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        UPPER CASE
+                    </button>
+                    <button id="capitalizedCase" class="case-btn px-4 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-md font-medium disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Capitalized Case
+                    </button>
+                    <button id="alternatingCase" class="case-btn px-4 py-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-md font-medium disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        aLtErNaTiNg cAsE
+                    </button>
+                    <button id="titleCase" class="case-btn px-4 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-md font-medium disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Title Case
+                    </button>
+                    <button id="inverseCase" class="case-btn px-4 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-md font-medium disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        iNVERSE cASE
+                    </button>
+                </div>
+            </div>
+
+            <!-- Statistics Grid -->
+            <div id="statsGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in hidden">
+                <div class="glass rounded-lg p-6 text-center">
+                    <div class="text-white/80 text-sm mb-2">Characters</div>
+                    <div class="text-3xl font-bold text-white" id="characterCount">0</div>
+                </div>
+                <div class="glass rounded-lg p-6 text-center">
+                    <div class="text-white/80 text-sm mb-2">Words</div>
+                    <div class="text-3xl font-bold text-white" id="wordCount">0</div>
+                </div>
+                <div class="glass rounded-lg p-6 text-center">
+                    <div class="text-white/80 text-sm mb-2">Sentences</div>
+                    <div class="text-3xl font-bold text-white" id="sentenceCount">0</div>
+                </div>
+                <div class="glass rounded-lg p-6 text-center">
+                    <div class="text-white/80 text-sm mb-2">Spaces</div>
+                    <div class="text-3xl font-bold text-white" id="spaceCount">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="seo-container">
+            <h2>Case Converter - Transform Text Case Online</h2>
+            <p>A case converter is an online tool that transforms text between different letter case formats. Whether you need to convert text to uppercase, lowercase, title case, sentence case, capitalized case, alternating case, or inverse case, this free tool provides instant results. Perfect for writers, students, developers, and content creators who need to format text quickly and accurately.</p>
+
+            <h2>Understanding Text Case Conversion</h2>
+            <p>Text case conversion refers to changing the capitalization pattern of letters in a string of text. Different case styles serve different purposes in writing, coding, and content creation. Understanding when and how to use each case type helps maintain consistency and professionalism in your work.</p>
+
+            <h2>Case Conversion Types and Examples</h2>
+
+            <h3>Sentence Case</h3>
+            <p><strong>Description:</strong> Capitalizes only the first letter of each sentence and proper nouns.</p>
+            <p><strong>Original:</strong> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG</p>
+            <p><strong>Converted:</strong> The quick brown fox jumps over the lazy dog</p>
+            <p><strong>When to Use:</strong> Standard writing format for paragraphs, articles, and most written content. This is the most common format in professional and academic writing.</p>
+
+            <h3>Lower Case</h3>
+            <p><strong>Description:</strong> Converts all letters to lowercase.</p>
+            <p><strong>Original:</strong> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG</p>
+            <p><strong>Converted:</strong> the quick brown fox jumps over the lazy dog</p>
+            <p><strong>When to Use:</strong> URLs, email addresses, programming variables, hashtags, and informal communication. Often used in coding for consistency and to avoid case-sensitivity issues.</p>
+
+            <h3>UPPER CASE</h3>
+            <p><strong>Description:</strong> Converts all letters to uppercase (capitals).</p>
+            <p><strong>Original:</strong> the quick brown fox jumps over the lazy dog</p>
+            <p><strong>Converted:</strong> THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG</p>
+            <p><strong>When to Use:</strong> Headings, titles, emphasis in informal text, acronyms, constant variables in programming, and attention-grabbing announcements. Use sparingly in regular text as it can be perceived as shouting.</p>
+
+            <h3>Capitalized Case</h3>
+            <p><strong>Description:</strong> Capitalizes the first letter of every word.</p>
+            <p><strong>Original:</strong> the quick brown fox jumps over the lazy dog</p>
+            <p><strong>Converted:</strong> The Quick Brown Fox Jumps Over The Lazy Dog</p>
+            <p><strong>When to Use:</strong> Book titles, movie names, proper nouns, and formal headings. Note that this differs from Title Case in that it capitalizes every word including articles and prepositions.</p>
+
+            <h3>Title Case</h3>
+            <p><strong>Description:</strong> Capitalizes the first letter of major words while keeping articles, conjunctions, and short prepositions in lowercase (unless they're the first or last word).</p>
+            <p><strong>Original:</strong> the quick brown fox jumps over the lazy dog</p>
+            <p><strong>Converted:</strong> The Quick Brown Fox Jumps over the Lazy Dog</p>
+            <p><strong>When to Use:</strong> Article headlines, book titles, newspaper headings, formal document titles, and academic papers. This follows standard title capitalization rules used in major style guides like APA, MLA, and Chicago.</p>
+
+            <h3>aLtErNaTiNg cAsE</h3>
+            <p><strong>Description:</strong> Alternates between lowercase and uppercase for each letter.</p>
+            <p><strong>Original:</strong> the quick brown fox jumps over the lazy dog</p>
+            <p><strong>Converted:</strong> tHe QuIcK bRoWn FoX jUmPs OvEr ThE lAzY dOg</p>
+            <p><strong>When to Use:</strong> Informal communication, memes, sarcasm, or creative text formatting in social media. Often used to mock or convey sarcasm in online conversations. Not recommended for professional or formal content.</p>
+
+            <h3>iNVERSE cASE</h3>
+            <p><strong>Description:</strong> Inverts the case of each letter (uppercase becomes lowercase and vice versa).</p>
+            <p><strong>Original:</strong> The Quick Brown Fox Jumps Over The Lazy Dog</p>
+            <p><strong>Converted:</strong> tHE qUICK bROWN fOX jUMPS oVER tHE lAZY dOG</p>
+            <p><strong>When to Use:</strong> Correcting text that was typed with Caps Lock accidentally enabled, creative text effects, or debugging text formatting issues. Useful for quickly fixing incorrectly capitalized text.</p>
+
+            <h2>Common Use Cases for Case Converters</h2>
+
+            <h3>Content Writing and Editing</h3>
+            <p>Writers and editors frequently need to adjust text case for consistency. A case converter helps ensure proper formatting for titles, headings, and body text according to style guide requirements.</p>
+
+            <h3>Programming and Development</h3>
+            <p>Developers use case converters to format variable names, function names, and constants. Converting between cases helps maintain code consistency and follows naming conventions like camelCase, snake_case, or SCREAMING_SNAKE_CASE.</p>
+
+            <h3>Social Media Management</h3>
+            <p>Social media managers convert text for hashtags, captions, and posts. Different platforms have different formatting conventions, and quick case conversion saves time.</p>
+
+            <h3>Academic Writing</h3>
+            <p>Students and researchers need to format titles, headings, and citations according to specific academic style guides. Case converters ensure proper capitalization for bibliographies, references, and paper titles.</p>
+
+            <h3>Email Marketing</h3>
+            <p>Email marketers convert subject lines and headlines to title case or sentence case to improve open rates and maintain professional appearance.</p>
+
+            <h2>Benefits of Using a Case Converter</h2>
+            <p><strong>Time-saving:</strong> Instantly convert large amounts of text without manual editing.</p>
+            <p><strong>Accuracy:</strong> Eliminates human error in capitalization, especially in long documents.</p>
+            <p><strong>Consistency:</strong> Ensures uniform formatting across documents and projects.</p>
+            <p><strong>Convenience:</strong> No software installation required - works directly in your browser.</p>
+            <p><strong>Free:</strong> Access professional text formatting tools without any cost.</p>
+            <p><strong>Multi-purpose:</strong> Supports multiple case conversion types for various needs.</p>
+
+            <h2>Tips for Effective Text Case Usage</h2>
+            <p>1. <strong>Know your style guide:</strong> Different industries and publications follow different capitalization rules. Familiarize yourself with AP Style, Chicago Manual of Style, APA, or MLA depending on your field.</p>
+            <p>2. <strong>Consider readability:</strong> UPPERCASE text is harder to read in large blocks. Use it sparingly for emphasis.</p>
+            <p>3. <strong>Maintain consistency:</strong> Once you choose a case style for headings or titles, use it consistently throughout your document.</p>
+            <p>4. <strong>Respect brand names:</strong> Some company names have specific capitalization (iPhone, eBay, WordPress). Always use the official spelling.</p>
+            <p>5. <strong>Test different cases:</strong> Try multiple case options to see which looks best for your specific content and audience.</p>
+
+            <h2>Case Conversion in Different Languages</h2>
+            <p>While case conversion works seamlessly for English text, different languages have unique capitalization rules. German capitalizes all nouns, French uses lowercase for days and months, and Spanish has specific rules for titles. Always consider language-specific conventions when converting text case.</p>
+
+            <h2>Technical Considerations</h2>
+            <p>Case converters handle Unicode characters and special symbols correctly. The tool preserves spaces, punctuation, numbers, and special characters while only transforming alphabetic characters. This ensures your text formatting remains intact during conversion.</p>
+
+            <h2>Frequently Asked Questions About Case Converters</h2>
+
+            <h3>What is a case converter used for?</h3>
+            <p>A case converter transforms text between different capitalization formats like uppercase, lowercase, title case, and sentence case. It's used by writers, students, developers, and content creators to format text quickly and consistently.</p>
+
+            <h3>How do I convert text to uppercase?</h3>
+            <p>Paste your text into the case converter tool and click the "UPPER CASE" button. All letters will be converted to capitals instantly. This is useful for headings, acronyms, and emphasis.</p>
+
+            <h3>What is the difference between title case and sentence case?</h3>
+            <p>Sentence case capitalizes only the first letter of each sentence and proper nouns, while title case capitalizes the first letter of major words in titles. Title case is used for headlines and book titles, while sentence case is for regular paragraphs.</p>
+
+            <h3>Can I convert text to title case automatically?</h3>
+            <p>Yes, simply paste your text and click the "Title Case" button. The converter automatically capitalizes major words while keeping articles, conjunctions, and short prepositions lowercase according to standard title capitalization rules.</p>
+
+            <h3>What is capitalized case?</h3>
+            <p>Capitalized case (also called Start Case) capitalizes the first letter of every word, including articles and prepositions. Example: "The Quick Brown Fox" - every word starts with a capital letter regardless of word type.</p>
+
+            <h3>When should I use alternating case?</h3>
+            <p>Alternating case (aLtErNaTiNg cAsE) is primarily used for informal communication, memes, or to convey sarcasm in social media. It alternates between lowercase and uppercase for each letter and should not be used in professional contexts.</p>
+
+            <h3>What is inverse case and when is it useful?</h3>
+            <p>Inverse case flips the capitalization of each letter - uppercase becomes lowercase and vice versa. It's useful for correcting text typed with Caps Lock accidentally enabled or for creative text effects.</p>
+
+            <h3>Does the case converter work with special characters?</h3>
+            <p>Yes, case converters preserve special characters, numbers, punctuation, and spaces. Only alphabetic characters are transformed, ensuring your text formatting remains intact.</p>
+
+            <h3>Can I use case converter for programming?</h3>
+            <p>Yes, developers use case converters to format variable names, function names, and constants. It helps maintain code consistency and follows naming conventions required in different programming languages.</p>
+
+            <h3>Is sentence case the same as lowercase?</h3>
+            <p>No, sentence case capitalizes the first letter of each sentence and proper nouns, while lowercase converts all letters to lowercase. Sentence case follows standard writing conventions, making it more readable than all lowercase text.</p>
+
+            <h3>How does title case handle articles and prepositions?</h3>
+            <p>Title case keeps short articles (a, an, the), conjunctions (and, but, or), and prepositions (in, on, at, to, for) in lowercase unless they're the first or last word of the title. Major words are always capitalized.</p>
+
+            <h3>Can I convert large amounts of text at once?</h3>
+            <p>Yes, case converters can handle large text blocks instantly. Simply paste any amount of text and click your desired case conversion button for immediate results.</p>
+
+            <h3>Does case conversion affect text meaning?</h3>
+            <p>While case conversion changes appearance, it can affect meaning in certain contexts. For example, "polish" (verb) vs "Polish" (nationality). Brand names, proper nouns, and acronyms should maintain their original capitalization for accuracy.</p>
+
+            <h3>What is the best case for email subject lines?</h3>
+            <p>Title case or sentence case works best for email subject lines. Title case can increase open rates for marketing emails, while sentence case appears more personal and conversational for regular correspondence.</p>
+
+            <h3>Can case converters handle non-English characters?</h3>
+            <p>Yes, modern case converters support Unicode and can handle characters from various languages including accented letters (é, ñ, ü) and non-Latin alphabets, though results may vary based on language-specific capitalization rules.</p>
+
+            <h3>Is there a character limit for case conversion?</h3>
+            <p>Most online case converters can handle thousands of characters without issues. Our tool processes text instantly regardless of length, making it suitable for documents, articles, and long-form content.</p>
+
+            <h3>How accurate are automatic title case converters?</h3>
+            <p>Title case converters follow standard capitalization rules from major style guides. However, always review results for proper nouns, brand names, and context-specific capitalization that may require manual adjustment.</p>
+
+            <h3>Can I undo a case conversion?</h3>
+            <p>Most case converters don't have an undo feature, but you can use inverse case to flip capitalization or simply paste your original text again. For safety, keep a copy of your original text before converting.</p>
+
+            <h3>What's the difference between capitalized case and title case?</h3>
+            <p>Capitalized case capitalizes every single word without exception, while title case follows grammar rules by keeping articles, conjunctions, and short prepositions lowercase (except at the start or end of titles).</p>
+
+            <h3>Should I use UPPERCASE for emphasis?</h3>
+            <p>While uppercase can emphasize text, use it sparingly. In online communication, all caps can be perceived as shouting. Consider using bold, italics, or title case for professional emphasis instead.</p>
+        </div>
+    </div>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is a case converter used for?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A case converter transforms text between different capitalization formats like uppercase, lowercase, title case, and sentence case. It's used by writers, students, developers, and content creators to format text quickly and consistently."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I convert text to uppercase?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Paste your text into the case converter tool and click the 'UPPER CASE' button. All letters will be converted to capitals instantly. This is useful for headings, acronyms, and emphasis."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the difference between title case and sentence case?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Sentence case capitalizes only the first letter of each sentence and proper nouns, while title case capitalizes the first letter of major words in titles. Title case is used for headlines and book titles, while sentence case is for regular paragraphs."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I convert text to title case automatically?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, simply paste your text and click the 'Title Case' button. The converter automatically capitalizes major words while keeping articles, conjunctions, and short prepositions lowercase according to standard title capitalization rules."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is capitalized case?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Capitalized case (also called Start Case) capitalizes the first letter of every word, including articles and prepositions. Example: 'The Quick Brown Fox' - every word starts with a capital letter regardless of word type."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "When should I use alternating case?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Alternating case (aLtErNaTiNg cAsE) is primarily used for informal communication, memes, or to convey sarcasm in social media. It alternates between lowercase and uppercase for each letter and should not be used in professional contexts."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is inverse case and when is it useful?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Inverse case flips the capitalization of each letter - uppercase becomes lowercase and vice versa. It's useful for correcting text typed with Caps Lock accidentally enabled or for creative text effects."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does the case converter work with special characters?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, case converters preserve special characters, numbers, punctuation, and spaces. Only alphabetic characters are transformed, ensuring your text formatting remains intact."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use case converter for programming?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, developers use case converters to format variable names, function names, and constants. It helps maintain code consistency and follows naming conventions required in different programming languages."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is sentence case the same as lowercase?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No, sentence case capitalizes the first letter of each sentence and proper nouns, while lowercase converts all letters to lowercase. Sentence case follows standard writing conventions, making it more readable than all lowercase text."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <script>
+        // Toast notification system
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <div class="toast-title">${type === 'success' ? 'Success' : 'Error'}</div>
+                <div class="toast-description">${message}</div>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('toast-exit');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Get elements
+        const textInput = document.getElementById('textInput');
+        const copyBtn = document.getElementById('copyBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const statsGrid = document.getElementById('statsGrid');
+        const characterCount = document.getElementById('characterCount');
+        const wordCount = document.getElementById('wordCount');
+        const sentenceCount = document.getElementById('sentenceCount');
+        const spaceCount = document.getElementById('spaceCount');
+
+        // Case conversion buttons
+        const sentenceCaseBtn = document.getElementById('sentenceCase');
+        const lowerCaseBtn = document.getElementById('lowerCase');
+        const upperCaseBtn = document.getElementById('upperCase');
+        const capitalizedCaseBtn = document.getElementById('capitalizedCase');
+        const alternatingCaseBtn = document.getElementById('alternatingCase');
+        const titleCaseBtn = document.getElementById('titleCase');
+        const inverseCaseBtn = document.getElementById('inverseCase');
+
+        // Calculate statistics
+        function calculateStats(text) {
+            const characters = text.length;
+            const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+            const sentences = text.trim() === '' ? 0 : text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+            const spaces = (text.match(/\s/g) || []).length;
+
+            return { characters, words, sentences, spaces };
+        }
+
+        // Update display
+        function updateDisplay() {
+            const text = textInput.value;
+            const hasText = text.length > 0;
+
+            // Update buttons state
+            copyBtn.disabled = !hasText;
+            resetBtn.disabled = !hasText;
+            sentenceCaseBtn.disabled = !hasText;
+            lowerCaseBtn.disabled = !hasText;
+            upperCaseBtn.disabled = !hasText;
+            capitalizedCaseBtn.disabled = !hasText;
+            alternatingCaseBtn.disabled = !hasText;
+            titleCaseBtn.disabled = !hasText;
+            inverseCaseBtn.disabled = !hasText;
+
+            if (hasText) {
+                const stats = calculateStats(text);
+                characterCount.textContent = stats.characters;
+                wordCount.textContent = stats.words;
+                sentenceCount.textContent = stats.sentences;
+                spaceCount.textContent = stats.spaces;
+                statsGrid.classList.remove('hidden');
+            } else {
+                statsGrid.classList.add('hidden');
+            }
+        }
+
+        // Case conversion functions
+        function toSentenceCase(text) {
+            return text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase());
+        }
+
+        function toTitleCase(text) {
+            const smallWords = /^(a|an|and|as|at|but|by|for|if|in|nor|of|on|or|so|the|to|up|yet)$/i;
+            return text.toLowerCase().replace(/\w+/g, (word, index) => {
+                if (index === 0 || !smallWords.test(word)) {
+                    return word.charAt(0).toUpperCase() + word.slice(1);
+                }
+                return word;
+            });
+        }
+
+        function toCapitalizedCase(text) {
+            return text.replace(/\b\w/g, c => c.toUpperCase());
+        }
+
+        function toAlternatingCase(text) {
+            let result = '';
+            let isUpper = false;
+            for (let char of text) {
+                if (char.match(/[a-zA-Z]/)) {
+                    result += isUpper ? char.toUpperCase() : char.toLowerCase();
+                    isUpper = !isUpper;
+                } else {
+                    result += char;
+                }
+            }
+            return result;
+        }
+
+        function toInverseCase(text) {
+            return text.split('').map(char => {
+                if (char === char.toUpperCase()) {
+                    return char.toLowerCase();
+                } else {
+                    return char.toUpperCase();
+                }
+            }).join('');
+        }
+
+        // Event listeners
+        textInput.addEventListener('input', updateDisplay);
+
+        sentenceCaseBtn.addEventListener('click', () => {
+            textInput.value = toSentenceCase(textInput.value);
+            updateDisplay();
+            showToast('Converted to sentence case');
+        });
+
+        lowerCaseBtn.addEventListener('click', () => {
+            textInput.value = textInput.value.toLowerCase();
+            updateDisplay();
+            showToast('Converted to lowercase');
+        });
+
+        upperCaseBtn.addEventListener('click', () => {
+            textInput.value = textInput.value.toUpperCase();
+            updateDisplay();
+            showToast('Converted to UPPERCASE');
+        });
+
+        capitalizedCaseBtn.addEventListener('click', () => {
+            textInput.value = toCapitalizedCase(textInput.value);
+            updateDisplay();
+            showToast('Converted to Capitalized Case');
+        });
+
+        alternatingCaseBtn.addEventListener('click', () => {
+            textInput.value = toAlternatingCase(textInput.value);
+            updateDisplay();
+            showToast('Converted to aLtErNaTiNg cAsE');
+        });
+
+        titleCaseBtn.addEventListener('click', () => {
+            textInput.value = toTitleCase(textInput.value);
+            updateDisplay();
+            showToast('Converted to Title Case');
+        });
+
+        inverseCaseBtn.addEventListener('click', () => {
+            textInput.value = toInverseCase(textInput.value);
+            updateDisplay();
+            showToast('Converted to iNVERSE cASE');
+        });
+
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(textInput.value);
+                showToast('Text copied to clipboard');
+            } catch (err) {
+                showToast('Failed to copy text', 'error');
+            }
+        });
+
+        resetBtn.addEventListener('click', () => {
+            textInput.value = '';
+            updateDisplay();
+            showToast('Text cleared');
+        });
+
+        // Initial state
+        updateDisplay();
+
+        // Load footer
+        fetch('/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.body.insertAdjacentHTML('beforeend', data);
+            });
+    </script>
+</body>
+</html>

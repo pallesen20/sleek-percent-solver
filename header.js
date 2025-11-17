@@ -23,6 +23,7 @@ function loadHeader() {
               <a href="/conversion/weight-converter" class="dropdown-link">Weight Converter</a>
               <a href="/conversion/temperature-converter" class="dropdown-link">Temperature Converter</a>
               <a href="/conversion/case-converter" class="dropdown-link">Case Converter</a>
+              <a href="/conversion/currency-converter" class="dropdown-link">Currency Converter</a>
             </div>
           </div>
           <a href="/word-counter" class="nav-link">Word Counter</a>

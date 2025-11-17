@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter | Live Exchange Rates Calculator ᐅ</title>
+    <meta name="description" content="Convert any currency instantly with our free real-time currency converter. Get live mid-market exchange rates for 150+ currencies including USD, EUR, GBP, JPY, AUD, CAD, and more. Accurate and updated daily.">
+    <meta name="keywords" content="currency converter, exchange rate calculator, USD to EUR, GBP to USD, currency exchange, live exchange rates, foreign currency converter, money converter, forex calculator">
+    <meta name="author" content="Calculations.tools">
+    <link rel="canonical" href="https://calculations.tools/conversion/currency-converter">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://calculations.tools/conversion/currency-converter">
+    <meta property="og:title" content="Currency Converter | Live Exchange Rates Calculator ᐅ">
+    <meta property="og:description" content="Convert any currency instantly with our free real-time currency converter. Get live mid-market exchange rates for 150+ currencies. Accurate and updated daily.">
+    <meta property="og:image" content="https://calculations.tools/open-graph.webp">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://calculations.tools/conversion/currency-converter">
+    <meta property="twitter:title" content="Currency Converter | Live Exchange Rates Calculator ᐅ">
+    <meta property="twitter:description" content="Convert any currency instantly with our free real-time currency converter. Get live mid-market exchange rates for 150+ currencies.">
+    <meta property="twitter:image" content="https://calculations.tools/favicon-512x512.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="/base.css">
+    <style>
+        .swap-button {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: -24px auto;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .swap-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(180deg);
+        }
+        
+        .swap-button svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+        
+        .exchange-rate-info {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .exchange-rate-info h3 {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .exchange-rate-info .rate {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .exchange-rate-info .update-time {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .currency-input-group {
+            position: relative;
+        }
+        
+        .currency-input-group input {
+            padding-right: 120px;
+        }
+        
+        .currency-input-group select {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px 32px 8px 12px;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 16px;
+        }
+        
+        .currency-input-group select:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+    <script src="/header.js"></script>
+</head>
+<body>
+    <div class="text-center mb-12">
+        <h1 class="main-title">Currency Converter</h1>
+        <p class="subtitle">Convert between 150+ currencies with live mid-market exchange rates</p>
+    </div>
+    <main class="main-content">
+        <div class="container">
+            <div class="calculator-interface">
+                <div class="calculator-container">
+                    <div class="exchange-rate-info">
+                        <h3>Mid-market exchange rate</h3>
+                        <div class="rate" id="displayRate">1 USD = 1.00 USD</div>
+                        <div class="update-time" id="updateTime">Loading...</div>
+                    </div>
+                    
+                    <form class="calculator-form" id="currencyForm">
+                        <div class="form-group currency-input-group">
+                            <label for="fromAmount">Amount</label>
+                            <input 
+                                type="number" 
+                                id="fromAmount" 
+                                class="form-input" 
+                                placeholder="1,000" 
+                                step="0.01"
+                                min="0"
+                                value="1000"
+                                required
+                            />
+                            <select id="fromCurrency" class="currency-select">
+                                <!-- Currencies will be populated by JavaScript -->
+                            </select>
+                        </div>
+
+                        <div class="swap-button" id="swapBtn" title="Swap currencies">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                            </svg>
+                        </div>
+
+                        <div class="form-group currency-input-group">
+                            <label for="toAmount">Converted to</label>
+                            <input 
+                                type="number" 
+                                id="toAmount" 
+                                class="form-input" 
+                                placeholder="0.00" 
+                                step="0.01"
+                                min="0"
+                                readonly
+                            />
+                            <select id="toCurrency" class="currency-select">
+                                <!-- Currencies will be populated by JavaScript -->
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- SEO Content -->
+            <section class="seo-content" aria-label="Currency Converter Information">
+                <h2>Free Real-Time Currency Converter</h2>
+                <p>
+                    Convert between any world currencies instantly with our free currency converter. We provide real-time mid-market exchange rates updated daily for accurate conversions. Whether you're traveling, shopping online internationally, or managing foreign investments, our currency converter gives you the most accurate exchange rates available.
+                </p>
+                <p>
+                    Our currency converter supports over 150 currencies including major pairs like USD to EUR, GBP to USD, EUR to GBP, JPY to USD, and many more. Get instant conversions with the mid-market rate—the fairest exchange rate available, without hidden markups or fees.
+                </p>
+
+                <h2>Popular Currency Conversions</h2>
+                <div class="example-grid">
+                    <div class="example-card">
+                        <h3>USD to EUR (US Dollar to Euro)</h3>
+                        <p><strong>Example:</strong> 1,000 USD = 920.00 EUR (at rate 1 USD = 0.92 EUR)</p>
+                        <p><strong>When to use:</strong> Converting US dollars to euros for European travel, online shopping from EU stores, or international business transactions. The USD/EUR is one of the most traded currency pairs in the world.</p>
+                    </div>
+                    <div class="example-card">
+                        <h3>GBP to USD (British Pound to US Dollar)</h3>
+                        <p><strong>Example:</strong> 500 GBP = 630.00 USD (at rate 1 GBP = 1.26 USD)</p>
+                        <p><strong>When to use:</strong> Converting pounds to dollars for US travel, purchasing from American retailers, or receiving payments from UK clients. The GBP is historically one of the strongest major currencies.</p>
+                    </div>
+                    <div class="example-card">
+                        <h3>EUR to GBP (Euro to British Pound)</h3>
+                        <p><strong>Example:</strong> 1,000 EUR = 865.00 GBP (at rate 1 EUR = 0.865 GBP)</p>
+                        <p><strong>When to use:</strong> Converting euros to pounds for UK travel, property transactions in Britain, or business dealings with British companies.</p>
+                    </div>
+                    <div class="example-card">
+                        <h3>JPY to USD (Japanese Yen to US Dollar)</h3>
+                        <p><strong>Example:</strong> 100,000 JPY = 670.00 USD (at rate 1 JPY = 0.0067 USD)</p>
+                        <p><strong>When to use:</strong> Converting yen for US travel, importing from Japan, or managing Japanese investments. The yen is the third most traded currency globally.</p>
+                    </div>
+                    <div class="example-card">
+                        <h3>AUD to USD (Australian Dollar to US Dollar)</h3>
+                        <p><strong>Example:</strong> 1,500 AUD = 975.00 USD (at rate 1 AUD = 0.65 USD)</p>
+                        <p><strong>When to use:</strong> Converting Australian dollars for international transactions, US travel, or cross-border payments between Australia and the United States.</p>
+                    </div>
+                    <div class="example-card">
+                        <h3>CAD to USD (Canadian Dollar to US Dollar)</h3>
+                        <p><strong>Example:</strong> 1,000 CAD = 735.00 USD (at rate 1 CAD = 0.735 USD)</p>
+                        <p><strong>When to use:</strong> Converting Canadian dollars for cross-border shopping, US travel, or business transactions. CAD and USD are commonly exchanged due to close trade relationships.</p>
+                    </div>
+                </div>
+
+                <h2>Understanding Mid-Market Exchange Rates</h2>
+                <p>
+                    The mid-market rate (also called the interbank rate or mid-point rate) is the midpoint between the buy and sell prices of two currencies on the global market. This is the "true" exchange rate you see on Google or financial news sites—it's the rate banks and currency services use to trade with each other.
+                </p>
+                <p>
+                    <strong>Why use mid-market rates?</strong> Most currency exchange services add a markup to the mid-market rate to make a profit. By showing you the mid-market rate, you can see the true value of your money and compare it to what exchange services are offering. This transparency helps you avoid hidden fees and get the best deal possible.
+                </p>
+                <p>
+                    Our currency converter updates exchange rates daily from reliable financial data sources, ensuring you always see accurate, real-time information for your currency conversions.
+                </p>
+
+                <h2>How to Use the Currency Converter</h2>
+                <ol>
+                    <li><strong>Enter the amount</strong> you want to convert in the first field</li>
+                    <li><strong>Select your source currency</strong> from the dropdown (e.g., USD, EUR, GBP)</li>
+                    <li><strong>Select your target currency</strong> in the second dropdown</li>
+                    <li><strong>See instant results</strong>—the converted amount appears automatically</li>
+                    <li><strong>Use the swap button</strong> to quickly reverse the conversion direction</li>
+                </ol>
+
+                <h2>Supported Currencies</h2>
+                <p>
+                    Our currency converter supports all major world currencies and many minor ones, including:
+                </p>
+                <ul>
+                    <li><strong>Major currencies:</strong> USD (US Dollar), EUR (Euro), GBP (British Pound), JPY (Japanese Yen), CHF (Swiss Franc), CAD (Canadian Dollar), AUD (Australian Dollar), NZD (New Zealand Dollar)</li>
+                    <li><strong>Asian currencies:</strong> CNY (Chinese Yuan), HKD (Hong Kong Dollar), SGD (Singapore Dollar), INR (Indian Rupee), KRW (South Korean Won), THB (Thai Baht), MYR (Malaysian Ringgit)</li>
+                    <li><strong>European currencies:</strong> NOK (Norwegian Krone), SEK (Swedish Krona), DKK (Danish Krone), PLN (Polish Zloty), CZK (Czech Koruna), HUF (Hungarian Forint), RON (Romanian Leu)</li>
+                    <li><strong>Middle Eastern currencies:</strong> AED (UAE Dirham), SAR (Saudi Riyal), ILS (Israeli Shekel), TRY (Turkish Lira)</li>
+                    <li><strong>Latin American currencies:</strong> MXN (Mexican Peso), BRL (Brazilian Real), ARS (Argentine Peso), CLP (Chilean Peso), COP (Colombian Peso)</li>
+                    <li><strong>African currencies:</strong> ZAR (South African Rand), EGP (Egyptian Pound), NGN (Nigerian Naira), KES (Kenyan Shilling)</li>
+                    <li>...and 100+ more currencies from around the world</li>
+                </ul>
+
+                <h2>Currency Converter Features</h2>
+                <ul>
+                    <li><strong>Real-time exchange rates:</strong> Updated daily with accurate mid-market rates</li>
+                    <li><strong>150+ currencies:</strong> Convert between any major or minor world currency</li>
+                    <li><strong>Instant calculations:</strong> See results as you type</li>
+                    <li><strong>Swap function:</strong> Quickly reverse conversion direction with one click</li>
+                    <li><strong>Mobile-friendly:</strong> Works perfectly on phones, tablets, and desktops</li>
+                    <li><strong>No registration required:</strong> Use the converter immediately, no account needed</li>
+                    <li><strong>Completely free:</strong> No hidden fees, subscriptions, or limits</li>
+                    <li><strong>Rate transparency:</strong> See the exact mid-market rate being used</li>
+                    <li><strong>Last updated time:</strong> Know exactly when the exchange rate was last refreshed</li>
+                </ul>
+
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <h3>How accurate are the exchange rates?</h3>
+                    <p>Our exchange rates are sourced from reliable financial data providers and updated daily. We display the mid-market rate, which is the most accurate representation of a currency's true value on the global market.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How often are exchange rates updated?</h3>
+                    <p>Exchange rates are updated once per day. The exact update time is displayed below the exchange rate so you always know how current the data is.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What is the mid-market exchange rate?</h3>
+                    <p>The mid-market rate is the midpoint between the buy and sell prices of two currencies. It's the "real" exchange rate without any markup. Banks and currency services use this rate when trading with each other, but typically add a margin when dealing with customers.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Why is my bank's exchange rate different?</h3>
+                    <p>Banks and currency exchange services typically add a markup to the mid-market rate—this is how they make money on currency conversions. Their rates may be 2-5% (or more) worse than the mid-market rate shown on our converter.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I use this for business transactions?</h3>
+                    <p>Yes, our currency converter is suitable for estimating business transaction values. However, for actual business payments, use your bank or payment provider's rate, as it may differ from the mid-market rate.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Which currencies are supported?</h3>
+                    <p>We support over 150 currencies including all major currencies (USD, EUR, GBP, JPY, CHF, CAD, AUD) and many minor currencies from around the world.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is this currency converter free to use?</h3>
+                    <p>Yes, our currency converter is completely free with no registration required. There are no hidden fees, subscriptions, or usage limits.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How do I convert USD to EUR?</h3>
+                    <p>Select USD in the first dropdown menu, enter your amount, and select EUR in the second dropdown. The conversion will happen automatically showing you how many euros you'll get for your dollars.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What does the swap button do?</h3>
+                    <p>The swap button (↕) reverses your currency selection. If you're converting USD to EUR, clicking swap will change it to EUR to USD, making it easy to see the conversion in both directions.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I convert cryptocurrency?</h3>
+                    <p>Currently, our converter focuses on traditional fiat currencies (government-issued currencies). Cryptocurrency conversions are not yet supported.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How do I know if I'm getting a good exchange rate?</h3>
+                    <p>Compare the rate offered by your bank or exchange service to our mid-market rate. The closer to the mid-market rate, the better the deal. Watch out for rates that are 3-5% or more below the mid-market rate.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What is the best time to exchange currency?</h3>
+                    <p>Exchange rates fluctuate throughout the day based on market conditions. For large amounts, consider monitoring rates over several days. For typical transactions, the difference day-to-day is usually minimal.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I use this converter offline?</h3>
+                    <p>No, the converter requires an internet connection to fetch the latest exchange rates. However, you can note the exchange rate and use it for manual calculations offline.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you show historical exchange rates?</h3>
+                    <p>Currently, we show only the current day's exchange rate. Historical rate charts are not available at this time.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How does currency conversion work?</h3>
+                    <p>Currency conversion multiplies your amount by the exchange rate. For example: 1,000 USD × 0.92 (rate) = 920 EUR. The exchange rate represents how much of the target currency equals one unit of your source currency.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Are there any limits on conversion amounts?</h3>
+                    <p>No, you can convert any amount. However, keep in mind this is for informational purposes—actual conversion limits depend on your bank or exchange service.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Why do I see decimal places in my conversion?</h3>
+                    <p>Currencies are typically expressed to 2 decimal places (cents), but exchange rates can have 4-6 decimal places for precision. This ensures accurate calculations especially for large amounts.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What's the difference between buying and selling rates?</h3>
+                    <p>The buying rate is what you pay when purchasing a currency; the selling rate is what you receive when selling. The mid-market rate we show is the middle point. Banks typically offer worse buying rates and better selling rates (from their perspective).</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I trust this currency converter for travel planning?</h3>
+                    <p>Yes, our converter is excellent for travel planning and budgeting. It helps you estimate costs in your home currency. Just remember that airports and exchange booths typically offer rates 5-10% worse than the mid-market rate.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How do exchange rates affect international shopping?</h3>
+                    <p>When shopping internationally online, your credit card company will convert the price using their exchange rate (usually close to mid-market) plus a foreign transaction fee (typically 1-3%). Use our converter to estimate the final cost in your currency.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script id="footer-script" src="/footer.html"></script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How accurate are the exchange rates?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Our exchange rates are sourced from reliable financial data providers and updated daily. We display the mid-market rate, which is the most accurate representation of a currency's true value on the global market."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How often are exchange rates updated?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Exchange rates are updated once per day. The exact update time is displayed below the exchange rate so you always know how current the data is."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the mid-market exchange rate?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The mid-market rate is the midpoint between the buy and sell prices of two currencies. It's the real exchange rate without any markup. Banks and currency services use this rate when trading with each other."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is this currency converter free to use?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, our currency converter is completely free with no registration required. There are no hidden fees, subscriptions, or usage limits."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I convert USD to EUR?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Select USD in the first dropdown menu, enter your amount, and select EUR in the second dropdown. The conversion will happen automatically showing you how many euros you'll get for your dollars."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <script>
+        // Currency data - major currencies with their full names
+        const currencies = {
+            'USD': 'US Dollar',
+            'EUR': 'Euro',
+            'GBP': 'British Pound',
+            'JPY': 'Japanese Yen',
+            'AUD': 'Australian Dollar',
+            'CAD': 'Canadian Dollar',
+            'CHF': 'Swiss Franc',
+            'CNY': 'Chinese Yuan',
+            'SEK': 'Swedish Krona',
+            'NZD': 'New Zealand Dollar',
+            'MXN': 'Mexican Peso',
+            'SGD': 'Singapore Dollar',
+            'HKD': 'Hong Kong Dollar',
+            'NOK': 'Norwegian Krone',
+            'KRW': 'South Korean Won',
+            'TRY': 'Turkish Lira',
+            'INR': 'Indian Rupee',
+            'RUB': 'Russian Ruble',
+            'BRL': 'Brazilian Real',
+            'ZAR': 'South African Rand',
+            'DKK': 'Danish Krone',
+            'PLN': 'Polish Zloty',
+            'THB': 'Thai Baht',
+            'IDR': 'Indonesian Rupiah',
+            'HUF': 'Hungarian Forint',
+            'CZK': 'Czech Koruna',
+            'ILS': 'Israeli Shekel',
+            'CLP': 'Chilean Peso',
+            'PHP': 'Philippine Peso',
+            'AED': 'UAE Dirham',
+            'COP': 'Colombian Peso',
+            'SAR': 'Saudi Riyal',
+            'MYR': 'Malaysian Ringgit',
+            'RON': 'Romanian Leu',
+            'ARS': 'Argentine Peso',
+            'VND': 'Vietnamese Dong',
+            'BGN': 'Bulgarian Lev',
+            'HRK': 'Croatian Kuna',
+            'ISK': 'Icelandic Krona',
+            'PKR': 'Pakistani Rupee',
+            'BDT': 'Bangladeshi Taka',
+            'EGP': 'Egyptian Pound',
+            'KES': 'Kenyan Shilling',
+            'NGN': 'Nigerian Naira',
+            'UAH': 'Ukrainian Hryvnia',
+            'QAR': 'Qatari Riyal',
+            'KWD': 'Kuwaiti Dinar',
+            'OMR': 'Omani Rial',
+            'JOD': 'Jordanian Dinar',
+            'BHD': 'Bahraini Dinar',
+            'LKR': 'Sri Lankan Rupee',
+            'MMK': 'Myanmar Kyat',
+            'IQD': 'Iraqi Dinar',
+            'DZD': 'Algerian Dinar',
+            'MAD': 'Moroccan Dirham',
+            'TND': 'Tunisian Dinar',
+            'UYU': 'Uruguayan Peso',
+            'PEN': 'Peruvian Sol',
+            'BOB': 'Bolivian Boliviano',
+            'PYG': 'Paraguayan Guarani',
+            'CRC': 'Costa Rican Colon',
+            'GTQ': 'Guatemalan Quetzal',
+            'HNL': 'Honduran Lempira',
+            'NIO': 'Nicaraguan Cordoba',
+            'PAB': 'Panamanian Balboa',
+            'TWD': 'Taiwan Dollar'
+        };
+
+        let exchangeRates = {};
+        let lastUpdate = '';
+
+        // Populate currency dropdowns
+        function populateCurrencies() {
+            const fromSelect = document.getElementById('fromCurrency');
+            const toSelect = document.getElementById('toCurrency');
+            
+            Object.keys(currencies).sort().forEach(code => {
+                const option1 = new Option(`${code} - ${currencies[code]}`, code);
+                const option2 = new Option(`${code} - ${currencies[code]}`, code);
+                fromSelect.add(option1);
+                toSelect.add(option2);
+            });
+            
+            // Set default values
+            fromSelect.value = 'USD';
+            toSelect.value = 'EUR';
+        }
+
+        // Fetch exchange rates
+        async function fetchExchangeRates() {
+            const container = document.querySelector('.calculator-container');
+            container.classList.add('loading');
+            
+            try {
+                const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+                const data = await response.json();
+                
+                exchangeRates = data.rates;
+                lastUpdate = new Date(data.time_last_updated * 1000);
+                
+                updateDisplayRate();
+                updateConversion();
+                updateTimeDisplay();
+            } catch (error) {
+                console.error('Error fetching exchange rates:', error);
+                document.getElementById('updateTime').textContent = 'Error loading rates. Please refresh the page.';
+            } finally {
+                container.classList.remove('loading');
+            }
+        }
+
+        // Update the displayed exchange rate
+        function updateDisplayRate() {
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+            const rate = convertRate(fromCurrency, toCurrency);
+            
+            document.getElementById('displayRate').textContent = 
+                `1 ${fromCurrency} = ${rate.toFixed(4)} ${toCurrency}`;
+        }
+
+        // Update time display
+        function updateTimeDisplay() {
+            if (!lastUpdate) return;
+            
+            const now = new Date();
+            const diffMs = now - lastUpdate;
+            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+            
+            let timeText = '';
+            if (diffHours < 1) {
+                timeText = 'Updated less than an hour ago';
+            } else if (diffHours < 24) {
+                timeText = `Updated ${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+            } else {
+                timeText = `Last updated: ${lastUpdate.toLocaleString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric', 
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })}`;
+            }
+            
+            document.getElementById('updateTime').textContent = timeText;
+        }
+
+        // Convert rate from one currency to another
+        function convertRate(from, to) {
+            if (from === to) return 1;
+            
+            // All rates are based on USD
+            const fromRate = exchangeRates[from] || 1;
+            const toRate = exchangeRates[to] || 1;
+            
+            // Convert from -> USD -> to
+            return toRate / fromRate;
+        }
+
+        // Update conversion
+        function updateConversion() {
+            const fromAmount = parseFloat(document.getElementById('fromAmount').value) || 0;
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+            
+            const rate = convertRate(fromCurrency, toCurrency);
+            const toAmount = fromAmount * rate;
+            
+            document.getElementById('toAmount').value = toAmount.toFixed(2);
+            updateDisplayRate();
+        }
+
+        // Swap currencies
+        function swapCurrencies() {
+            const fromCurrency = document.getElementById('fromCurrency');
+            const toCurrency = document.getElementById('toCurrency');
+            const fromAmount = document.getElementById('fromAmount');
+            const toAmount = document.getElementById('toAmount');
+            
+            // Swap values
+            const tempCurrency = fromCurrency.value;
+            fromCurrency.value = toCurrency.value;
+            toCurrency.value = tempCurrency;
+            
+            const tempAmount = fromAmount.value;
+            fromAmount.value = toAmount.value;
+            
+            updateConversion();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            populateCurrencies();
+            fetchExchangeRates();
+            
+            // Event listeners
+            document.getElementById('fromAmount').addEventListener('input', updateConversion);
+            document.getElementById('fromCurrency').addEventListener('change', updateConversion);
+            document.getElementById('toCurrency').addEventListener('change', updateConversion);
+            document.getElementById('swapBtn').addEventListener('click', swapCurrencies);
+            
+            // Update time display every minute
+            setInterval(updateTimeDisplay, 60000);
+        });
+
+        // Load footer
+        fetch('/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                const footerScript = document.getElementById('footer-script');
+                footerScript.insertAdjacentHTML('beforebegin', data);
+                footerScript.remove();
+            });
+
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
+</body>
+</html>

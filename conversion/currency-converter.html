@@ -38,7 +38,6 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin: -24px auto;
             position: relative;
             z-index: 10;
         }
@@ -54,71 +53,39 @@
             color: white;
         }
         
-        .exchange-rate-info {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 24px;
-            text-align: center;
-        }
-        
-        .exchange-rate-info h3 {
-            font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .exchange-rate-info .rate {
-            font-size: 1.5rem;
-            color: white;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        
-        .exchange-rate-info .update-time {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-        
-        .currency-input-group {
-            position: relative;
-        }
-        
-        .currency-input-group input {
-            padding-right: 120px;
-        }
-        
-        .currency-input-group select {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 8px 32px 8px 12px;
-            color: white;
-            font-size: 0.875rem;
-            font-weight: 600;
-            cursor: pointer;
+        .currency-select {
             appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
-            background-position: right 8px center;
+            background-position: right 12px center;
             background-size: 16px;
+            cursor: pointer;
         }
         
-        .currency-input-group select:focus {
+        .currency-select:focus {
             outline: none;
-            border-color: rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.4) !important;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4) !important;
         }
         
         .loading {
             opacity: 0.5;
             pointer-events: none;
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .calculator-container {
+                padding: 1.5rem !important;
+            }
+            
+            .calculator-container h2 {
+                font-size: 1.25rem !important;
+            }
         }
     </style>
     <script src="/header.js"></script>
@@ -131,51 +98,65 @@
     <main class="main-content">
         <div class="container">
             <div class="calculator-interface">
-                <div class="calculator-container">
-                    <div class="exchange-rate-info">
-                        <h3>Mid-market exchange rate</h3>
-                        <div class="rate" id="displayRate">1 USD = 1.00 USD</div>
-                        <div class="update-time" id="updateTime">Loading...</div>
-                    </div>
+                <div class="calculator-container" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 16px; padding: 2rem;">
+                    <h2 style="text-align: center; font-size: 1.5rem; color: white; font-weight: 600; margin-bottom: 2rem;">Currency Conversion Calculator</h2>
                     
                     <form class="calculator-form" id="currencyForm">
-                        <div class="form-group currency-input-group">
-                            <label for="fromAmount">Amount</label>
-                            <input 
-                                type="number" 
-                                id="fromAmount" 
-                                class="form-input" 
-                                placeholder="1,000" 
-                                step="0.01"
-                                min="0"
-                                value="1000"
-                                required
-                            />
-                            <select id="fromCurrency" class="currency-select">
-                                <!-- Currencies will be populated by JavaScript -->
-                            </select>
+                        <!-- From Currency -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="fromAmount" style="display: block; color: white; font-weight: 500; margin-bottom: 0.5rem;">Amount</label>
+                            <div style="display: grid; grid-template-columns: 1fr auto; gap: 0.75rem; align-items: center;">
+                                <input 
+                                    type="number" 
+                                    id="fromAmount" 
+                                    class="form-input" 
+                                    placeholder="1,000" 
+                                    step="0.01"
+                                    min="0"
+                                    value="1000"
+                                    style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 0.75rem 1rem; border-radius: 8px; font-size: 1.125rem; font-weight: 600;"
+                                    required
+                                />
+                                <select id="fromCurrency" class="currency-select" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 0.75rem 2.5rem 0.75rem 1rem; border-radius: 8px; font-size: 1rem; font-weight: 600; min-width: 120px;">
+                                    <!-- Currencies will be populated by JavaScript -->
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="swap-button" id="swapBtn" title="Swap currencies">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                            </svg>
+                        <!-- Swap Button -->
+                        <div style="display: flex; justify-content: center; margin: -12px 0;">
+                            <div class="swap-button" id="swapBtn" title="Swap currencies">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+                                </svg>
+                            </div>
                         </div>
 
-                        <div class="form-group currency-input-group">
-                            <label for="toAmount">Converted to</label>
-                            <input 
-                                type="number" 
-                                id="toAmount" 
-                                class="form-input" 
-                                placeholder="0.00" 
-                                step="0.01"
-                                min="0"
-                                readonly
-                            />
-                            <select id="toCurrency" class="currency-select">
-                                <!-- Currencies will be populated by JavaScript -->
-                            </select>
+                        <!-- To Currency -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="toAmount" style="display: block; color: white; font-weight: 500; margin-bottom: 0.5rem;">Converted to</label>
+                            <div style="display: grid; grid-template-columns: 1fr auto; gap: 0.75rem; align-items: center;">
+                                <input 
+                                    type="number" 
+                                    id="toAmount" 
+                                    class="form-input" 
+                                    placeholder="0.00" 
+                                    step="0.01"
+                                    min="0"
+                                    style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 0.75rem 1rem; border-radius: 8px; font-size: 1.125rem; font-weight: 600;"
+                                    readonly
+                                />
+                                <select id="toCurrency" class="currency-select" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: white; padding: 0.75rem 2.5rem 0.75rem 1rem; border-radius: 8px; font-size: 1rem; font-weight: 600; min-width: 120px;">
+                                    <!-- Currencies will be populated by JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Result Display -->
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 1.5rem; text-align: center; margin-top: 2rem;">
+                            <div style="color: rgba(255, 255, 255, 0.8); font-size: 0.875rem; margin-bottom: 0.5rem;">Exchange Rate</div>
+                            <div id="displayRate" style="font-size: 1.875rem; font-weight: 700; color: white; margin-bottom: 0.25rem;">1 USD = 1.00 USD</div>
+                            <div id="updateTime" style="color: rgba(255, 255, 255, 0.7); font-size: 0.75rem;">Loading...</div>
                         </div>
                     </form>
                 </div>

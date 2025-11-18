@@ -77,6 +77,17 @@
             pointer-events: none;
         }
         
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+        
         /* Mobile responsive */
         @media (max-width: 768px) {
             .calculator-container {
@@ -99,7 +110,12 @@
         <div class="container">
             <div class="calculator-interface">
                 <div class="calculator-container" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 16px; padding: 2rem;">
-                    <h2 style="text-align: center; font-size: 1.5rem; color: white; font-weight: 600; margin-bottom: 2rem;">Currency Conversion Calculator</h2>
+                    <h2 style="text-align: center; font-size: 1.5rem; color: white; font-weight: 600; margin-bottom: 0.5rem;">Currency Conversion Calculator</h2>
+                    
+                    <div style="text-align: center; margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+                        <div style="width: 8px; height: 8px; background-color: #22c55e; border-radius: 50%; animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;"></div>
+                        <span style="color: #9ca3af; font-size: 0.875rem; font-weight: 400;">Mid-market exchange rate</span>
+                    </div>
                     
                     <form class="calculator-form" id="currencyForm">
                         <!-- From Currency -->

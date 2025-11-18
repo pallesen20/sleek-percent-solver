@@ -91,11 +91,36 @@
         /* Mobile responsive */
         @media (max-width: 768px) {
             .calculator-container {
-                padding: 1.5rem !important;
+                padding: 1rem !important;
             }
             
             .calculator-container h2 {
                 font-size: 1.25rem !important;
+            }
+            
+            /* Stack input and select vertically on mobile */
+            .calculator-container form > div > div[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+                gap: 0.5rem !important;
+            }
+            
+            .currency-select {
+                min-width: unset !important;
+                width: 100%;
+            }
+            
+            .form-input {
+                font-size: 1rem !important;
+            }
+            
+            .swap-button {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .swap-button svg {
+                width: 20px;
+                height: 20px;
             }
         }
     </style>

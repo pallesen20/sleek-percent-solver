@@ -26,7 +26,7 @@ const calculatorConfigs = {
         title: 'Basic Percentage Calculator',
         description: 'Calculate what X% of a number is',
         inputs: [
-            { field: 'percentage', label: 'Percentage (%)', placeholder: 'Enter percentage', type: 'text', inputmode: 'decimal' },
+            { field: 'percentage', label: 'Percentage (%)', placeholder: 'Enter percentage', type: 'text', attributes: { inputmode: 'decimal' } },
             { field: 'number1', label: 'Of Number', placeholder: 'Enter number', type: 'text', inputmode: 'decimal' }
         ],
         resultLabel: 'Result:',

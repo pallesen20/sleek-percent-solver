@@ -27,6 +27,7 @@ function loadHeader() {
             </div>
           </div>
           <a href="/word-counter" class="nav-link">Word Counter</a>
+          <a href="/week-number" class="nav-link">Week Number</a>
           <a href="/about-us" class="nav-link">About</a>
         </nav>
         <div class="mobile-menu-btn">

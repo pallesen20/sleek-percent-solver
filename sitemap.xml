@@ -54,6 +54,12 @@
         <priority>1.0</priority>
     </url>
     <url>
+        <loc>https://calculations.tools/compare-text</loc>
+        <lastmod>2026-02-09</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
         <loc>https://calculations.tools/about-us</loc>
         <lastmod>2025-10-13</lastmod>
         <changefreq>monthly</changefreq>

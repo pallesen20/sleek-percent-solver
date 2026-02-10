@@ -39,13 +39,32 @@
             font-size: 0.75rem; transition: all 0.2s; display: flex; align-items: center; gap: 0.25rem;
         }
         .toolbar-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+        .editor-wrap {
+            position: relative; display: flex; width: 100%; min-height: 280px; max-height: 500px;
+            background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 0.5rem; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .editor-wrap.focused { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+        .line-numbers {
+            min-width: 3rem; padding: 0.75rem 0.5rem 0.75rem 0; text-align: right;
+            font-family: 'Courier New', monospace; font-size: 0.875rem; line-height: 1.6;
+            color: #4a5568; user-select: none; overflow: hidden; background: rgba(255,255,255,0.03);
+            border-right: 1px solid rgba(255,255,255,0.08); flex-shrink: 0;
+        }
+        .line-numbers div { padding: 0 0.25rem; }
+        .line-numbers div.active-ln { color: #94a3b8; }
         .editor-textarea {
-            width: 100%; min-height: 280px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 0.5rem; color: #e2e8f0; font-family: 'Courier New', monospace; font-size: 0.875rem;
-            padding: 0.75rem; resize: vertical; line-height: 1.6;
+            flex: 1; width: 100%; min-height: 280px; max-height: 500px; background: transparent; border: none;
+            color: #e2e8f0; font-family: 'Courier New', monospace; font-size: 0.875rem;
+            padding: 0.75rem 0.75rem 0.75rem 0.5rem; resize: none; line-height: 1.6;
+            outline: none; overflow-y: auto; white-space: pre; tab-size: 4; -moz-tab-size: 4;
+            overflow-x: auto;
         }
         .editor-textarea::placeholder { color: #64748b; }
-        .editor-textarea:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+        .active-line-highlight {
+            position: absolute; left: 0; right: 0; height: 1.6em; pointer-events: none;
+            background: rgba(255,255,255,0.04); transition: top 0.05s;
+        }
         .editor-stats { display: flex; gap: 1rem; margin-top: 0.4rem; font-size: 0.75rem; color: #94a3b8; }
         .action-bar { display: flex; gap: 0.75rem; justify-content: center; margin: 1.25rem 0; flex-wrap: wrap; }
         .btn-primary {
@@ -129,7 +148,11 @@
                                 <button class="toolbar-btn" onclick="clearText('original')" title="Clear">✕</button>
                             </div>
                         </div>
-                        <textarea id="original" class="editor-textarea" placeholder="Paste your original text or code here..." spellcheck="false" oninput="updateStats('original')"></textarea>
+                        <div class="editor-wrap" id="original-wrap">
+                            <div class="line-numbers" id="original-lines-gutter"><div>1</div></div>
+                            <div class="active-line-highlight" id="original-highlight" style="top:0.75rem"></div>
+                            <textarea id="original" class="editor-textarea" wrap="off" placeholder="Paste your original text or code here..." spellcheck="false" oninput="updateEditor('original')" onfocus="document.getElementById('original-wrap').classList.add('focused')" onblur="document.getElementById('original-wrap').classList.remove('focused')" onkeyup="updateActiveLine('original')" onclick="updateActiveLine('original')" onscroll="syncScroll('original')"></textarea>
+                        </div>
                         <div class="editor-stats">
                             <span id="original-lines">Lines: 0</span>
                             <span id="original-chars">Characters: 0</span>
@@ -146,7 +169,11 @@
                                 <button class="toolbar-btn" onclick="clearText('changed')" title="Clear">✕</button>
                             </div>
                         </div>
-                        <textarea id="changed" class="editor-textarea" placeholder="Paste your changed text or code here..." spellcheck="false" oninput="updateStats('changed')"></textarea>
+                        <div class="editor-wrap" id="changed-wrap">
+                            <div class="line-numbers" id="changed-lines-gutter"><div>1</div></div>
+                            <div class="active-line-highlight" id="changed-highlight" style="top:0.75rem"></div>
+                            <textarea id="changed" class="editor-textarea" wrap="off" placeholder="Paste your changed text or code here..." spellcheck="false" oninput="updateEditor('changed')" onfocus="document.getElementById('changed-wrap').classList.add('focused')" onblur="document.getElementById('changed-wrap').classList.remove('focused')" onkeyup="updateActiveLine('changed')" onclick="updateActiveLine('changed')" onscroll="syncScroll('changed')"></textarea>
+                        </div>
                         <div class="editor-stats">
                             <span id="changed-lines">Lines: 0</span>
                             <span id="changed-chars">Characters: 0</span>
@@ -309,6 +336,41 @@
         document.getElementById(id + '-chars').textContent = 'Characters: ' + chars;
     }
 
+    function updateLineNumbers(id) {
+        const ta = document.getElementById(id);
+        const count = ta.value === '' ? 1 : ta.value.split('\n').length;
+        const gutter = document.getElementById(id + '-lines-gutter');
+        let html = '';
+        for (let i = 1; i <= count; i++) html += '<div>' + i + '</div>';
+        gutter.innerHTML = html;
+    }
+
+    function updateActiveLine(id) {
+        const ta = document.getElementById(id);
+        const text = ta.value.substring(0, ta.selectionStart);
+        const lineIndex = text.split('\n').length - 1;
+        const lineHeight = parseFloat(getComputedStyle(ta).lineHeight);
+        const padTop = parseFloat(getComputedStyle(ta).paddingTop);
+        const highlight = document.getElementById(id + '-highlight');
+        highlight.style.top = (padTop + lineIndex * lineHeight - ta.scrollTop) + 'px';
+        highlight.style.height = lineHeight + 'px';
+        const gutter = document.getElementById(id + '-lines-gutter');
+        const divs = gutter.children;
+        for (let i = 0; i < divs.length; i++) divs[i].classList.toggle('active-ln', i === lineIndex);
+    }
+
+    function syncScroll(id) {
+        const ta = document.getElementById(id);
+        document.getElementById(id + '-lines-gutter').scrollTop = ta.scrollTop;
+        updateActiveLine(id);
+    }
+
+    function updateEditor(id) {
+        updateStats(id);
+        updateLineNumbers(id);
+        updateActiveLine(id);
+    }
+
     // --- Toolbar actions ---
     let currentUploadTarget = null;
     const fileInput = document.getElementById('file-input');
@@ -322,7 +384,7 @@
         const reader = new FileReader();
         reader.onload = function(e) {
             document.getElementById(currentUploadTarget).value = e.target.result;
-            updateStats(currentUploadTarget);
+            updateEditor(currentUploadTarget);
             showToast('File loaded successfully');
         };
         reader.readAsText(this.files[0]);
@@ -348,14 +410,14 @@
 
     function clearText(id) {
         document.getElementById(id).value = '';
-        updateStats(id);
+        updateEditor(id);
     }
 
     function swapTexts() {
         const o = document.getElementById('original');
         const c = document.getElementById('changed');
         const tmp = o.value; o.value = c.value; c.value = tmp;
-        updateStats('original'); updateStats('changed');
+        updateEditor('original'); updateEditor('changed');
         showToast('Texts swapped');
     }
 
@@ -382,8 +444,8 @@ users.forEach(user => {
 });
 
 console.log("Done!");`;
-        updateStats('original');
-        updateStats('changed');
+        updateEditor('original');
+        updateEditor('changed');
         showToast('Sample loaded');
     }
 

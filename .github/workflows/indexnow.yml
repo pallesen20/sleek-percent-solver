@@ -13,21 +13,29 @@ jobs:
   submit-indexnow:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-    - name: Gather changed URLs
-      id: changed
-      run: |
-        echo "CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E '\.html|\.md|\.json' | sed 's|^|https://calculations.tools/|')" >> $GITHUB_ENV
+      - name: Gather changed URLs
+        run: |
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E '\.html|\.md|\.json' || true)
 
-    - name: Submit to IndexNow
-      if: env.CHANGED != ''
-      run: |
-        curl -X POST "https://api.indexnow.org/indexnow" -H "Content-Type: application/json" -d "{
-          \"host\": \"https://calculations.tools\",
-          \"key\": \"2095e7971ef44da8bf52b45c356470bc\",
-          \"keyLocation\": \"https://calculations.tools/2095e7971ef44da8bf52b45c356470bc.txt\",
-          \"urls\": [${CHANGED}]
-        }"
+          if [ -n "$CHANGED_FILES" ]; then
+            URLS=$(echo "$CHANGED_FILES" | sed 's|^|https://calculations.tools/|')
+            echo "CHANGED=$URLS" >> $GITHUB_ENV
+          fi
+
+      - name: Submit to IndexNow
+        if: env.CHANGED != ''
+        run: |
+          URL_JSON=$(echo "$CHANGED" | awk '{printf "\"%s\",", $0}' | sed 's/,$//')
+
+          curl -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"host\": \"calculations.tools\",
+              \"key\": \"2095e7971ef44da8bf52b45c356470bc\",
+              \"keyLocation\": \"https://calculations.tools/2095e7971ef44da8bf52b45c356470bc.txt\",
+              \"urls\": [${URL_JSON}]
+            }"

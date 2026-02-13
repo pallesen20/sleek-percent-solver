@@ -1,0 +1,31 @@
+name: IndexNow Publish
+
+on:
+  push:
+    paths:
+      - '**/*.html'
+      - '**/*.md'
+      - '**/*.json'
+      - '**/*.js'
+      - '**/*.ts'
+
+jobs:
+  submit-indexnow:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Gather changed URLs
+      id: changed
+      run: |
+        echo "CHANGED=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E '\.html|\.md|\.json' | sed 's|^|https://calculations.tools/|')" >> $GITHUB_ENV
+
+    - name: Submit to IndexNow
+      if: env.CHANGED != ''
+      run: |
+        curl -X POST "https://api.indexnow.org/indexnow" -H "Content-Type: application/json" -d "{
+          \"host\": \"https://calculations.tools\",
+          \"key\": \"2095e7971ef44da8bf52b45c356470bc\",
+          \"keyLocation\": \"https://calculations.tools/2095e7971ef44da8bf52b45c356470bc.txt\",
+          \"urls\": [${CHANGED}]
+        }"

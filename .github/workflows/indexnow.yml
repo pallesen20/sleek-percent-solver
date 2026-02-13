@@ -37,5 +37,5 @@ jobs:
               \"host\": \"calculations.tools\",
               \"key\": \"2095e7971ef44da8bf52b45c356470bc\",
               \"keyLocation\": \"https://calculations.tools/2095e7971ef44da8bf52b45c356470bc.txt\",
-              \"urls\": [${URL_JSON}]
+              \"urlList\": [${URL_JSON}]
             }"

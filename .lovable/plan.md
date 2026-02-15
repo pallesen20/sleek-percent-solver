@@ -1,100 +1,67 @@
 
 
-# Create Text & Code Difference Checker at /compare-text
+# Add Dynamic Breadcrumbs to All Pages
 
-## Overview
-Build a full-featured text and code diff tool at `/compare-text` following the established site patterns (glassmorphism design, base.css reuse, SEO content with FAQ schema, footer loading). The tool will let users compare two pieces of text or code side-by-side and highlight the differences.
+## Approach
+Create a single dynamic breadcrumb system inside `header.js` that automatically generates breadcrumbs based on the current URL path. This means every existing and future page gets breadcrumbs with zero manual work -- no per-page changes needed.
 
-## Tool Functionality
+## How It Works
+- The script reads `window.location.pathname` and splits it into segments
+- It builds a breadcrumb trail: **Home > [Parent] > Current Page**
+- It skips rendering on the homepage (`/` or `/index.html`)
+- It converts URL slugs to readable names (e.g., `weight-converter` becomes `Weight Converter`, `compare-text` becomes `Compare Text`)
+- For nested paths like `/conversion/currency-converter`, it produces: **Home > Conversion > Currency Converter**
 
-### Core Diff Interface
-- Two side-by-side text areas: "Original Text" (left) and "Changed Text" (right)
-- Each text area includes a toolbar with 4 small icon buttons: Upload file, Download as .txt, Copy to clipboard, Clear
-- Line numbers displayed in both editors
-- A prominent "Find Differences" button below the editors
-- Character count and line count displayed below each text area
+## Visual Design
+- Placed directly below the header, top-left aligned within the max-width container
+- Small, subtle text using the site's muted color palette (`#94a3b8` for links, white for current page)
+- Chevron separators (`>`) between items
+- Links have hover underline effect
+- Compact padding so it doesn't take up too much space
+- Mobile responsive: smaller font size, wraps naturally
 
-### Diff Algorithm
-- Implement a line-by-line diff using a JavaScript Longest Common Subsequence (LCS) algorithm directly in the page (no external libraries needed)
-- Color-coded output: red/pink for removed lines, green for added lines, grey for unchanged context lines
-- Display line numbers in the diff output
+## Schema Markup
+- Injects a `BreadcrumbList` JSON-LD `<script>` tag into the `<head>` automatically
+- Each breadcrumb item gets proper `ListItem` position, name, and URL
+- The last item (current page) has no URL per Google's recommendation
 
-### Diff Output Section
-- Unified diff view showing merged results with additions/removals color-coded
-- Side-by-side diff view as an alternative toggle
-- Stats summary: lines added, lines removed, lines unchanged
-- A "Copy Diff" button to copy the raw diff output
-- A toggle to switch between "Unified" and "Side-by-Side" views
+## Files to Change
 
-### Additional UX Features
-- "Swap" button to swap original and changed text
-- "Sample" button to load example text so users can try the tool immediately
-- Fully responsive: on mobile, the two editors stack vertically
+### 1. `header.js`
+Add a `loadBreadcrumbs()` function that runs after `loadHeader()`:
+- Checks if current path is homepage; if so, exits
+- Parses URL path into segments
+- Builds breadcrumb HTML with proper styling
+- Inserts it after the `<header>` element
+- Injects BreadcrumbList JSON-LD schema into `<head>`
 
-## Page Structure (following weight-converter.html pattern)
+### 2. `base.css`
+Add breadcrumb styles:
+- `.breadcrumb-nav` container with max-width matching site layout
+- `.breadcrumb-list` as inline flex with gap
+- `.breadcrumb-item` and `.breadcrumb-separator` styled subtly
+- Mobile media query for smaller text
 
-1. **Head**: meta tags, OG tags, canonical URL (`/compare-text`), base.css, tailwindcss CDN, header.js
-2. **Hero section**: Title "Text & Code Difference Checker" with subtitle
-3. **Diff tool container**: The main glassmorphism calculator-container with the two editors and output
-4. **SEO content** (`div.seo-container`): Detailed content targeting the provided keywords, with examples of use cases
-5. **FAQ section** inside seo-container: 10+ relevant FAQs
-6. **JSON-LD schema**: WebApplication + FAQPage structured data
-7. **Footer**: loaded via fetch('/footer.html')
+## Example Output
 
-## SEO Content Sections (inside seo-container)
-- "What is a Text Difference Checker?" (targeting: online difference checker, text difference checker)
-- "How to Compare Text Online" with step-by-step (targeting: compare text online)
-- "Use Cases for Text Comparison" with examples: proofreading, code review, legal docs, versioning (targeting: text comparison tool, code difference tool)
-- "How the Diff Algorithm Works" (targeting: find differences between texts)
-- "Comparing Files Online" (targeting: file comparison online, compare files online)
-- "Why Use Our Free Difference Tool" (targeting: free difference tool, difference checker tool)
+For `/conversion/currency-converter`:
+```
+Home  >  Conversion  >  Currency Converter
+```
 
-## FAQ Topics (with JSON-LD FAQPage schema)
-1. What is a difference checker?
-2. How do I compare two texts online?
-3. Can I compare code with this tool?
-4. Is this text comparison tool free?
-5. How does the diff algorithm work?
-6. Can I upload files to compare?
-7. What file formats are supported?
-8. Is my data private when using this tool?
-9. Can I download the comparison results?
-10. What is the maximum text length supported?
-11. What is a unified diff vs side-by-side diff?
-12. Can I use this tool on mobile?
+For `/week-number`:
+```
+Home  >  Week Number
+```
 
-## Files to Update
+For `/about-us`:
+```
+Home  >  About Us
+```
 
-### 1. Create `/compare-text.html` (new file)
-The main page with all functionality described above.
-
-### 2. Update `header.js`
-Add "Text Compare" link to the navigation menu (as a top-level nav link, not under Conversion dropdown).
-
-### 3. Update `index.html`
-Add a "Text & Code Diff Checker" card to the "Our Tools" grid section.
-
-### 4. Update `sitemap.xml`
-Add `https://calculations.tools/compare-text` entry.
-
-### 5. Update `llms.txt`
-Add the new page description to the Pages section.
-
-## Technical Details
-
-### Diff Algorithm (pure JavaScript, no dependencies)
-- Line-based LCS diff implementation
-- Split both inputs by newline
-- Compute the LCS matrix to identify matching, added, and removed lines
-- Render results with line numbers and color coding
-
-### File Upload/Download
-- Upload: use an invisible `<input type="file">` that reads `.txt`, `.js`, `.py`, `.html`, `.css`, `.json`, `.xml`, `.md`, `.csv` files via FileReader API
-- Download: create a Blob and trigger download as `.txt`
-- Copy: use `navigator.clipboard.writeText()`
-
-### Styling
-- Reuse base.css classes: `seo-container`, `calculator-container`, `glass` effects, `main-title`, `subtitle`, footer styles
-- Custom styles scoped within the page's `<style>` block for diff-specific elements (diff line highlighting, editor layout, toolbar buttons)
-- Mobile responsive with stacked editors below 768px
+## Technical Notes
+- A name mapping object handles special cases (e.g., `about-us` to `About Us`, `compare-text` to `Compare Text`)
+- Fallback: capitalizes each word from the slug if no mapping exists
+- The breadcrumb nav element is inserted immediately after the header using `insertAdjacentHTML('afterend', ...)`
+- JSON-LD is appended as a script tag to `document.head`
 

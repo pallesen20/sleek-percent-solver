@@ -148,8 +148,13 @@
             </script>
         </div>
     </main>
-    <footer class="footer">
-        <p>&copy; 2025 Calculations.tools — Free Online Calculators & Converters</p>
-    </footer>
+    <script>
+        // Load footer
+        fetch('/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.body.insertAdjacentHTML('beforeend', data);
+            });
+    </script>
 </body>
 </html>

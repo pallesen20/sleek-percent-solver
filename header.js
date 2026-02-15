@@ -3,6 +3,73 @@ new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-599FWKZL');
+
+const NAME_MAP = {
+  'percentage-calculator': 'Percentage Calculator',
+  'compare-text': 'Compare Text',
+  'word-counter': 'Word Counter',
+  'week-number': 'Week Number',
+  'about-us': 'About Us',
+  'privacy-policy': 'Privacy Policy',
+  'length-converter': 'Length Converter',
+  'weight-converter': 'Weight Converter',
+  'temperature-converter': 'Temperature Converter',
+  'case-converter': 'Case Converter',
+  'currency-converter': 'Currency Converter',
+  'conversion': 'Conversion'
+};
+
+function slugToName(slug) {
+  if (NAME_MAP[slug]) return NAME_MAP[slug];
+  return slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function loadBreadcrumbs() {
+  let path = window.location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
+  if (path === '/' || path === '') return;
+
+  const segments = path.split('/').filter(Boolean);
+  if (!segments.length) return;
+
+  const origin = window.location.origin;
+  let crumbs = [{ name: 'Home', url: origin + '/' }];
+  let accumulated = '';
+
+  segments.forEach((seg, i) => {
+    accumulated += '/' + seg;
+    const isLast = i === segments.length - 1;
+    crumbs.push({ name: slugToName(seg), url: isLast ? null : origin + accumulated });
+  });
+
+  // Build HTML
+  const items = crumbs.map((c, i) => {
+    const sep = i > 0 ? '<span class="breadcrumb-separator">›</span>' : '';
+    if (c.url) {
+      return `${sep}<a href="${c.url}" class="breadcrumb-link">${c.name}</a>`;
+    }
+    return `${sep}<span class="breadcrumb-current">${c.name}</span>`;
+  }).join('');
+
+  const html = `<nav class="breadcrumb-nav" aria-label="Breadcrumb"><ol class="breadcrumb-list">${items}</ol></nav>`;
+  const header = document.querySelector('header');
+  if (header) header.insertAdjacentHTML('afterend', html);
+
+  // JSON-LD
+  const schemaItems = crumbs.map((c, i) => {
+    const item = { "@type": "ListItem", "position": i + 1, "name": c.name };
+    if (c.url) item.item = c.url;
+    return item;
+  });
+  const schema = document.createElement('script');
+  schema.type = 'application/ld+json';
+  schema.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": schemaItems
+  });
+  document.head.appendChild(schema);
+}
+
 function loadHeader() {
   const headerHTML = `
   <!-- Google Tag Manager (noscript) -->
@@ -44,6 +111,8 @@ function loadHeader() {
   mobileBtn?.addEventListener('click', () => {
     nav?.classList.toggle('active');
   });
+
+  loadBreadcrumbs();
 }
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', loadHeader);

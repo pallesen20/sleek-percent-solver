@@ -82,7 +82,7 @@ function loadHeader() {
         <nav class="nav-menu">
           <a href="/percentage-calculator" class="nav-link">Percentage Calculator</a>
           <div class="nav-dropdown">
-            <a href="#" class="nav-link dropdown-toggle">Conversion<svg class="dropdown-arrow" viewBox="0 0 10 6">
+            <a href="/conversion" class="nav-link dropdown-toggle">Conversion<svg class="dropdown-arrow" viewBox="0 0 10 6">
             <path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"></path>
           </svg></a>
             <div class="dropdown-content">

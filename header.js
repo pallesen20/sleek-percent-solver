@@ -56,9 +56,14 @@ function loadBreadcrumbs() {
 
   // JSON-LD
   const schemaItems = crumbs.map((c, i) => {
-    const item = { "@type": "ListItem", "position": i + 1, "name": c.name };
-    if (c.url) item.item = c.url;
-    return item;
+    const isLast = i === crumbs.length - 1;
+    const itemUrl = c.url || window.location.href.split('?')[0].split('#')[0];
+    return {
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": c.name,
+      "item": { "@type": "WebPage", "@id": itemUrl }
+    };
   });
   const schema = document.createElement('script');
   schema.type = 'application/ld+json';

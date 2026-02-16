@@ -100,7 +100,15 @@ function loadHeader() {
             </div>
           </div>
           <a href="/word-counter" class="nav-link">Word Counter</a>
-          <a href="/compare-text" class="nav-link">Compare Text</a>
+          <div class="nav-dropdown">
+            <a href="#" class="nav-link dropdown-toggle">Compare Text<svg class="dropdown-arrow" viewBox="0 0 10 6">
+            <path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"></path>
+          </svg></a>
+            <div class="dropdown-content">
+              <a href="/compare-text" class="dropdown-link">Compare Text & Code</a>
+              <a href="/compare-text/compare-excel" class="dropdown-link">Compare Excel Files</a>
+            </div>
+          </div>
           <a href="/week-number" class="nav-link">Week Number</a>
           <a href="/about-us" class="nav-link">About</a>
         </nav>

@@ -62,7 +62,7 @@ function loadBreadcrumbs() {
       "@type": "ListItem",
       "position": i + 1,
       "name": c.name,
-      "item": { "@type": "WebPage", "@id": itemUrl }
+      "item": { "@type": "Thing", "@id": itemUrl }
     };
   });
   const schema = document.createElement('script');

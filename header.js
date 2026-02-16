@@ -7,6 +7,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 const NAME_MAP = {
   'percentage-calculator': 'Percentage Calculator',
   'compare-text': 'Compare Text',
+  'compare-excel': 'Compare Excel',
   'word-counter': 'Word Counter',
   'week-number': 'Week Number',
   'about-us': 'About Us',

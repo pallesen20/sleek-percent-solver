@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Excel Files Online Free | Spreadsheet Diff Checker ᐅ</title>
+    <meta name="description" content="Free online Excel file comparison tool. Compare two Excel files, CSV, ODS, and other spreadsheets side by side. Find differences between spreadsheets instantly with color-coded results.">
+    <meta name="keywords" content="compare excel files, compare excel, compare spreadsheets, compare sheets, compare excel sheets, compare file, compare files, excel diff, spreadsheet comparison, compare csv files, compare ods files">
+    <meta name="author" content="Calculations.tools">
+    <link rel="canonical" href="https://calculations.tools/compare-text/compare-excel">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://calculations.tools/compare-text/compare-excel">
+    <meta property="og:title" content="Compare Excel Files Online Free | Spreadsheet Diff Checker ᐅ">
+    <meta property="og:description" content="Free online Excel file comparison tool. Compare two spreadsheets side by side and find differences instantly with color-coded results.">
+    <meta property="og:image" content="https://calculations.tools/open-graph.webp">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://calculations.tools/compare-text/compare-excel">
+    <meta property="twitter:title" content="Compare Excel Files Online Free | Spreadsheet Diff Checker ᐅ">
+    <meta property="twitter:description" content="Free online Excel file comparison tool. Compare two spreadsheets side by side and find differences instantly.">
+    <meta property="twitter:image" content="https://calculations.tools/favicon-512x512.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="/base.css">
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+    <style>
+        .excel-wrapper { max-width: 1100px; margin: 0 auto; }
+        .drop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        @media (max-width: 768px) { .drop-grid { grid-template-columns: 1fr; } }
+        .drop-panel { display: flex; flex-direction: column; }
+        .drop-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+        .drop-toolbar h3 { color: white; font-size: 1rem; font-weight: 600; margin: 0; }
+        .toolbar-buttons { display: flex; gap: 0.35rem; }
+        .toolbar-btn {
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+            color: #cbd5e1; border-radius: 0.375rem; padding: 0.35rem 0.5rem; cursor: pointer;
+            font-size: 0.75rem; transition: all 0.2s; display: flex; align-items: center; gap: 0.25rem;
+        }
+        .toolbar-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+        .drop-zone {
+            position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 100%; min-height: 300px;
+            background: rgba(0,0,0,0.35); border: 2px dashed rgba(255,255,255,0.2);
+            border-radius: 0.75rem; cursor: pointer;
+            transition: all 0.3s; overflow: hidden;
+        }
+        .drop-zone:hover { border-color: rgba(255,255,255,0.4); background: rgba(0,0,0,0.4); }
+        .drop-zone.dragover { border-color: #3b82f6; background: rgba(59,130,246,0.1); box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+        .drop-zone.has-file { border-style: solid; cursor: default; }
+        .drop-icon { font-size: 3rem; margin-bottom: 0.75rem; opacity: 0.6; }
+        .drop-label { color: #94a3b8; font-size: 1rem; margin-bottom: 0.25rem; }
+        .drop-formats { color: #64748b; font-size: 0.8rem; }
+        .drop-prompt { display: flex; flex-direction: column; align-items: center; }
+        .file-info { display: none; padding: 0.75rem; color: #94a3b8; font-size: 0.8rem; text-align: center; }
+        .drop-zone.has-file .drop-prompt { display: none; }
+        .drop-zone.has-file .file-info { display: block; }
+
+        /* Table preview */
+        .table-preview-wrap {
+            width: 100%; flex: 1; overflow: auto; display: none;
+        }
+        .drop-zone.has-file .table-preview-wrap { display: block; }
+        .table-preview {
+            width: 100%; border-collapse: collapse; font-size: 0.75rem; font-family: 'Courier New', monospace;
+        }
+        .table-preview th {
+            background: rgba(255,255,255,0.1); color: #94a3b8; font-weight: 600;
+            padding: 0.35rem 0.5rem; text-align: left; position: sticky; top: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.7rem;
+        }
+        .table-preview td {
+            padding: 0.3rem 0.5rem; color: #e2e8f0; border-bottom: 1px solid rgba(255,255,255,0.05);
+            white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis;
+        }
+        .table-preview tr:hover td { background: rgba(255,255,255,0.03); }
+        .row-num { color: #64748b; font-size: 0.65rem; min-width: 2rem; text-align: right; }
+
+        /* Sheet tabs */
+        .sheet-tabs { display: flex; gap: 0.25rem; padding: 0.35rem; flex-wrap: wrap; }
+        .sheet-tab {
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+            color: #94a3b8; padding: 0.25rem 0.65rem; border-radius: 0.25rem;
+            font-size: 0.7rem; cursor: pointer; transition: all 0.2s;
+        }
+        .sheet-tab:hover { background: rgba(255,255,255,0.15); color: white; }
+        .sheet-tab.active { background: rgba(59,130,246,0.3); border-color: #3b82f6; color: white; }
+
+        /* Action bar */
+        .action-bar { display: flex; gap: 0.75rem; justify-content: center; margin: 1.25rem 0; flex-wrap: wrap; }
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; border: none;
+            padding: 0.75rem 2rem; border-radius: 0.5rem; font-size: 1rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(59,130,246,0.4); }
+        .btn-secondary {
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white;
+            padding: 0.75rem 1.25rem; border-radius: 0.5rem; font-size: 0.875rem; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+
+        /* Diff output */
+        .diff-output { margin-top: 1.5rem; display: none; }
+        .diff-output.visible { display: block; }
+        .diff-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.75rem; }
+        .diff-stats { display: flex; gap: 1rem; font-size: 0.875rem; }
+        .stat-added { color: #4ade80; }
+        .stat-removed { color: #f87171; }
+        .stat-changed { color: #fbbf24; }
+        .stat-unchanged { color: #94a3b8; }
+        .diff-table-wrap {
+            overflow: auto; max-height: 600px;
+            background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 0.5rem;
+        }
+        .diff-table {
+            width: 100%; border-collapse: collapse;
+            font-family: 'Courier New', monospace; font-size: 0.8rem;
+        }
+        .diff-table th {
+            background: rgba(0,0,0,0.3); color: #94a3b8; padding: 0.5rem 0.65rem;
+            text-align: left; position: sticky; top: 0; font-size: 0.7rem; font-weight: 600;
+            border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 1;
+        }
+        .diff-table td {
+            padding: 0.35rem 0.65rem; color: #e2e8f0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            white-space: nowrap; max-width: 250px; overflow: hidden; text-overflow: ellipsis;
+        }
+        .diff-table tr.row-added td { background: rgba(74,222,128,0.08); }
+        .diff-table tr.row-removed td { background: rgba(248,113,113,0.08); }
+        .diff-table td.cell-changed { background: rgba(251,191,36,0.15); color: #fbbf24; font-weight: 500; }
+        .diff-table td.cell-added { background: rgba(74,222,128,0.12); color: #4ade80; }
+        .diff-table td.cell-removed { background: rgba(248,113,113,0.12); color: #f87171; text-decoration: line-through; }
+        .no-diff { text-align: center; padding: 2rem; color: #4ade80; font-size: 1.125rem; }
+
+        /* Toast */
+        .toast { position: fixed; bottom: 1.5rem; right: 1.5rem; background: #1e293b; border: 1px solid rgba(255,255,255,0.2); color: white; padding: 0.75rem 1.25rem; border-radius: 0.5rem; font-size: 0.875rem; z-index: 1000; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        .toast.show { opacity: 1; }
+    </style>
+    <script src="/header.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-700 to-slate-900">
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-4" style="line-height:1.25">
+                Compare Excel Files &amp; Spreadsheets
+            </h1>
+            <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                Find the difference between two Excel files, CSV, ODS, and other spreadsheets. Upload your files and instantly see every change, addition, and removal.
+            </p>
+            <p class="text-sm text-gray-400 mt-2">Supported formats: .xlsx, .xls, .xlsm, .xlsb, .csv, .txt, .dif, .ods</p>
+        </div>
+
+        <div class="excel-wrapper">
+            <div class="calculator-container" style="max-width:100%;">
+                <!-- Drop Zones -->
+                <div class="drop-grid">
+                    <!-- Original File -->
+                    <div class="drop-panel">
+                        <div class="drop-toolbar">
+                            <h3>Original File</h3>
+                            <div class="toolbar-buttons">
+                                <button class="toolbar-btn" onclick="triggerUpload('original')" title="Upload file">📂 Upload</button>
+                                <button class="toolbar-btn" onclick="downloadSheet('original')" title="Download as CSV">💾</button>
+                                <button class="toolbar-btn" onclick="copySheet('original')" title="Copy to clipboard">📋</button>
+                                <button class="toolbar-btn" onclick="clearFile('original')" title="Clear">✕</button>
+                            </div>
+                        </div>
+                        <div class="drop-zone" id="drop-original" onclick="triggerUpload('original')">
+                            <div class="drop-prompt">
+                                <div class="drop-icon">📊</div>
+                                <div class="drop-label">Drop file here</div>
+                                <div class="drop-formats">xlsx, xls, xlsm, xlsb, csv, txt, dif, ods</div>
+                            </div>
+                            <div class="file-info" id="file-info-original"></div>
+                            <div class="sheet-tabs" id="tabs-original"></div>
+                            <div class="table-preview-wrap" id="preview-original">
+                                <table class="table-preview" id="table-original"><tbody></tbody></table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Changed File -->
+                    <div class="drop-panel">
+                        <div class="drop-toolbar">
+                            <h3>Changed File</h3>
+                            <div class="toolbar-buttons">
+                                <button class="toolbar-btn" onclick="triggerUpload('changed')" title="Upload file">📂 Upload</button>
+                                <button class="toolbar-btn" onclick="downloadSheet('changed')" title="Download as CSV">💾</button>
+                                <button class="toolbar-btn" onclick="copySheet('changed')" title="Copy to clipboard">📋</button>
+                                <button class="toolbar-btn" onclick="clearFile('changed')" title="Clear">✕</button>
+                            </div>
+                        </div>
+                        <div class="drop-zone" id="drop-changed" onclick="triggerUpload('changed')">
+                            <div class="drop-prompt">
+                                <div class="drop-icon">📊</div>
+                                <div class="drop-label">Drop file here</div>
+                                <div class="drop-formats">xlsx, xls, xlsm, xlsb, csv, txt, dif, ods</div>
+                            </div>
+                            <div class="file-info" id="file-info-changed"></div>
+                            <div class="sheet-tabs" id="tabs-changed"></div>
+                            <div class="table-preview-wrap" id="preview-changed">
+                                <table class="table-preview" id="table-changed"><tbody></tbody></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-bar">
+                    <button class="btn-primary" onclick="compareFiles()">🔍 Find Differences</button>
+                    <button class="btn-secondary" onclick="swapFiles()">⇄ Swap</button>
+                    <button class="btn-secondary" onclick="loadSample()">📄 Sample</button>
+                </div>
+
+                <!-- Diff Output -->
+                <div id="diff-output" class="diff-output">
+                    <div class="diff-header">
+                        <div class="diff-stats">
+                            <span class="stat-changed" id="stat-changed">0 changed</span>
+                            <span class="stat-added" id="stat-added">+0 rows added</span>
+                            <span class="stat-removed" id="stat-removed">−0 rows removed</span>
+                            <span class="stat-unchanged" id="stat-unchanged">0 unchanged</span>
+                        </div>
+                        <div style="display:flex;gap:0.5rem;align-items:center;">
+                            <button class="toolbar-btn" onclick="copyDiffResult()" title="Copy diff">📋 Copy Diff</button>
+                        </div>
+                    </div>
+                    <div class="diff-table-wrap" id="diff-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden file inputs -->
+        <input type="file" id="file-input-original" style="display:none" accept=".xls,.xlsx,.xlsm,.xlsb,.csv,.txt,.dif,.ods">
+        <input type="file" id="file-input-changed" style="display:none" accept=".xls,.xlsx,.xlsm,.xlsb,.csv,.txt,.dif,.ods">
+
+        <!-- SEO Content -->
+        <div class="seo-container">
+            <h2>What Is an Excel File Comparison Tool?</h2>
+            <p>An Excel file comparison tool (or spreadsheet diff checker) lets you compare two Excel files or other spreadsheet formats side by side to find every difference between them. It identifies which cells have been changed, which rows have been added or removed, and highlights the exact modifications — saving hours of manual review.</p>
+
+            <h2>How to Compare Excel Files Online</h2>
+            <p>Using our free Excel comparison tool is straightforward:</p>
+            <ol>
+                <li><strong>Upload your original spreadsheet</strong> — drag and drop or click the upload button on the left panel. Supports .xlsx, .xls, .xlsm, .xlsb, .csv, .txt, .dif, and .ods files.</li>
+                <li><strong>Upload your changed spreadsheet</strong> — do the same on the right panel with the updated version of your file.</li>
+                <li><strong>Click "Find Differences"</strong> — the tool instantly parses both files and compares them cell by cell.</li>
+                <li><strong>Review the results</strong> — changed cells are highlighted in yellow, added rows in green, and removed rows in red.</li>
+            </ol>
+
+            <h2>Supported File Formats</h2>
+            <p>Our tool supports all major spreadsheet and data file formats:</p>
+            <table>
+                <thead>
+                    <tr><th>Format</th><th>Extension</th><th>Description</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Excel Workbook</td><td>.xlsx</td><td>Modern Excel format (Office 2007+)</td></tr>
+                    <tr><td>Excel 97-2003</td><td>.xls</td><td>Legacy Excel binary format</td></tr>
+                    <tr><td>Excel Macro-Enabled</td><td>.xlsm</td><td>Excel with macros</td></tr>
+                    <tr><td>Excel Binary</td><td>.xlsb</td><td>Binary Excel workbook (faster for large files)</td></tr>
+                    <tr><td>CSV</td><td>.csv</td><td>Comma-separated values</td></tr>
+                    <tr><td>Text</td><td>.txt</td><td>Tab-delimited text files</td></tr>
+                    <tr><td>DIF</td><td>.dif</td><td>Data Interchange Format</td></tr>
+                    <tr><td>OpenDocument</td><td>.ods</td><td>LibreOffice / OpenOffice spreadsheets</td></tr>
+                </tbody>
+            </table>
+
+            <h2>Use Cases for Comparing Spreadsheets</h2>
+
+            <h3>Financial Reporting &amp; Auditing</h3>
+            <p>Compare monthly or quarterly financial reports to spot discrepancies in revenue, expenses, and budget allocations. Auditors use spreadsheet comparison to verify data integrity between report versions, ensuring no unauthorized changes were made to financial records.</p>
+
+            <h3>Data Migration &amp; Validation</h3>
+            <p>When migrating data between systems, compare the source and destination Excel files to verify that all records transferred correctly. Instantly identify missing rows, altered values, or formatting issues that could impact downstream processes.</p>
+
+            <h3>Version Control for Business Documents</h3>
+            <p>Track changes between different versions of pricing sheets, inventory lists, project plans, or employee rosters. Instead of manually scanning hundreds of rows, our tool highlights every modification at a glance.</p>
+
+            <h3>Quality Assurance &amp; Testing</h3>
+            <p>QA teams compare expected vs. actual output data exported from applications. Upload both files and immediately see where test results diverge from expected values — speeding up bug identification and regression testing.</p>
+
+            <h3>Academic &amp; Research Data</h3>
+            <p>Researchers compare datasets across experiment iterations or survey rounds. Quickly identify which data points changed, were added, or were removed between collection periods.</p>
+
+            <h2>How the Comparison Algorithm Works</h2>
+            <p>Our Excel comparison tool works in several steps:</p>
+            <ol>
+                <li><strong>File Parsing:</strong> Both files are parsed using the SheetJS library directly in your browser — no data is ever sent to a server.</li>
+                <li><strong>Sheet Selection:</strong> If your workbook contains multiple sheets, you can select which sheet to compare using the tab selector below each preview.</li>
+                <li><strong>Cell-by-Cell Comparison:</strong> The tool normalizes both sheets into a grid and compares each cell value. Rows are matched by position (row index).</li>
+                <li><strong>Difference Classification:</strong> Each row is classified as unchanged, changed (at least one cell differs), added (only in the changed file), or removed (only in the original file).</li>
+                <li><strong>Visual Output:</strong> Results are displayed in a unified table with color-coded highlighting: yellow for changed cells, green for added rows, and red for removed rows.</li>
+            </ol>
+
+            <h2>Why Use Our Free Spreadsheet Comparison Tool?</h2>
+            <ul>
+                <li><strong>100% free</strong> — No registration, no limits, no premium tiers.</li>
+                <li><strong>Privacy-first</strong> — All processing happens in your browser. Your files never leave your device.</li>
+                <li><strong>No installation</strong> — Works directly in your browser on any device.</li>
+                <li><strong>Multi-format support</strong> — Compare xlsx, xls, xlsm, xlsb, csv, txt, dif, and ods files.</li>
+                <li><strong>Multi-sheet support</strong> — Navigate between sheets in workbooks with multiple tabs.</li>
+                <li><strong>Instant preview</strong> — See your spreadsheet data rendered as a table immediately after upload.</li>
+                <li><strong>Copy &amp; download</strong> — Export comparison results or download individual file data as CSV.</li>
+                <li><strong>Mobile friendly</strong> — Fully responsive design works on phones and tablets.</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>How do I compare two Excel files?</h3>
+            <p>Upload your original Excel file on the left panel and the changed file on the right panel (drag &amp; drop or use the upload button), then click "Find Differences." The tool will parse both files and display a color-coded comparison showing every change, addition, and removal.</p>
+
+            <h3>What file formats can I compare?</h3>
+            <p>You can compare Excel files (.xlsx, .xls, .xlsm, .xlsb), CSV files (.csv), text files (.txt), DIF files (.dif), and OpenDocument spreadsheets (.ods). You can even compare files of different formats — for example, an .xlsx against a .csv.</p>
+
+            <h3>Is my data safe when comparing files?</h3>
+            <p>Yes, completely. All file processing happens entirely in your browser using JavaScript. Your spreadsheet data is never uploaded to any server, never stored, and never shared. Your files stay on your device at all times.</p>
+
+            <h3>Can I compare Excel files with multiple sheets?</h3>
+            <p>Yes. When you upload a workbook with multiple sheets, tabs appear below the preview letting you select which sheet to view and compare. You can switch sheets independently for each file.</p>
+
+            <h3>What types of differences does it detect?</h3>
+            <p>The tool detects three types of differences: changed cells (same row, different values — highlighted in yellow), added rows (rows only in the changed file — highlighted in green), and removed rows (rows only in the original file — highlighted in red).</p>
+
+            <h3>Can I compare CSV files?</h3>
+            <p>Yes. CSV is one of the supported formats. Simply upload your two CSV files and click "Find Differences." The tool will parse and compare them just like Excel files.</p>
+
+            <h3>Is there a file size limit?</h3>
+            <p>There is no hard limit. Since all processing happens in your browser, the practical limit depends on your device's memory. Files with up to 100,000 rows work well on modern devices.</p>
+
+            <h3>Can I download the comparison results?</h3>
+            <p>You can copy the diff results to your clipboard using the "Copy Diff" button. You can also download individual file data as CSV using the download button on each panel.</p>
+
+            <h3>Do I need to install anything?</h3>
+            <p>No. The tool runs entirely in your web browser. No plugins, extensions, or desktop software required.</p>
+
+            <h3>Can I compare files on my phone?</h3>
+            <p>Yes. The tool is fully responsive. On mobile devices the upload panels stack vertically, and all features including drag-and-drop, preview, and comparison work on phones and tablets.</p>
+
+            <h3>Can I compare spreadsheets of different formats?</h3>
+            <p>Yes. You can compare any combination of supported formats. For example, compare an .xlsx file against a .csv or an .ods file against an .xls — the tool normalizes both to a table grid before comparison.</p>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+    <div class="toast" id="toast"></div>
+
+    <script>
+    // Load footer
+    fetch('/footer.html').then(r => r.text()).then(h => document.getElementById('footer-container').innerHTML = h);
+
+    // --- State ---
+    const state = {
+        original: { workbook: null, sheetIndex: 0, fileName: '' },
+        changed:  { workbook: null, sheetIndex: 0, fileName: '' }
+    };
+
+    // --- Utility ---
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg; t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2000);
+    }
+
+    function getSheetData(side) {
+        const wb = state[side].workbook;
+        if (!wb) return [];
+        const name = wb.SheetNames[state[side].sheetIndex];
+        const ws = wb.Sheets[name];
+        return XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
+    }
+
+    function getMaxCols(data) {
+        let max = 0;
+        for (const row of data) if (row.length > max) max = row.length;
+        return max;
+    }
+
+    function colLetter(i) {
+        let s = '';
+        i++;
+        while (i > 0) { i--; s = String.fromCharCode(65 + (i % 26)) + s; i = Math.floor(i / 26); }
+        return s;
+    }
+
+    // --- Drag & Drop ---
+    ['original', 'changed'].forEach(side => {
+        const zone = document.getElementById('drop-' + side);
+        zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+        zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+        zone.addEventListener('drop', e => {
+            e.preventDefault(); zone.classList.remove('dragover');
+            if (e.dataTransfer.files.length) handleFile(side, e.dataTransfer.files[0]);
+        });
+
+        document.getElementById('file-input-' + side).addEventListener('change', function() {
+            if (this.files[0]) handleFile(side, this.files[0]);
+            this.value = '';
+        });
+    });
+
+    function triggerUpload(side) {
+        document.getElementById('file-input-' + side).click();
+    }
+
+    function handleFile(side, file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const wb = XLSX.read(data, { type: 'array' });
+                state[side].workbook = wb;
+                state[side].sheetIndex = 0;
+                state[side].fileName = file.name;
+                renderPreview(side);
+                showToast(file.name + ' loaded');
+            } catch (err) {
+                showToast('Error reading file: ' + err.message);
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    function renderPreview(side) {
+        const zone = document.getElementById('drop-' + side);
+        const wb = state[side].workbook;
+        if (!wb) return;
+
+        zone.classList.add('has-file');
+        // Stop click from triggering upload when file is loaded
+        zone.onclick = null;
+
+        // File info
+        const sheetData = getSheetData(side);
+        const rows = sheetData.length;
+        const cols = getMaxCols(sheetData);
+        document.getElementById('file-info-' + side).innerHTML =
+            '<strong>' + state[side].fileName + '</strong> — ' + rows + ' rows × ' + cols + ' cols';
+
+        // Sheet tabs
+        const tabsEl = document.getElementById('tabs-' + side);
+        if (wb.SheetNames.length > 1) {
+            tabsEl.innerHTML = wb.SheetNames.map((name, i) =>
+                '<button class="sheet-tab' + (i === state[side].sheetIndex ? ' active' : '') +
+                '" onclick="switchSheet(\'' + side + '\',' + i + ')">' + name + '</button>'
+            ).join('');
+        } else {
+            tabsEl.innerHTML = '';
+        }
+
+        // Table
+        renderTable(side, sheetData);
+    }
+
+    function renderTable(side, data) {
+        const cols = getMaxCols(data);
+        let html = '<thead><tr><th>#</th>';
+        for (let c = 0; c < cols; c++) html += '<th>' + colLetter(c) + '</th>';
+        html += '</tr></thead><tbody>';
+        const maxRows = Math.min(data.length, 500); // Show max 500 rows in preview
+        for (let r = 0; r < maxRows; r++) {
+            html += '<tr><td class="row-num">' + (r + 1) + '</td>';
+            for (let c = 0; c < cols; c++) {
+                const val = data[r] && data[r][c] !== undefined ? data[r][c] : '';
+                html += '<td title="' + String(val).replace(/"/g, '&quot;') + '">' + escapeHtml(String(val)) + '</td>';
+            }
+            html += '</tr>';
+        }
+        if (data.length > 500) html += '<tr><td colspan="' + (cols + 1) + '" style="color:#94a3b8;text-align:center;padding:0.75rem;">... ' + (data.length - 500) + ' more rows</td></tr>';
+        html += '</tbody>';
+        document.getElementById('table-' + side).innerHTML = html;
+    }
+
+    function switchSheet(side, index) {
+        state[side].sheetIndex = index;
+        renderPreview(side);
+    }
+
+    function clearFile(side) {
+        state[side].workbook = null;
+        state[side].sheetIndex = 0;
+        state[side].fileName = '';
+        const zone = document.getElementById('drop-' + side);
+        zone.classList.remove('has-file');
+        zone.onclick = () => triggerUpload(side);
+        document.getElementById('file-info-' + side).innerHTML = '';
+        document.getElementById('tabs-' + side).innerHTML = '';
+        document.getElementById('table-' + side).innerHTML = '<tbody></tbody>';
+        showToast('Cleared');
+    }
+
+    function downloadSheet(side) {
+        const data = getSheetData(side);
+        if (!data.length) { showToast('No data to download'); return; }
+        const csv = data.map(row => row.map(cell => {
+            const s = String(cell);
+            return s.includes(',') || s.includes('"') || s.includes('\n') ? '"' + s.replace(/"/g, '""') + '"' : s;
+        }).join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = (state[side].fileName || side) + '.csv';
+        a.click();
+        URL.revokeObjectURL(a.href);
+    }
+
+    function copySheet(side) {
+        const data = getSheetData(side);
+        if (!data.length) { showToast('No data to copy'); return; }
+        const text = data.map(row => row.join('\t')).join('\n');
+        navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard'));
+    }
+
+    function swapFiles() {
+        const tmp = { ...state.original };
+        state.original = { ...state.changed };
+        state.changed = { ...tmp };
+        if (state.original.workbook) renderPreview('original');
+        else clearFile('original');
+        if (state.changed.workbook) renderPreview('changed');
+        else clearFile('changed');
+        showToast('Files swapped');
+    }
+
+    function loadSample() {
+        // Create sample workbooks
+        const origData = [
+            ['Product', 'Price', 'Quantity', 'Total'],
+            ['Widget A', 19.99, 100, 1999.00],
+            ['Widget B', 24.50, 75, 1837.50],
+            ['Widget C', 12.00, 200, 2400.00],
+            ['Widget D', 8.99, 150, 1348.50],
+            ['Widget E', 35.00, 50, 1750.00]
+        ];
+        const changedData = [
+            ['Product', 'Price', 'Quantity', 'Total'],
+            ['Widget A', 21.99, 100, 2199.00],
+            ['Widget B', 24.50, 75, 1837.50],
+            ['Widget C', 12.00, 180, 2160.00],
+            ['Widget D', 8.99, 150, 1348.50],
+            ['Widget E', 35.00, 60, 2100.00],
+            ['Widget F', 15.00, 90, 1350.00]
+        ];
+
+        const ws1 = XLSX.utils.aoa_to_sheet(origData);
+        const wb1 = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb1, ws1, 'Inventory');
+        state.original = { workbook: wb1, sheetIndex: 0, fileName: 'inventory_v1.xlsx' };
+
+        const ws2 = XLSX.utils.aoa_to_sheet(changedData);
+        const wb2 = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb2, ws2, 'Inventory');
+        state.changed = { workbook: wb2, sheetIndex: 0, fileName: 'inventory_v2.xlsx' };
+
+        renderPreview('original');
+        renderPreview('changed');
+        showToast('Sample loaded');
+    }
+
+    // --- Compare ---
+    function compareFiles() {
+        const origData = getSheetData('original');
+        const changedData = getSheetData('changed');
+        if (!origData.length && !changedData.length) { showToast('Upload files first'); return; }
+
+        const maxRows = Math.max(origData.length, changedData.length);
+        const maxCols = Math.max(getMaxCols(origData), getMaxCols(changedData));
+
+        let added = 0, removed = 0, changed = 0, unchanged = 0;
+        let diffRows = [];
+
+        for (let r = 0; r < maxRows; r++) {
+            const origRow = origData[r] || null;
+            const changedRow = changedData[r] || null;
+
+            if (!origRow && changedRow) {
+                diffRows.push({ type: 'added', row: r, cells: changedRow, maxCols });
+                added++;
+            } else if (origRow && !changedRow) {
+                diffRows.push({ type: 'removed', row: r, cells: origRow, maxCols });
+                removed++;
+            } else {
+                let rowChanged = false;
+                let cellDiffs = [];
+                for (let c = 0; c < maxCols; c++) {
+                    const oVal = origRow[c] !== undefined ? String(origRow[c]) : '';
+                    const cVal = changedRow[c] !== undefined ? String(changedRow[c]) : '';
+                    if (oVal !== cVal) { rowChanged = true; cellDiffs.push(c); }
+                }
+                if (rowChanged) {
+                    diffRows.push({ type: 'changed', row: r, origCells: origRow, changedCells: changedRow, changedIndices: cellDiffs, maxCols });
+                    changed++;
+                } else {
+                    diffRows.push({ type: 'unchanged', row: r, cells: origRow, maxCols });
+                    unchanged++;
+                }
+            }
+        }
+
+        // Update stats
+        document.getElementById('stat-changed').textContent = changed + ' changed';
+        document.getElementById('stat-added').textContent = '+' + added + ' rows added';
+        document.getElementById('stat-removed').textContent = '−' + removed + ' rows removed';
+        document.getElementById('stat-unchanged').textContent = unchanged + ' unchanged';
+
+        // Render diff table
+        renderDiffTable(diffRows, maxCols);
+        document.getElementById('diff-output').classList.add('visible');
+        document.getElementById('diff-output').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function renderDiffTable(diffRows, maxCols) {
+        const container = document.getElementById('diff-container');
+        if (diffRows.every(d => d.type === 'unchanged')) {
+            container.innerHTML = '<div class="no-diff">✓ Spreadsheets are identical — no differences found</div>';
+            return;
+        }
+
+        let html = '<table class="diff-table"><thead><tr><th>Row</th><th>Status</th>';
+        for (let c = 0; c < maxCols; c++) html += '<th>' + colLetter(c) + '</th>';
+        html += '</tr></thead><tbody>';
+
+        for (const d of diffRows) {
+            const rowNum = d.row + 1;
+            if (d.type === 'unchanged') {
+                html += '<tr><td class="row-num">' + rowNum + '</td><td style="color:#94a3b8;font-size:0.7rem;">—</td>';
+                for (let c = 0; c < maxCols; c++) {
+                    const val = d.cells[c] !== undefined ? d.cells[c] : '';
+                    html += '<td>' + escapeHtml(String(val)) + '</td>';
+                }
+                html += '</tr>';
+            } else if (d.type === 'added') {
+                html += '<tr class="row-added"><td class="row-num">' + rowNum + '</td><td style="color:#4ade80;font-size:0.7rem;">Added</td>';
+                for (let c = 0; c < maxCols; c++) {
+                    const val = d.cells[c] !== undefined ? d.cells[c] : '';
+                    html += '<td class="cell-added">' + escapeHtml(String(val)) + '</td>';
+                }
+                html += '</tr>';
+            } else if (d.type === 'removed') {
+                html += '<tr class="row-removed"><td class="row-num">' + rowNum + '</td><td style="color:#f87171;font-size:0.7rem;">Removed</td>';
+                for (let c = 0; c < maxCols; c++) {
+                    const val = d.cells[c] !== undefined ? d.cells[c] : '';
+                    html += '<td class="cell-removed">' + escapeHtml(String(val)) + '</td>';
+                }
+                html += '</tr>';
+            } else if (d.type === 'changed') {
+                html += '<tr><td class="row-num">' + rowNum + '</td><td style="color:#fbbf24;font-size:0.7rem;">Changed</td>';
+                for (let c = 0; c < maxCols; c++) {
+                    const oVal = d.origCells[c] !== undefined ? String(d.origCells[c]) : '';
+                    const cVal = d.changedCells[c] !== undefined ? String(d.changedCells[c]) : '';
+                    if (d.changedIndices.includes(c)) {
+                        html += '<td class="cell-changed" title="Was: ' + escapeHtml(oVal) + '">' + escapeHtml(cVal) + ' <span style="color:#94a3b8;font-size:0.65rem;">(was ' + escapeHtml(oVal) + ')</span></td>';
+                    } else {
+                        html += '<td>' + escapeHtml(String(cVal)) + '</td>';
+                    }
+                }
+                html += '</tr>';
+            }
+        }
+        html += '</tbody></table>';
+        container.innerHTML = html;
+    }
+
+    function copyDiffResult() {
+        const container = document.getElementById('diff-container');
+        const table = container.querySelector('.diff-table');
+        if (!table) { showToast('No diff to copy'); return; }
+        // Extract text from table
+        const rows = table.querySelectorAll('tr');
+        const lines = [];
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('th, td');
+            lines.push(Array.from(cells).map(c => c.textContent.trim()).join('\t'));
+        });
+        navigator.clipboard.writeText(lines.join('\n')).then(() => showToast('Diff copied to clipboard'));
+    }
+
+    function escapeHtml(str) {
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+    </script>
+
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Compare Excel Files Online",
+        "description": "Free online Excel file comparison tool. Compare two Excel files, CSV, ODS, and other spreadsheets side by side. Find differences between spreadsheets instantly.",
+        "url": "https://calculations.tools/compare-text/compare-excel",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {"@type":"Question","name":"How do I compare two Excel files?","acceptedAnswer":{"@type":"Answer","text":"Upload your original Excel file on the left panel and the changed file on the right panel (drag & drop or click upload), then click 'Find Differences.' The tool parses both files and displays a color-coded comparison showing every change, addition, and removal."}},
+          {"@type":"Question","name":"What file formats can I compare?","acceptedAnswer":{"@type":"Answer","text":"You can compare Excel files (.xlsx, .xls, .xlsm, .xlsb), CSV files (.csv), text files (.txt), DIF files (.dif), and OpenDocument spreadsheets (.ods). You can even compare files of different formats."}},
+          {"@type":"Question","name":"Is my data safe when comparing files?","acceptedAnswer":{"@type":"Answer","text":"Yes, completely. All file processing happens entirely in your browser using JavaScript. Your spreadsheet data is never uploaded to any server, never stored, and never shared."}},
+          {"@type":"Question","name":"Can I compare Excel files with multiple sheets?","acceptedAnswer":{"@type":"Answer","text":"Yes. When you upload a workbook with multiple sheets, tabs appear below the preview letting you select which sheet to compare."}},
+          {"@type":"Question","name":"What types of differences does it detect?","acceptedAnswer":{"@type":"Answer","text":"The tool detects changed cells (same row, different values), added rows (only in the changed file), and removed rows (only in the original file), each highlighted with distinct colors."}},
+          {"@type":"Question","name":"Can I compare CSV files?","acceptedAnswer":{"@type":"Answer","text":"Yes. CSV is one of the supported formats. Upload your two CSV files and click 'Find Differences' — the tool parses and compares them just like Excel files."}},
+          {"@type":"Question","name":"Is there a file size limit?","acceptedAnswer":{"@type":"Answer","text":"There is no hard limit. Since all processing happens in your browser, the practical limit depends on your device's memory. Files with up to 100,000 rows work well on modern devices."}},
+          {"@type":"Question","name":"Can I compare spreadsheets of different formats?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can compare any combination of supported formats — for example, an .xlsx against a .csv or an .ods against an .xls."}},
+          {"@type":"Question","name":"Do I need to install anything?","acceptedAnswer":{"@type":"Answer","text":"No. The tool runs entirely in your web browser. No plugins, extensions, or desktop software required."}},
+          {"@type":"Question","name":"Can I compare files on my phone?","acceptedAnswer":{"@type":"Answer","text":"Yes. The tool is fully responsive and works on phones and tablets. Upload panels stack vertically on mobile for comfortable use."}}
+        ]
+      }
+    ]
+    </script>
+</body>
+</html>

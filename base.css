@@ -1,4 +1,4 @@
-.seo-container h1 {
+.seo-container.seo-container h1 {
     font-weight: 700;
     font-size: 3rem;
     line-height: 1.25;
@@ -29,7 +29,6 @@
     margin-bottom: 1rem;
 }
 .seo-container {
-    max-width: 56rem;
     margin: 0 auto;
     margin-top: 1.5rem;
     padding: 1.5rem;

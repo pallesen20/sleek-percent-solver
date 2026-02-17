@@ -143,9 +143,29 @@ body {
     min-height: 100vh;
 }
 .container {
-    max-width: 1200px;
+    max-width: 1080px;
     margin: 0 auto;
     padding: 0 1rem;
+}
+
+/* AdSense Side Rail Ad Optimization */
+@media screen and (min-width: 1200px) {
+    .container,
+    .header-container,
+    .breadcrumb-nav {
+        max-width: 1080px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+@media screen and (min-width: 1600px) {
+    .container,
+    .header-container,
+    .breadcrumb-nav {
+        max-width: 1200px;
+    }
 }
 a {
     color: #ffffff !important;

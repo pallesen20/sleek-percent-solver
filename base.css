@@ -192,8 +192,7 @@ a:hover {
     margin-bottom: 3rem;
 }
 .calculator-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
@@ -205,13 +204,13 @@ a:hover {
     padding: 1.5rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    /* display: flex; */
     align-items: flex-start;
     gap: 1rem;
     text-align: left;
     color: white;
     border: none;
     font-family: inherit;
+    flex: 1 1 0;
 }
 .calculator-card:hover {
     background: rgba(255, 255, 255, 0.15);
@@ -449,7 +448,7 @@ a:hover {
 }
 .content-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
 }
 .content-card {
@@ -671,6 +670,7 @@ a:hover {
         font-size: 1rem;
     }
     .calculator-grid {
+        display: grid;
         grid-template-columns: 1fr;
     }
     .calculator-container {

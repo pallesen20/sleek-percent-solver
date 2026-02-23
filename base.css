@@ -698,8 +698,3 @@ a:hover {
         padding: 1rem;
     }
 }
-@media screen and (min-width: 990px) {
-.features-grid {
-    grid-template-columns: repeat(3, minmax(250px, 1fr)) !important;
-}
-}

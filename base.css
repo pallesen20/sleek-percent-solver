@@ -411,9 +411,8 @@ a:hover {
     margin-bottom: 2rem;
 }
 .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    display: flex;
+    gap: 1.5rem;
 }
 .feature-card {
     background: rgba(255, 255, 255, 0.1);
@@ -422,6 +421,7 @@ a:hover {
     border-radius: 1rem;
     padding: 2rem;
     text-align: center;
+    flex: 1 1 0;
 }
 .feature-icon {
     font-size: 2.5rem;
@@ -669,7 +669,7 @@ a:hover {
     .subtitle {
         font-size: 1rem;
     }
-    .calculator-grid {
+    .calculator-grid, .features-grid {
         display: grid;
         grid-template-columns: 1fr;
     }

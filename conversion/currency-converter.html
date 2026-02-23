@@ -500,6 +500,23 @@
         let exchangeRates = {};
         let lastUpdate = '';
 
+        // Cookie helpers (30-day TTL)
+        function setCookie(name, value, days = 30) {
+            const d = new Date();
+            d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+            document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
+        }
+        function getCookie(name) {
+            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? decodeURIComponent(match[2]) : null;
+        }
+
+        function savePreferences() {
+            setCookie('cc_from', document.getElementById('fromCurrency').value);
+            setCookie('cc_to', document.getElementById('toCurrency').value);
+            setCookie('cc_amount', document.getElementById('fromAmount').value);
+        }
+
         // Populate currency dropdowns
         function populateCurrencies() {
             const fromSelect = document.getElementById('fromCurrency');
@@ -512,9 +529,11 @@
                 toSelect.add(option2);
             });
             
-            // Set default values
-            fromSelect.value = 'USD';
-            toSelect.value = 'EUR';
+            // Restore from cookies or use defaults
+            fromSelect.value = getCookie('cc_from') || 'USD';
+            toSelect.value = getCookie('cc_to') || 'EUR';
+            const savedAmount = getCookie('cc_amount');
+            if (savedAmount) document.getElementById('fromAmount').value = savedAmount;
         }
 
         // Fetch exchange rates
@@ -599,6 +618,7 @@
             
             document.getElementById('toAmount').value = toAmount.toFixed(2);
             updateDisplayRate();
+            savePreferences();
         }
 
         // Swap currencies

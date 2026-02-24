@@ -428,245 +428,334 @@
 
     <script>
         // Currency data - major currencies with their full names
-        const currencies = {
-            'USD': 'US Dollar',
-            'EUR': 'Euro',
-            'GBP': 'British Pound',
-            'JPY': 'Japanese Yen',
-            'AUD': 'Australian Dollar',
-            'CAD': 'Canadian Dollar',
-            'CHF': 'Swiss Franc',
-            'CNY': 'Chinese Yuan',
-            'SEK': 'Swedish Krona',
-            'NZD': 'New Zealand Dollar',
-            'MXN': 'Mexican Peso',
-            'SGD': 'Singapore Dollar',
-            'HKD': 'Hong Kong Dollar',
-            'NOK': 'Norwegian Krone',
-            'KRW': 'South Korean Won',
-            'TRY': 'Turkish Lira',
-            'INR': 'Indian Rupee',
-            'RUB': 'Russian Ruble',
-            'BRL': 'Brazilian Real',
-            'ZAR': 'South African Rand',
-            'DKK': 'Danish Krone',
-            'PLN': 'Polish Zloty',
-            'THB': 'Thai Baht',
-            'IDR': 'Indonesian Rupiah',
-            'HUF': 'Hungarian Forint',
-            'CZK': 'Czech Koruna',
-            'ILS': 'Israeli Shekel',
-            'CLP': 'Chilean Peso',
-            'PHP': 'Philippine Peso',
-            'AED': 'UAE Dirham',
-            'COP': 'Colombian Peso',
-            'SAR': 'Saudi Riyal',
-            'MYR': 'Malaysian Ringgit',
-            'RON': 'Romanian Leu',
-            'ARS': 'Argentine Peso',
-            'VND': 'Vietnamese Dong',
-            'BGN': 'Bulgarian Lev',
-            'HRK': 'Croatian Kuna',
-            'ISK': 'Icelandic Krona',
-            'PKR': 'Pakistani Rupee',
-            'BDT': 'Bangladeshi Taka',
-            'EGP': 'Egyptian Pound',
-            'KES': 'Kenyan Shilling',
-            'NGN': 'Nigerian Naira',
-            'UAH': 'Ukrainian Hryvnia',
-            'QAR': 'Qatari Riyal',
-            'KWD': 'Kuwaiti Dinar',
-            'OMR': 'Omani Rial',
-            'JOD': 'Jordanian Dinar',
-            'BHD': 'Bahraini Dinar',
-            'LKR': 'Sri Lankan Rupee',
-            'MMK': 'Myanmar Kyat',
-            'IQD': 'Iraqi Dinar',
-            'DZD': 'Algerian Dinar',
-            'MAD': 'Moroccan Dirham',
-            'TND': 'Tunisian Dinar',
-            'UYU': 'Uruguayan Peso',
-            'PEN': 'Peruvian Sol',
-            'BOB': 'Bolivian Boliviano',
-            'PYG': 'Paraguayan Guarani',
-            'CRC': 'Costa Rican Colon',
-            'GTQ': 'Guatemalan Quetzal',
-            'HNL': 'Honduran Lempira',
-            'NIO': 'Nicaraguan Cordoba',
-            'PAB': 'Panamanian Balboa',
-            'TWD': 'Taiwan Dollar'
-        };
+const currencies = {
+    'USD': 'US Dollar',
+    'EUR': 'Euro',
+    'GBP': 'British Pound',
+    'JPY': 'Japanese Yen',
+    'AUD': 'Australian Dollar',
+    'CAD': 'Canadian Dollar',
+    'CHF': 'Swiss Franc',
+    'CNY': 'Chinese Yuan',
+    'SEK': 'Swedish Krona',
+    'NZD': 'New Zealand Dollar',
+    'MXN': 'Mexican Peso',
+    'SGD': 'Singapore Dollar',
+    'HKD': 'Hong Kong Dollar',
+    'NOK': 'Norwegian Krone',
+    'KRW': 'South Korean Won',
+    'TRY': 'Turkish Lira',
+    'INR': 'Indian Rupee',
+    'RUB': 'Russian Ruble',
+    'BRL': 'Brazilian Real',
+    'ZAR': 'South African Rand',
+    'DKK': 'Danish Krone',
+    'PLN': 'Polish Zloty',
+    'THB': 'Thai Baht',
+    'IDR': 'Indonesian Rupiah',
+    'HUF': 'Hungarian Forint',
+    'CZK': 'Czech Koruna',
+    'ILS': 'Israeli Shekel',
+    'CLP': 'Chilean Peso',
+    'PHP': 'Philippine Peso',
+    'AED': 'UAE Dirham',
+    'COP': 'Colombian Peso',
+    'SAR': 'Saudi Riyal',
+    'MYR': 'Malaysian Ringgit',
+    'RON': 'Romanian Leu',
+    'ARS': 'Argentine Peso',
+    'VND': 'Vietnamese Dong',
+    'BGN': 'Bulgarian Lev',
+    'HRK': 'Croatian Kuna',
+    'ISK': 'Icelandic Krona',
+    'PKR': 'Pakistani Rupee',
+    'BDT': 'Bangladeshi Taka',
+    'EGP': 'Egyptian Pound',
+    'KES': 'Kenyan Shilling',
+    'NGN': 'Nigerian Naira',
+    'UAH': 'Ukrainian Hryvnia',
+    'QAR': 'Qatari Riyal',
+    'KWD': 'Kuwaiti Dinar',
+    'OMR': 'Omani Rial',
+    'JOD': 'Jordanian Dinar',
+    'BHD': 'Bahraini Dinar',
+    'LKR': 'Sri Lankan Rupee',
+    'MMK': 'Myanmar Kyat',
+    'IQD': 'Iraqi Dinar',
+    'DZD': 'Algerian Dinar',
+    'MAD': 'Moroccan Dirham',
+    'TND': 'Tunisian Dinar',
+    'UYU': 'Uruguayan Peso',
+    'PEN': 'Peruvian Sol',
+    'BOB': 'Bolivian Boliviano',
+    'PYG': 'Paraguayan Guarani',
+    'CRC': 'Costa Rican Colon',
+    'GTQ': 'Guatemalan Quetzal',
+    'HNL': 'Honduran Lempira',
+    'NIO': 'Nicaraguan Cordoba',
+    'PAB': 'Panamanian Balboa',
+    'TWD': 'Taiwan Dollar'
+};
 
-        let exchangeRates = {};
-        let lastUpdate = '';
+// Maps a BCP 47 locale/region tag to a currency code.
+// Region (country) takes priority when present (e.g. "en-NO" → NOK).
+const LOCALE_CURRENCY_MAP = {
+    // Region codes → currency
+    'AD': 'EUR', 'AE': 'AED', 'AF': 'USD', 'AG': 'USD', 'AL': 'EUR',
+    'AM': 'EUR', 'AO': 'USD', 'AR': 'ARS', 'AT': 'EUR', 'AU': 'AUD',
+    'AZ': 'EUR', 'BA': 'EUR', 'BB': 'USD', 'BD': 'BDT', 'BE': 'EUR',
+    'BF': 'EUR', 'BG': 'BGN', 'BH': 'BHD', 'BI': 'EUR', 'BJ': 'EUR',
+    'BN': 'SGD', 'BO': 'BOB', 'BR': 'BRL', 'BS': 'USD', 'BT': 'INR',
+    'BW': 'ZAR', 'BY': 'EUR', 'BZ': 'USD', 'CA': 'CAD', 'CD': 'EUR',
+    'CF': 'EUR', 'CG': 'EUR', 'CH': 'CHF', 'CI': 'EUR', 'CL': 'CLP',
+    'CM': 'EUR', 'CN': 'CNY', 'CO': 'COP', 'CR': 'CRC', 'CU': 'USD',
+    'CV': 'EUR', 'CY': 'EUR', 'CZ': 'CZK', 'DE': 'EUR', 'DJ': 'EUR',
+    'DK': 'DKK', 'DM': 'USD', 'DO': 'USD', 'DZ': 'DZD', 'EC': 'USD',
+    'EE': 'EUR', 'EG': 'EGP', 'ER': 'USD', 'ES': 'EUR', 'ET': 'EUR',
+    'FI': 'EUR', 'FJ': 'AUD', 'FR': 'EUR', 'GA': 'EUR', 'GB': 'GBP',
+    'GD': 'USD', 'GE': 'EUR', 'GH': 'USD', 'GM': 'USD', 'GN': 'EUR',
+    'GQ': 'EUR', 'GR': 'EUR', 'GT': 'GTQ', 'GW': 'EUR', 'GY': 'USD',
+    'HN': 'HNL', 'HR': 'EUR', 'HT': 'USD', 'HU': 'HUF', 'ID': 'IDR',
+    'IE': 'EUR', 'IL': 'ILS', 'IN': 'INR', 'IQ': 'IQD', 'IR': 'USD',
+    'IS': 'ISK', 'IT': 'EUR', 'JM': 'USD', 'JO': 'JOD', 'JP': 'JPY',
+    'KE': 'KES', 'KG': 'EUR', 'KH': 'USD', 'KI': 'AUD', 'KM': 'EUR',
+    'KN': 'USD', 'KP': 'KRW', 'KR': 'KRW', 'KW': 'KWD', 'KZ': 'EUR',
+    'LA': 'USD', 'LB': 'USD', 'LC': 'USD', 'LI': 'CHF', 'LK': 'LKR',
+    'LR': 'USD', 'LS': 'ZAR', 'LT': 'EUR', 'LU': 'EUR', 'LV': 'EUR',
+    'LY': 'USD', 'MA': 'MAD', 'MC': 'EUR', 'MD': 'EUR', 'ME': 'EUR',
+    'MG': 'EUR', 'MH': 'USD', 'MK': 'EUR', 'ML': 'EUR', 'MM': 'MMK',
+    'MN': 'CNY', 'MR': 'EUR', 'MT': 'EUR', 'MU': 'USD', 'MV': 'USD',
+    'MW': 'USD', 'MX': 'MXN', 'MY': 'MYR', 'MZ': 'ZAR', 'NA': 'ZAR',
+    'NE': 'EUR', 'NG': 'NGN', 'NI': 'NIO', 'NL': 'EUR', 'NO': 'NOK',
+    'NP': 'INR', 'NR': 'AUD', 'NZ': 'NZD', 'OM': 'OMR', 'PA': 'PAB',
+    'PE': 'PEN', 'PG': 'AUD', 'PH': 'PHP', 'PK': 'PKR', 'PL': 'PLN',
+    'PT': 'EUR', 'PW': 'USD', 'PY': 'PYG', 'QA': 'QAR', 'RO': 'RON',
+    'RS': 'EUR', 'RU': 'RUB', 'RW': 'USD', 'SA': 'SAR', 'SB': 'AUD',
+    'SC': 'USD', 'SD': 'USD', 'SE': 'SEK', 'SG': 'SGD', 'SI': 'EUR',
+    'SK': 'EUR', 'SL': 'USD', 'SM': 'EUR', 'SN': 'EUR', 'SO': 'USD',
+    'SR': 'USD', 'SS': 'USD', 'ST': 'EUR', 'SV': 'USD', 'SY': 'USD',
+    'SZ': 'ZAR', 'TD': 'EUR', 'TG': 'EUR', 'TH': 'THB', 'TJ': 'EUR',
+    'TL': 'USD', 'TM': 'EUR', 'TN': 'TND', 'TO': 'AUD', 'TR': 'TRY',
+    'TT': 'USD', 'TV': 'AUD', 'TW': 'TWD', 'TZ': 'USD', 'UA': 'UAH',
+    'UG': 'USD', 'US': 'USD', 'UY': 'UYU', 'UZ': 'EUR', 'VA': 'EUR',
+    'VC': 'USD', 'VE': 'USD', 'VN': 'VND', 'VU': 'AUD', 'WS': 'NZD',
+    'YE': 'USD', 'ZA': 'ZAR', 'ZM': 'USD', 'ZW': 'ZAR',
+    // Language-only fallbacks (used when no region tag is present)
+    'en': 'USD', 'de': 'EUR', 'fr': 'EUR', 'es': 'EUR', 'it': 'EUR',
+    'pt': 'EUR', 'nl': 'EUR', 'pl': 'PLN', 'ru': 'RUB', 'uk': 'UAH',
+    'tr': 'TRY', 'ar': 'AED', 'fa': 'USD', 'hi': 'INR', 'bn': 'BDT',
+    'zh': 'CNY', 'ja': 'JPY', 'ko': 'KRW', 'th': 'THB', 'vi': 'VND',
+    'id': 'IDR', 'ms': 'MYR', 'tl': 'PHP', 'sv': 'SEK', 'da': 'DKK',
+    'fi': 'EUR', 'nb': 'NOK', 'nn': 'NOK', 'no': 'NOK', 'is': 'ISK',
+    'cs': 'CZK', 'sk': 'EUR', 'hu': 'HUF', 'ro': 'RON', 'bg': 'BGN',
+    'hr': 'EUR', 'sr': 'EUR', 'he': 'ILS', 'el': 'EUR', 'uk': 'UAH',
+};
 
-        // Cookie helpers (30-day TTL)
-        function setCookie(name, value, days = 30) {
-            const d = new Date();
-            d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
-            document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
-        }
-        function getCookie(name) {
-            const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-            return match ? decodeURIComponent(match[2]) : null;
-        }
+/**
+ * Detects the most appropriate "from" currency based on browser language/locale.
+ * Tries region first (e.g. "NO" from "en-NO"), then language tag (e.g. "no").
+ * Falls back to USD if nothing matches.
+ */
+function detectLocaleCurrency() {
+    const locales = navigator.languages?.length
+        ? navigator.languages
+        : [navigator.language || 'en-US'];
 
-        function savePreferences() {
-            setCookie('cc_from', document.getElementById('fromCurrency').value);
-            setCookie('cc_to', document.getElementById('toCurrency').value);
-            setCookie('cc_amount', document.getElementById('fromAmount').value);
-        }
-
-        // Populate currency dropdowns
-        function populateCurrencies() {
-            const fromSelect = document.getElementById('fromCurrency');
-            const toSelect = document.getElementById('toCurrency');
-            
-            Object.keys(currencies).sort().forEach(code => {
-                const option1 = new Option(`${code} - ${currencies[code]}`, code);
-                const option2 = new Option(`${code} - ${currencies[code]}`, code);
-                fromSelect.add(option1);
-                toSelect.add(option2);
-            });
-            
-            // Restore from cookies or use defaults
-            fromSelect.value = getCookie('cc_from') || 'USD';
-            toSelect.value = getCookie('cc_to') || 'EUR';
-            const savedAmount = getCookie('cc_amount');
-            if (savedAmount) document.getElementById('fromAmount').value = savedAmount;
-        }
-
-        // Fetch exchange rates
-        async function fetchExchangeRates() {
-            const container = document.querySelector('.calculator-container');
-            container.classList.add('loading');
-            
-            try {
-                const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-                const data = await response.json();
-                
-                exchangeRates = data.rates;
-                lastUpdate = new Date(data.time_last_updated * 1000);
-                
-                updateDisplayRate();
-                updateConversion();
-                updateTimeDisplay();
-            } catch (error) {
-                console.error('Error fetching exchange rates:', error);
-                document.getElementById('updateTime').textContent = 'Error loading rates. Please refresh the page.';
-            } finally {
-                container.classList.remove('loading');
+    for (const locale of locales) {
+        // Try to extract region code (e.g. "NO" from "en-NO" or "nb-NO")
+        const parts = locale.split('-');
+        if (parts.length >= 2) {
+            const region = parts[parts.length - 1].toUpperCase();
+            if (LOCALE_CURRENCY_MAP[region] && currencies[LOCALE_CURRENCY_MAP[region]]) {
+                return LOCALE_CURRENCY_MAP[region];
             }
         }
-
-        // Update the displayed exchange rate
-        function updateDisplayRate() {
-            const fromCurrency = document.getElementById('fromCurrency').value;
-            const toCurrency = document.getElementById('toCurrency').value;
-            const rate = convertRate(fromCurrency, toCurrency);
-            
-            document.getElementById('displayRate').textContent = 
-                `1 ${fromCurrency} = ${rate.toFixed(4)} ${toCurrency}`;
+        // Fall back to language code (e.g. "nb", "no", "de")
+        const lang = parts[0].toLowerCase();
+        if (LOCALE_CURRENCY_MAP[lang] && currencies[LOCALE_CURRENCY_MAP[lang]]) {
+            return LOCALE_CURRENCY_MAP[lang];
         }
+    }
 
-        // Update time display
-        function updateTimeDisplay() {
-            if (!lastUpdate) return;
-            
-            const now = new Date();
-            const diffMs = now - lastUpdate;
-            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-            
-            let timeText = '';
-            if (diffHours < 1) {
-                timeText = 'Updated less than an hour ago';
-            } else if (diffHours < 24) {
-                timeText = `Updated ${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-            } else {
-                timeText = `Last updated: ${lastUpdate.toLocaleString('en-US', { 
-                    month: 'short', 
-                    day: 'numeric', 
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                })}`;
-            }
-            
-            document.getElementById('updateTime').textContent = timeText;
-        }
+    return 'USD'; // ultimate default
+}
 
-        // Convert rate from one currency to another
-        function convertRate(from, to) {
-            if (from === to) return 1;
-            
-            // All rates are based on USD
-            const fromRate = exchangeRates[from] || 1;
-            const toRate = exchangeRates[to] || 1;
-            
-            // Convert from -> USD -> to
-            return toRate / fromRate;
-        }
+let exchangeRates = {};
+let lastUpdate = '';
 
-        // Update conversion
-        function updateConversion() {
-            const fromAmount = parseFloat(document.getElementById('fromAmount').value) || 0;
-            const fromCurrency = document.getElementById('fromCurrency').value;
-            const toCurrency = document.getElementById('toCurrency').value;
-            
-            const rate = convertRate(fromCurrency, toCurrency);
-            const toAmount = fromAmount * rate;
-            
-            document.getElementById('toAmount').value = toAmount.toFixed(2);
-            updateDisplayRate();
-            savePreferences();
-        }
+// Cookie helpers (30-day TTL)
+function setCookie(name, value, days = 30) {
+    const d = new Date();
+    d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
+}
+function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+}
 
-        // Swap currencies
-        function swapCurrencies() {
-            const fromCurrency = document.getElementById('fromCurrency');
-            const toCurrency = document.getElementById('toCurrency');
-            const fromAmount = document.getElementById('fromAmount');
-            const toAmount = document.getElementById('toAmount');
-            
-            // Swap values
-            const tempCurrency = fromCurrency.value;
-            fromCurrency.value = toCurrency.value;
-            toCurrency.value = tempCurrency;
-            
-            const tempAmount = fromAmount.value;
-            fromAmount.value = toAmount.value;
-            
-            updateConversion();
-        }
+function savePreferences() {
+    setCookie('cc_from', document.getElementById('fromCurrency').value);
+    setCookie('cc_to', document.getElementById('toCurrency').value);
+    setCookie('cc_amount', document.getElementById('fromAmount').value);
+}
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            populateCurrencies();
-            fetchExchangeRates();
-            
-            // Event listeners
-            document.getElementById('fromAmount').addEventListener('input', updateConversion);
-            document.getElementById('fromCurrency').addEventListener('change', updateConversion);
-            document.getElementById('toCurrency').addEventListener('change', updateConversion);
-            document.getElementById('swapBtn').addEventListener('click', swapCurrencies);
-            
-            // Update time display every minute
-            setInterval(updateTimeDisplay, 60000);
-        });
+// Populate currency dropdowns
+function populateCurrencies() {
+    const fromSelect = document.getElementById('fromCurrency');
+    const toSelect = document.getElementById('toCurrency');
 
-        // Load footer
-        fetch('/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                const footerScript = document.getElementById('footer-script');
-                footerScript.insertAdjacentHTML('beforebegin', data);
-                footerScript.remove();
-            });
+    Object.keys(currencies).sort().forEach(code => {
+        fromSelect.add(new Option(`${code} - ${currencies[code]}`, code));
+        toSelect.add(new Option(`${code} - ${currencies[code]}`, code));
+    });
 
-        // Register service worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js');
-        }
+    // Priority: 1) cookie  2) locale detection  3) hard default
+    const cookieFrom = getCookie('cc_from');
+    fromSelect.value = cookieFrom || detectLocaleCurrency();
+
+    // For "to" currency: cookie takes priority, then default to EUR
+    // (if detected "from" is already EUR, fall back to USD)
+    const cookieTo = getCookie('cc_to');
+    if (cookieTo) {
+        toSelect.value = cookieTo;
+    } else {
+        toSelect.value = fromSelect.value === 'EUR' ? 'USD' : 'EUR';
+    }
+
+    const savedAmount = getCookie('cc_amount');
+    if (savedAmount) document.getElementById('fromAmount').value = savedAmount;
+}
+
+// Fetch exchange rates
+async function fetchExchangeRates() {
+    const container = document.querySelector('.calculator-container');
+    container.classList.add('loading');
+
+    try {
+        const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+        const data = await response.json();
+
+        exchangeRates = data.rates;
+        lastUpdate = new Date(data.time_last_updated * 1000);
+
+        updateDisplayRate();
+        updateConversion();
+        updateTimeDisplay();
+    } catch (error) {
+        console.error('Error fetching exchange rates:', error);
+        document.getElementById('updateTime').textContent = 'Error loading rates. Please refresh the page.';
+    } finally {
+        container.classList.remove('loading');
+    }
+}
+
+// Update the displayed exchange rate
+function updateDisplayRate() {
+    const fromCurrency = document.getElementById('fromCurrency').value;
+    const toCurrency = document.getElementById('toCurrency').value;
+    const rate = convertRate(fromCurrency, toCurrency);
+
+    document.getElementById('displayRate').textContent =
+        `1 ${fromCurrency} = ${rate.toFixed(4)} ${toCurrency}`;
+}
+
+// Update time display
+function updateTimeDisplay() {
+    if (!lastUpdate) return;
+
+    const now = new Date();
+    const diffMs = now - lastUpdate;
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+
+    let timeText = '';
+    if (diffHours < 1) {
+        timeText = 'Updated less than an hour ago';
+    } else if (diffHours < 24) {
+        timeText = `Updated ${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+    } else {
+        timeText = `Last updated: ${lastUpdate.toLocaleString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        })}`;
+    }
+
+    document.getElementById('updateTime').textContent = timeText;
+}
+
+// Convert rate from one currency to another
+function convertRate(from, to) {
+    if (from === to) return 1;
+
+    // All rates are based on USD
+    const fromRate = exchangeRates[from] || 1;
+    const toRate = exchangeRates[to] || 1;
+
+    // Convert from -> USD -> to
+    return toRate / fromRate;
+}
+
+// Update conversion
+function updateConversion() {
+    const fromAmount = parseFloat(document.getElementById('fromAmount').value) || 0;
+    const fromCurrency = document.getElementById('fromCurrency').value;
+    const toCurrency = document.getElementById('toCurrency').value;
+
+    const rate = convertRate(fromCurrency, toCurrency);
+    const toAmount = fromAmount * rate;
+
+    document.getElementById('toAmount').value = toAmount.toFixed(2);
+    updateDisplayRate();
+    savePreferences();
+}
+
+// Swap currencies
+function swapCurrencies() {
+    const fromCurrency = document.getElementById('fromCurrency');
+    const toCurrency = document.getElementById('toCurrency');
+    const fromAmount = document.getElementById('fromAmount');
+    const toAmount = document.getElementById('toAmount');
+
+    const tempCurrency = fromCurrency.value;
+    fromCurrency.value = toCurrency.value;
+    toCurrency.value = tempCurrency;
+
+    fromAmount.value = toAmount.value;
+
+    updateConversion();
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    populateCurrencies();
+    fetchExchangeRates();
+
+    // Event listeners
+    document.getElementById('fromAmount').addEventListener('input', updateConversion);
+    document.getElementById('fromCurrency').addEventListener('change', updateConversion);
+    document.getElementById('toCurrency').addEventListener('change', updateConversion);
+    document.getElementById('swapBtn').addEventListener('click', swapCurrencies);
+
+    // Update time display every minute
+    setInterval(updateTimeDisplay, 60000);
+});
+
+// Load footer
+fetch('/footer.html')
+    .then(response => response.text())
+    .then(data => {
+        const footerScript = document.getElementById('footer-script');
+        footerScript.insertAdjacentHTML('beforebegin', data);
+        footerScript.remove();
+    });
+
+// Register service worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+}
     </script>
 </body>
 </html>

@@ -50,14 +50,3 @@ a.author {
     </div>
   </aside>
 </div>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const date = new Date();
-  date.setDate(date.getDate() - 36);
-  const formatted = date.toLocaleDateString('en-US', {
-    year: 'numeric', month: 'long', day: 'numeric'
-  });
-  document.getElementById('last-updated').outerHTML = 
-    `<time datetime="${formatted}"><span>${formatted}</span></time>`;
-});
-</script>

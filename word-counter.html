@@ -725,7 +725,7 @@ Speaking time: ${formatTime(stats.speakingTime)}`;
     fetch('/info-box.html')
       .then(response => response.text())
       .then(data => {
-        document.body.insertAdjacentHTML('beforeend', data);
+        document.querySelector('.seo-container').insertAdjacentHTML('beforebegin', data);
         const el = document.getElementById('last-updated');
         if (el) {
           const d = new Date(document.lastModified);

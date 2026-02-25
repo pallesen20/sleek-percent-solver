@@ -37,6 +37,15 @@ a.author {
 }
 }
 </style>
+<script async>
+  const date = new Date();
+  date.setDate(date.getDate() - 36);
+  const formatted = date.toLocaleDateString('en-US', {
+    year: 'numeric', month: 'long', day: 'numeric'
+  });
+  document.getElementById('last-updated').outerHTML = 
+    `<time datetime="${formatted}"><span>${formatted}</span></time>`;
+</script>
 <div class="info-box">
   <aside>
     <img src="/jesper.webp" height="50" width="50" alt="Jesper Pallesen">
@@ -50,12 +59,3 @@ a.author {
     </div>
   </aside>
 </div>
-<script async>
-  const date = new Date();
-  date.setDate(date.getDate() - 36);
-  const formatted = date.toLocaleDateString('en-US', {
-    year: 'numeric', month: 'long', day: 'numeric'
-  });
-  document.getElementById('last-updated').outerHTML = 
-    `<time datetime="${formatted}"><span>${formatted}</span></time>`;
-</script>

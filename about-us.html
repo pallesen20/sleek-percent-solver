@@ -118,8 +118,14 @@
       </div>
     </div>
   </main>
-
-  <div id="footer-container"></div>
+  <script>
+    fetch('/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('beforeend', data);
+        document.getElementById('footer-year').textContent = new Date().getUTCFullYear();
+    })
+  </script>
   <script src="/script.js"></script>
 </body>
 </html>

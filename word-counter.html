@@ -723,9 +723,15 @@ Speaking time: ${formatTime(stats.speakingTime)}`;
         document.body.insertAdjacentHTML('beforeend', data);
     })
     fetch('/info-box.html')
-  .then(response => response.text())
-  .then(data => {
-    document.body.insertAdjacentHTML('beforeend', data);
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('beforeend', data);
+        const el = document.getElementById('last-updated');
+        if (el) {
+          const d = new Date(document.lastModified);
+          const formatted = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+          el.outerHTML = `<time datetime="${formatted}"><span>${formatted}</span></time>`;
+    }
   });
     </script>
 </body>

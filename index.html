@@ -223,12 +223,12 @@
     </main>
 <div id="footer-container"></div>
 <script>
-// Load footer
 fetch('/footer.html')
-  .then(response => response.text())
-  .then(html => {
-    document.getElementById('footer-container').innerHTML = html;
-  });
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('beforeend', data);
+        document.getElementById('footer-year').textContent = new Date().getUTCFullYear();
+    })
 </script>
 <script type="application/ld+json">
 [
@@ -320,6 +320,5 @@ fetch('/footer.html')
 </script>
 </body>
 </html>
-</script>
 </body>
 </html>

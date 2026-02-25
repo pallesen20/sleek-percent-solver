@@ -786,9 +786,6 @@ weeknum = weekOfYear(today());</code>
             </div>
         </div>
     </div>
-
-    <div id="footer-container"></div>
-
     <script>
         // ===== ISO 8601 Week Number Utilities =====
 
@@ -954,23 +951,18 @@ weeknum = weekOfYear(today());</code>
             });
         }
 
-        // ===== Load Footer =====
-
-        function loadFooter() {
-            fetch('/footer.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('footer-container').innerHTML = html;
-                })
-                .catch(error => console.log('Footer not found'));
-        }
+    fetch('/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('beforeend', data);
+        document.getElementById('footer-year').textContent = new Date().getUTCFullYear();
+    })
 
         // ===== Initialize =====
 
         document.addEventListener('DOMContentLoaded', function () {
             updateCurrentWeek();
             buildWeekTable();
-            loadFooter();
         });
     </script>
 

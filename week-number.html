@@ -972,8 +972,12 @@ weeknum = weekOfYear(today());</code>
             buildWeekTable();
             loadFooter();
         });
+        fetch('/info-box.html')
+          .then(response => response.text())
+          .then(data => {
+            document.body.insertAdjacentHTML('beforeend', data);
+          });
     </script>
-
     <script type="application/ld+json">
     [
         {

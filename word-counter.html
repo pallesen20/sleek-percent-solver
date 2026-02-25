@@ -721,6 +721,7 @@ Speaking time: ${formatTime(stats.speakingTime)}`;
       .then(response => response.text())
       .then(data => {
         document.body.insertAdjacentHTML('beforeend', data);
+        document.getElementById('footer-year').textContent = new Date().getUTCFullYear();
     })
     fetch('/info-box.html')
       .then(response => response.text())

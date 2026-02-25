@@ -312,13 +312,15 @@
             <p>Yes. The tool is fully responsive. On mobile devices, the two editor panels stack vertically for comfortable use, and all features including file upload, copy, and diff views work perfectly on phones and tablets.</p>
         </div>
     </div>
-
-    <div id="footer-container"></div>
     <div class="toast" id="toast"></div>
 
     <script>
-    // Load footer
-    fetch('/footer.html').then(r => r.text()).then(h => document.getElementById('footer-container').innerHTML = h);
+    fetch('/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('beforeend', data);
+        document.getElementById('footer-year').textContent = new Date().getUTCFullYear();
+    })
 
     // --- Utility ---
     function showToast(msg) {

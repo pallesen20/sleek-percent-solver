@@ -721,11 +721,12 @@ Speaking time: ${formatTime(stats.speakingTime)}`;
       .then(response => response.text())
       .then(data => {
         document.body.insertAdjacentHTML('beforeend', data);
-      });
+    })
     fetch('/info-box.html')
       .then(response => response.text())
       .then(data => {
         document.body.insertAdjacentHTML('beforeend', data);
+    });
     </script>
 </body>
 </html>

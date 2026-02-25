@@ -133,17 +133,3 @@ if (document.readyState === 'loading') {
 } else {
   loadHeader();
 }
-Promise.all([
-  fetch('/footer.html').then(res => res.text()),
-  fetch('/info-box.html').then(res => res.text())
-]).then(([footer, infoBox]) => {
-  document.body.insertAdjacentHTML('beforeend', footer);
-  document.body.insertAdjacentHTML('beforeend', infoBox);
-  const el = document.getElementById('last-updated');
-  if (el) {
-    const d = new Date();
-    d.setDate(d.getDate() - 24);
-    const formatted = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    el.outerHTML = `<time datetime="${formatted}"><span>${formatted}</span></time>`;
-  }
-});

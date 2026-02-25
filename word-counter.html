@@ -717,11 +717,11 @@ Speaking time: ${formatTime(stats.speakingTime)}`;
             // Initial setup
             handleTextChange();
         });
-    // fetch('/footer.html')
-    //   .then(response => response.text())
-    //   .then(data => {
-    //     document.body.insertAdjacentHTML('beforeend', data);
-    // })
+    fetch('/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('beforeend', data);
+    })
     fetch('/info-box.html')
       .then(response => response.text())
       .then(data => {

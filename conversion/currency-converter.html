@@ -376,7 +376,6 @@
             </div>
         </div>
     </main>
-    <script id="footer-script" src="/footer.html"></script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -743,14 +742,12 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateTimeDisplay, 60000);
 });
 
-// Load footer
-fetch('/footer.html')
-    .then(response => response.text())
-    .then(data => {
-        const footerScript = document.getElementById('footer-script');
-        footerScript.insertAdjacentHTML('beforebegin', data);
-        footerScript.remove();
-    });
+    fetch('/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('beforeend', data);
+        document.getElementById('footer-year').textContent = new Date().getUTCFullYear();
+    })
 
 // Register service worker
 if ('serviceWorker' in navigator) {

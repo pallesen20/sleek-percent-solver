@@ -149,12 +149,12 @@
         </div>
     </main>
     <script>
-        // Load footer
-        fetch('/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.body.insertAdjacentHTML('beforeend', data);
-            });
-    </script>
+    fetch('/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('beforeend', data);
+        document.getElementById('footer-year').textContent = new Date().getUTCFullYear();
+    })
+  </script>
 </body>
 </html>

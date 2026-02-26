@@ -662,12 +662,12 @@
         // Initial state
         updateDisplay();
 
-        // Load footer
-        fetch('/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.body.insertAdjacentHTML('beforeend', data);
-            });
+    fetch('/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('beforeend', data);
+        document.getElementById('footer-year').textContent = new Date().getUTCFullYear();
+    })
     </script>
 </body>
 </html>

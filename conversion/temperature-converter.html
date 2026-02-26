@@ -439,9 +439,6 @@
             <p>If the converter uses standard conversion formulas, it will be highly accurate, typically to several decimal places. This precision is suitable for virtually all practical applications from cooking to scientific calculations.</p>
         </div>
     </div>
-
-    <div id="footer-container"></div>
-
     <script>
         // Temperature conversion functions
         const tempUnits = {
@@ -585,22 +582,18 @@
             });
         }
 
-        // Load footer
-        function loadFooter() {
-            fetch('/footer.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('footer-container').innerHTML = html;
-                })
-                .catch(error => console.log('Footer not found'));
-        }
+    fetch('/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('beforeend', data);
+        document.getElementById('footer-year').textContent = new Date().getUTCFullYear();
+    })
 
         // Initialize the converter
         document.addEventListener('DOMContentLoaded', function() {
             populateUnitSelectors();
             createQuickConversions();
             updateConversion();
-            loadFooter();
             
             // Add event listeners
             document.getElementById('input-value').addEventListener('input', updateConversion);

@@ -758,11 +758,13 @@
 
         // Initialize when page loads
         document.addEventListener('DOMContentLoaded', init);
+
     fetch('/footer.html')
       .then(response => response.text())
       .then(data => {
         document.body.insertAdjacentHTML('beforeend', data);
-      });
+        document.getElementById('footer-year').textContent = new Date().getUTCFullYear();
+    })
     </script>
 </body>
 </html>

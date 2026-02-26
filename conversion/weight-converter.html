@@ -379,9 +379,6 @@
             <p>For body weight: pounds = kg × 2.2 (simple), or kg × 2.20462 (precise). Example: 70 kg = 154 lbs.</p>
         </div>
     </div>
-
-    <div id="footer-container"></div>
-
     <script>
         // Weight conversion data
         const weightUnits = {
@@ -500,23 +497,19 @@
                 container.appendChild(button);
             });
         }
-
-        // Load footer
-        function loadFooter() {
-            fetch('/footer.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('footer-container').innerHTML = html;
-                })
-                .catch(error => console.log('Footer not found'));
-        }
+        
+    fetch('/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('beforeend', data);
+        document.getElementById('footer-year').textContent = new Date().getUTCFullYear();
+    })
 
         // Initialize the converter
         document.addEventListener('DOMContentLoaded', function() {
             populateUnitSelectors();
             createQuickConversions();
             updateConversion();
-            loadFooter();
             
             // Add event listeners
             document.getElementById('input-value').addEventListener('input', updateConversion);

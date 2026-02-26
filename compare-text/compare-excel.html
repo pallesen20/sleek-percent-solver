@@ -345,13 +345,15 @@
             <p>Yes. You can compare any combination of supported formats. For example, compare an .xlsx file against a .csv or an .ods file against an .xls — the tool normalizes both to a table grid before comparison.</p>
         </div>
     </div>
-
-    <div id="footer-container"></div>
     <div class="toast" id="toast"></div>
 
     <script>
-    // Load footer
-    fetch('/footer.html').then(r => r.text()).then(h => document.getElementById('footer-container').innerHTML = h);
+    fetch('/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('beforeend', data);
+        document.getElementById('footer-year').textContent = new Date().getUTCFullYear();
+    })
 
     // --- State ---
     const state = {

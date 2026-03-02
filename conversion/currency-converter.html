@@ -364,7 +364,7 @@
                     <select id="ctAddSelect" class="ct-add-select">
                         <option value="">Add a currency…</option>
                     </select>
-                    <button type="button" id="ctAddBtn" class="ct-add-btn">+ Add</button>
+                    <!-- <button type="button" id="ctAddBtn" class="ct-add-btn">+ Add</button> -->
                 </div>
             </div>
             <div class="seo-container">
@@ -1044,7 +1044,7 @@ function ctInit() {
     ctLoadFromCookies();
     ctRenderTable();
     ctPopulateAddSelect();
-    document.getElementById('ctAddBtn').addEventListener('click', ctAddCurrency);
+    //document.getElementById('ctAddBtn').addEventListener('click', ctAddCurrency);
     document.getElementById('ctAddSelect').addEventListener('change', function() {
         if (this.value) ctAddCurrency();
     });

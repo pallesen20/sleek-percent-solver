@@ -89,6 +89,136 @@
         }
         
         /* Mobile responsive */
+        /* Multi-currency table */
+        .currency-table-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        .currency-table-section h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .currency-table-section .table-subtitle {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+        .currency-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 6px;
+        }
+        .currency-table-row {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .currency-table-row:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+        .currency-table-row td {
+            padding: 0.75rem 1rem;
+            vertical-align: middle;
+        }
+        .currency-table-row td:first-child {
+            border-radius: 10px 0 0 10px;
+            width: 80px;
+            font-weight: 700;
+            color: white;
+            font-size: 1rem;
+        }
+        .currency-table-row td:last-child {
+            border-radius: 0 10px 10px 0;
+            text-align: right;
+            width: 40px;
+        }
+        .currency-table-row .ct-amount-cell {
+            position: relative;
+        }
+        .currency-table-row .ct-amount-input {
+            background: transparent;
+            border: 1px solid transparent;
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 600;
+            width: 100%;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .currency-table-row .ct-amount-input:focus {
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .ct-currency-name {
+            display: block;
+            color: #9ca3af;
+            font-size: 0.75rem;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+        .ct-remove-btn {
+            background: none;
+            border: none;
+            color: #6b7280;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 50%;
+            transition: color 0.2s, background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ct-remove-btn:hover {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.15);
+        }
+        .ct-add-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            align-items: center;
+        }
+        .ct-add-select {
+            flex: 1;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.625rem 2.5rem 0.625rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 14px;
+        }
+        .ct-add-select:focus { outline: none; border-color: rgba(255, 255, 255, 0.4); }
+        .ct-add-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+        }
+        .ct-add-btn:hover { opacity: 0.85; }
+
         @media (max-width: 768px) {
             .calculator-container {
                 padding: 1rem !important;
@@ -98,7 +228,6 @@
                 font-size: 1.25rem !important;
             }
             
-            /* Stack input and select vertically on mobile */
             .calculator-container form > div > div[style*="grid-template-columns"] {
                 grid-template-columns: 1fr !important;
                 gap: 0.5rem !important;
@@ -121,6 +250,26 @@
             .swap-button svg {
                 width: 20px;
                 height: 20px;
+            }
+
+            .currency-table-section {
+                padding: 1rem;
+            }
+            .currency-table-section h2 {
+                font-size: 1.25rem;
+            }
+            .currency-table-row td:first-child {
+                width: 60px;
+                padding: 0.625rem 0.75rem;
+            }
+            .currency-table-row .ct-amount-input {
+                font-size: 1rem;
+            }
+            .ct-add-row {
+                flex-direction: column;
+            }
+            .ct-add-select, .ct-add-btn {
+                width: 100%;
             }
         }
     </style>
@@ -201,6 +350,21 @@
                             <div id="updateTime" style="color: rgba(255, 255, 255, 0.7); font-size: 0.75rem;">Loading...</div>
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <!-- Multi-Currency Comparison Table -->
+            <div class="currency-table-section">
+                <h2>Currency Comparison Table</h2>
+                <p class="table-subtitle">Click any row to edit the amount — all others update automatically</p>
+                <table class="currency-table">
+                    <tbody id="currencyTableBody"></tbody>
+                </table>
+                <div class="ct-add-row">
+                    <select id="ctAddSelect" class="ct-add-select">
+                        <option value="">Add a currency…</option>
+                    </select>
+                    <button type="button" id="ctAddBtn" class="ct-add-btn">+ Add</button>
                 </div>
             </div>
             <div class="seo-container">
@@ -727,10 +891,171 @@ function swapCurrencies() {
     updateConversion();
 }
 
+// ========== Multi-Currency Comparison Table ==========
+const CT_DEFAULT_CURRENCIES = ['USD', 'EUR', 'DKK', 'NOK', 'SEK'];
+let ctCurrencies = [];
+let ctBaseCode = 'USD';
+let ctBaseAmount = 1;
+
+function ctLoadFromCookies() {
+    const saved = getCookie('ct_currencies');
+    if (saved) {
+        try {
+            ctCurrencies = JSON.parse(saved).filter(c => currencies[c]);
+            if (ctCurrencies.length === 0) ctCurrencies = [...CT_DEFAULT_CURRENCIES];
+        } catch(e) {
+            ctCurrencies = [...CT_DEFAULT_CURRENCIES];
+        }
+    } else {
+        ctCurrencies = [...CT_DEFAULT_CURRENCIES];
+    }
+    const savedBase = getCookie('ct_base');
+    const savedAmount = getCookie('ct_amount');
+    if (savedBase && currencies[savedBase]) ctBaseCode = savedBase;
+    if (savedAmount) ctBaseAmount = parseFloat(savedAmount) || 1;
+}
+
+function ctSaveToCookies() {
+    setCookie('ct_currencies', JSON.stringify(ctCurrencies));
+    setCookie('ct_base', ctBaseCode);
+    setCookie('ct_amount', String(ctBaseAmount));
+}
+
+function ctFormatNumber(num) {
+    if (Math.abs(num) < 0.01 && num !== 0) return num.toPrecision(4);
+    return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function ctRenderTable() {
+    const tbody = document.getElementById('currencyTableBody');
+    tbody.innerHTML = '';
+
+    ctCurrencies.forEach(code => {
+        const rate = convertRate(ctBaseCode, code);
+        const amount = ctBaseAmount * rate;
+
+        const tr = document.createElement('tr');
+        tr.className = 'currency-table-row';
+        tr.dataset.code = code;
+
+        // Currency code cell
+        const tdCode = document.createElement('td');
+        tdCode.textContent = code;
+        tr.appendChild(tdCode);
+
+        // Amount cell
+        const tdAmount = document.createElement('td');
+        tdAmount.className = 'ct-amount-cell';
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.inputMode = 'decimal';
+        input.className = 'ct-amount-input';
+        input.value = ctFormatNumber(amount);
+        input.dataset.code = code;
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'ct-currency-name';
+        nameSpan.textContent = currencies[code];
+
+        input.addEventListener('focus', function() {
+            // Show raw number on focus for easy editing
+            const raw = parseFloat(this.value.replace(/,/g, ''));
+            if (!isNaN(raw)) this.value = raw;
+            this.select();
+        });
+
+        input.addEventListener('input', function() {
+            const val = parseFloat(this.value.replace(/,/g, ''));
+            if (isNaN(val)) return;
+            ctBaseCode = code;
+            ctBaseAmount = val;
+            // Update all other rows
+            ctCurrencies.forEach(otherCode => {
+                if (otherCode === code) return;
+                const otherRate = convertRate(code, otherCode);
+                const otherAmount = val * otherRate;
+                const otherInput = tbody.querySelector(`input[data-code="${otherCode}"]`);
+                if (otherInput) otherInput.value = ctFormatNumber(otherAmount);
+            });
+            ctSaveToCookies();
+        });
+
+        input.addEventListener('blur', function() {
+            const val = parseFloat(this.value.replace(/,/g, ''));
+            if (!isNaN(val)) this.value = ctFormatNumber(val);
+        });
+
+        tdAmount.appendChild(input);
+        tdAmount.appendChild(nameSpan);
+        tr.appendChild(tdAmount);
+
+        // Remove button cell
+        const tdRemove = document.createElement('td');
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'ct-remove-btn';
+        removeBtn.title = 'Remove ' + code;
+        removeBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+        removeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            ctCurrencies = ctCurrencies.filter(c => c !== code);
+            if (ctBaseCode === code) {
+                ctBaseCode = ctCurrencies[0] || 'USD';
+            }
+            ctSaveToCookies();
+            ctRenderTable();
+            ctPopulateAddSelect();
+        });
+        tdRemove.appendChild(removeBtn);
+        tr.appendChild(tdRemove);
+
+        // Click anywhere in row to focus input
+        tr.addEventListener('click', function(e) {
+            if (e.target !== input && e.target !== removeBtn && !removeBtn.contains(e.target)) {
+                input.focus();
+            }
+        });
+
+        tbody.appendChild(tr);
+    });
+}
+
+function ctPopulateAddSelect() {
+    const select = document.getElementById('ctAddSelect');
+    select.innerHTML = '<option value="">Add a currency…</option>';
+    Object.keys(currencies).sort().forEach(code => {
+        if (!ctCurrencies.includes(code)) {
+            select.add(new Option(`${code} - ${currencies[code]}`, code));
+        }
+    });
+}
+
+function ctAddCurrency() {
+    const select = document.getElementById('ctAddSelect');
+    const code = select.value;
+    if (!code || ctCurrencies.includes(code)) return;
+    ctCurrencies.push(code);
+    ctSaveToCookies();
+    ctRenderTable();
+    ctPopulateAddSelect();
+}
+
+function ctInit() {
+    ctLoadFromCookies();
+    ctRenderTable();
+    ctPopulateAddSelect();
+    document.getElementById('ctAddBtn').addEventListener('click', ctAddCurrency);
+    document.getElementById('ctAddSelect').addEventListener('change', function() {
+        if (this.value) ctAddCurrency();
+    });
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     populateCurrencies();
-    fetchExchangeRates();
+    fetchExchangeRates().then(() => {
+        ctInit();
+    });
 
     // Event listeners
     document.getElementById('fromAmount').addEventListener('input', updateConversion);
